@@ -37,7 +37,7 @@ static int cmd_q(char *args) {
   int step=1;
   if(args==NULL)step=1;
   else sscanf(args,"%d",&step);
-  printf("%s\t%d\n",args,step);
+  //printf("%s\t%d\n",args,step);
   return 0;
 }
 //单步执行
