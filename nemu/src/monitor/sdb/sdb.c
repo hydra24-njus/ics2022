@@ -3,7 +3,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
-
+#include<memory/vaddr.h>
 static int is_batch_mode = false;
 
 void init_regex();
@@ -32,12 +32,42 @@ static int cmd_c(char *args) {
   return 0;
 }
 
-
+static int cmd_help(char *args);
 static int cmd_q(char *args) {
+  char *arg=strtok(" ",args);
+  printf("%s\t%s\n",args,arg);
+  
+  return 0;
+}
+//单步执行
+static int cmd_si(char *args) {
   return -1;
 }
-
-static int cmd_help(char *args);
+//打印程序状态
+static int cmd_info(char *args) {
+  cpu_exec(-1);
+  return 0;
+}
+//扫描内存
+static int cmd_x(char *args) {
+  cpu_exec(-1);
+  return 0;
+}
+//表达式求值
+static int cmd_p(char *args) {
+  cpu_exec(-1);
+  return 0;
+}
+//设置监视点
+static int cmd_w(char *args) {
+  cpu_exec(-1);
+  return 0;
+}
+//删除监视点
+static int cmd_d(char *args) {
+  cpu_exec(-1);
+  return 0;
+}
 
 static struct {
   const char *name;
@@ -47,6 +77,12 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  { "si", "单步执行", cmd_si },
+  { "info", "打印程序状态", cmd_info },
+  { "x", "扫描内存", cmd_x },
+  { "p", "表达式求值", cmd_p },
+  { "w", "设置监视点", cmd_w },
+  { "d", "删除监视点", cmd_d },
 
   /* TODO: Add more commands */
 
