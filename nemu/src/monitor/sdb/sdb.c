@@ -38,6 +38,7 @@ static int cmd_q(char *args) {
   if(args==NULL)step=1;
   else sscanf(args,"%d",&step);
   //printf("%s\t%d\n",args,step);
+  cpu_exec(step);
   return 0;
 }
 //单步执行
