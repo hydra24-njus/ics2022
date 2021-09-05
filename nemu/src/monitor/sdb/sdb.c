@@ -31,9 +31,13 @@ static int cmd_c(char *args) {
   cpu_exec(-1);
   return 0;
 }
-
 static int cmd_help(char *args);
 static int cmd_q(char *args) {
+  return -1;
+}
+
+//单步执行
+static int cmd_si(char *args) {
   int step=1;
   if(args==NULL)step=1;
   else sscanf(args,"%d",&step);
@@ -41,10 +45,8 @@ static int cmd_q(char *args) {
   cpu_exec(step);
   return 0;
 }
-//单步执行
-static int cmd_si(char *args) {
-  return -1;
-}
+
+
 //打印程序状态
 static int cmd_info(char *args) {
   cpu_exec(-1);
