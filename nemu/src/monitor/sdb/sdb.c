@@ -34,9 +34,9 @@ static int cmd_c(char *args) {
 
 static int cmd_help(char *args);
 static int cmd_q(char *args) {
-  char *arg=strtok(" ",args);
+  char *arg=strtok(args," ");
   printf("%s\t%s\n",args,arg);
-  
+
   return 0;
 }
 //单步执行
