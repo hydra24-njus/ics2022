@@ -67,8 +67,9 @@ static int cmd_info(char *args) {
 //扫描内存
 static int cmd_x(char *args) {
   printf("%s\n",args);
-  //sscanf(expr,"%x",addr);
-  //printf("%d",addr);
+  int x,addr;
+  sscanf(args,"%d %x",&x,&addr);
+  printf("%d %x",x,addr);
   return 0;
 }
 //表达式求值
