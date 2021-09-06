@@ -33,7 +33,7 @@ static int cmd_c(char *args) {
 }
 static int cmd_help(char *args);
 static int cmd_q(char *args) {
-  return 0;
+  return 1;
 }
 
 //单步执行
