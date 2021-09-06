@@ -73,7 +73,7 @@ static int cmd_x(char *args) {
   
   for(int i=0;i<n;i++){
   printf("0x%08x\t",vaddr_read(addr+i*4,4));
-  printf("0x %02x %02x %02x %02x",vaddr_read(addr+i*4+3,1),vaddr_read(addr+i*4+2,1),vaddr_read(addr+i*4+1,1),vaddr_read(addr+i*4,1));
+  printf("0x %02x %02x %02x %02x\n",vaddr_read(addr+i*4+3,1),vaddr_read(addr+i*4+2,1),vaddr_read(addr+i*4+1,1),vaddr_read(addr+i*4,1));
   }
   return 0;
 }
