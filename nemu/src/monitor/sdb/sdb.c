@@ -72,7 +72,7 @@ static int cmd_x(char *args) {
   sscanf(expr,"0x%x",&addr);
   
   for(int i=0;i<n;i++){
-  printf("0x%08x",vaddr_read(addr,4));
+  printf("0x%08x\n",vaddr_read(addr,4));
   }
   return 0;
 }
