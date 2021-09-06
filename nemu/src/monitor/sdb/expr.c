@@ -21,7 +21,7 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
   {"\\*0x[0-9a-fA-F]",TK_ADDR},
-  {},
+  //{},
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
