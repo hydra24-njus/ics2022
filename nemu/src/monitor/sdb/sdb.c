@@ -49,7 +49,12 @@ static int cmd_si(char *args) {
 
 //打印程序状态
 static int cmd_info(char *args) {
-  cpu_exec(-1);
+  if(args==NULL){
+    printf("too few arguments.\n");
+    return 1;
+  }
+  char *arg=strtok(args," ");
+  printf("%s/n",arg);
   return 0;
 }
 //扫描内存
