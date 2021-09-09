@@ -87,12 +87,19 @@ void cpu_exec(uint64_t n) {
   Decode s;
   printf("%d\t",nemu_state.state);
   for (;n > 0; n --) {
+    if(nemu_state.state==2)printf("error1");
     fetch_decode_exec_updatepc(&s);
+        if(nemu_state.state==2)printf("error1");
     g_nr_guest_instr ++;
+        if(nemu_state.state==2)printf("error1");
     IFDEF(CONFIG_DEBUG, debug_hook(s.pc, s.logbuf));
+        if(nemu_state.state==2)printf("error1");
     if (nemu_state.state != NEMU_RUNNING) break;
+        if(nemu_state.state==2)printf("error1");
     IFDEF(CONFIG_DIFFTEST, difftest_step(s.pc, cpu.pc));
+        if(nemu_state.state==2)printf("error1");
     IFDEF(CONFIG_DEVICE, device_update());
+        if(nemu_state.state==2)printf("error1");
   }
 printf("%d\n",nemu_state.state);
   uint64_t timer_end = get_time();
