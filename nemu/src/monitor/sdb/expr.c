@@ -6,7 +6,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_ADDR,
+  TK_NOTYPE = 256, TK_EQ,TK_ADDR,TK_HEX,TK_NUM,
 
   /* TODO: Add more token types */
 
@@ -20,10 +20,14 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
-  {"\\*0x[0-9a-fA-F]",TK_ADDR},
-  //{},
+  //根据查询的优先级顺序填写。
+  {"\\*0x[0-9a-fA-F]+",TK_ADDR},    //地址（十六进制）
+  {"\\0x[0-9a-fA-F]+",TK_HEX},     //十六进制数
+  {"[0-9]+",TK_NUM},    //十进制数字
+
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
+
   {"==", TK_EQ},        // equal
 
 
