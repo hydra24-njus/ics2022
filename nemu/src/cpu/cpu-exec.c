@@ -37,13 +37,9 @@ static const void* g_exec_table[TOTAL_INSTR] = {
 void fetch_decode(Decode *s, vaddr_t pc);
 
 static void fetch_decode_exec_updatepc(Decode *s) {
-      if(nemu_state.state==2)printf("error1");
   fetch_decode(s, cpu.pc);
-      if(nemu_state.state==2)printf("error2");
-  s->EHelper(s);
-      if(nemu_state.state==2)printf("error3");
+  s->EHelper(s);//state在这里改变
   cpu.pc = s->dnpc;
-      if(nemu_state.state==2)printf("error4");
 }
 
 void fetch_decode(Decode *s, vaddr_t pc) {
@@ -90,13 +86,9 @@ void cpu_exec(uint64_t n) {
 
   Decode s;
   for (;n > 0; n --) {
-        if(nemu_state.state==2)printf("error8");
-    fetch_decode_exec_updatepc(&s);
-        if(nemu_state.state==2)printf("error9");
+    fetch_decode_exec_updatepc(&s);//state在这里改变
     g_nr_guest_instr ++;
-        if(nemu_state.state==2)printf("error10");
     IFDEF(CONFIG_DEBUG, debug_hook(s.pc, s.logbuf));
-        if(nemu_state.state==2)printf("error11");
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DIFFTEST, difftest_step(s.pc, cpu.pc));
     IFDEF(CONFIG_DEVICE, device_update());
