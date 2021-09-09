@@ -93,7 +93,7 @@ void cpu_exec(uint64_t n) {
     IFDEF(CONFIG_DIFFTEST, difftest_step(s.pc, cpu.pc));
     IFDEF(CONFIG_DEVICE, device_update());
   }
-
+printf("%d\n",nemu_state.state);
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
 
