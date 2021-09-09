@@ -90,14 +90,16 @@ void cpu_exec(uint64_t n) {
 
   Decode s;
   for (;n > 0; n --) {
-        if(nemu_state.state==2)printf("error1");
     fetch_decode_exec_updatepc(&s);
-        if(nemu_state.state==2)printf("error2");
     g_nr_guest_instr ++;
     IFDEF(CONFIG_DEBUG, debug_hook(s.pc, s.logbuf));
+        if(nemu_state.state==2)printf("error11");
     if (nemu_state.state != NEMU_RUNNING) break;
+        if(nemu_state.state==2)printf("error12");
     IFDEF(CONFIG_DIFFTEST, difftest_step(s.pc, cpu.pc));
+        if(nemu_state.state==2)printf("error13");
     IFDEF(CONFIG_DEVICE, device_update());
+        if(nemu_state.state==2)printf("error14");
   }
 
   uint64_t timer_end = get_time();
