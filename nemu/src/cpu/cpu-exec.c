@@ -92,6 +92,7 @@ void cpu_exec(uint64_t n) {
   for (;n > 0; n --) {
     fetch_decode_exec_updatepc(&s);
     g_nr_guest_instr ++;
+        if(nemu_state.state==2)printf("error10");
     IFDEF(CONFIG_DEBUG, debug_hook(s.pc, s.logbuf));
         if(nemu_state.state==2)printf("error11");
     if (nemu_state.state != NEMU_RUNNING) break;
