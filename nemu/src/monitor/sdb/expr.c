@@ -24,10 +24,15 @@ static struct rule {
   {"\\*0x[0-9a-fA-F]+",TK_ADDR},    //地址（十六进制）
   {"\\0x[0-9a-fA-F]+",TK_HEX},     //十六进制数
   {"[0-9]+",TK_NUM},    //十进制数字
-
+  //reg
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-
+  {"\\-",'-'},
+  {"\\*",'*'},
+  {"\\/",'/'},
+  {"\\%",'%'},
+  {"\\(",'('},
+  {"\\)",')'},
   {"==", TK_EQ},        // equal
 
 
@@ -88,9 +93,14 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
-        switch (rules[i].token_type) {
-          default: TODO();
+        //按顺序匹配type，猜测nr_token用于计数
+        switch (rules[i].token_type){
+        case TK_NOTYPE:
+          break;
+        default:
+          tokens[nr_token].type = rules[i].token_type;
+          strncpy(tokens[nr_token].str,substr_start,substr_len);
+          nr_token++;
         }
 
         break;
