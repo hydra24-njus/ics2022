@@ -83,12 +83,12 @@ static int cmd_x(char *args) {
 //表达式求值
 static int cmd_p(char *args) {
   init_regex();
-  //bool success=true;
+  bool success=true;
   printf("%s\n",args);
-  //int result=expr(args,&success);
-  /*if(success){
+  int result=expr(args,&success);
+  if(success){
     printf("%d\n",result);
-  }*/
+  }
   return 0;
 }
 //设置监视点
