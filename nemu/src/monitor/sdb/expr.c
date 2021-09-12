@@ -100,7 +100,7 @@ static bool make_token(char *e) {
         default:
           tokens[nr_token].type = rules[i].token_type;
           strncpy(tokens[nr_token].str,substr_start,substr_len);
-          printf("%s\n",tokens[nr_token].str);
+          //printf("%s\n",tokens[nr_token].str);
           nr_token++;
         }
 
@@ -117,6 +117,57 @@ static bool make_token(char *e) {
   return true;
 }
 
+bool Match_Error=true;
+
+//括号匹配函数，判断一个字串是否被括号包裹
+bool ckeck_p(int p,int q){
+  //前后是否都是括号
+  if(tokens[p].type!="("||tokens[q].type!=")"){
+    return false;
+  }
+
+  else{
+    //从左至右遍历，同时记录括号的数量，左括号++，右括号--。如果在中途变为0则说明不匹配。
+    int count=0;
+    for(int i=p;i<=q;i++){
+      if(count==0&&i!=p&&i!=q)return false;
+      if(tokens[i].type=="(")count++;
+      else if(tokens[i].type==")")count--;
+    }
+    if(count==0)return true;
+  }
+  Match_Error=false;
+  return false;
+}
+
+int eval(int p,int q){
+  int ans;int i,j;
+  if(p>q);
+  else if(p==q){
+    if(tokens[p].type==TK_NUM){
+      ans=sscanf(tokens[p].str,"%d",&ans);
+      return ans;
+    }
+    else if(tokens[p].type==TK_HEX){
+      ans=sscanf(tokens[p].str,"0x%x",&ans);
+      return ans;
+    }
+    else if(tokens[p].type==TK_ADDR){
+      ans=sscanf(tokens[p].str,"*0x%x",&ans);
+      return vaddr_read(ans,1);
+    }
+    //其他规则（寄存器等）待添加
+
+    //判断是否括号
+    else if(check_p(p,q)){
+      return eval(p+1,q-1);
+    }
+    //寻找主运算符并递归求解
+    else{
+
+    }
+  }
+}
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
