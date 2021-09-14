@@ -146,7 +146,7 @@ int find_pp(int p,int q){
     return -1;
   }
   int cnt=1;
-  for(int i=q-1;i>=p;i++){
+  for(int i=q-1;i>=p;i--){
     if(tokens[i].type==')')cnt++;
     else if(tokens[i].type=='(')cnt--;
     if(cnt==0)return i;
@@ -172,8 +172,7 @@ int find_main_poerator(int p,int q){
     //括号内一定不是。
     if(tokens[i].type==')'){
       i=find_pp(p,i);
-      if(i==p)break;
-      else continue;
+      continue;
     }
     //数字一定不是
     else if(tokens[i].type==TK_NUM||tokens[i].type==TK_ADDR||tokens[i].type==TK_HEX)continue;
@@ -216,19 +215,17 @@ int eval(int p,int q){
   else{
       int i=find_main_poerator(p,q);
       printf("%d\n",tokens[i].type);
-      switch(tokens[i].type){
-        case '+':
-        return eval(p,i-1)+eval(i+1,q);
-        case '-':
-        return eval(p,i-1)-eval(i+1,q);
-        case '*':
-        return eval(p,i-1)*eval(i+1,q);
-        case '/':
-        return eval(p,i-1)/eval(i+1,q);
-        default:{
-          printf("main_op wrong!");
-          assert(0);
-        }
+      switch (tokens[i].type){
+      case '+':
+        return eval(p, i - 1) + eval(i + 1, q);
+      case '-':
+        return eval(p, i - 1) - eval(i + 1, q);
+      case '*':
+        return eval(p, i - 1) * eval(i + 1, q);
+      case '/':
+        return eval(p, i - 1) / eval(i + 1, q);
+      default:
+        assert(0);
       }
     }
   Match_Error=true;
