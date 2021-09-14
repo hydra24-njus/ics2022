@@ -209,11 +209,11 @@ int eval(int p,int q){
     }
     //其他规则（寄存器等）待添加
 
-    //判断是否括号
-    else if(check_p(p,q)){
-      return eval(p+1,q-1);
-    }
 
+  }
+    //判断是否括号
+  else if(check_p(p,q)){
+      return eval(p+1,q-1);
   }
   //寻找主运算符并递归求解
   else{
