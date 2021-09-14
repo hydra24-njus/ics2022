@@ -1,5 +1,5 @@
 #include <isa.h>
-
+#include<memory/vaddr.h>
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -26,14 +26,13 @@ static struct rule {
   {"[0-9]+",TK_NUM},    //十进制数字
   //reg
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
+  {"\\+",'+'},         // plus
   {"\\-",'-'},
   {"\\*",'*'},
   {"\\/",'/'},
   {"\\%",'%'},
   {"\\(",'('},
   {"\\)",')'},
-  {"==", TK_EQ},        // equal
 
 
 };
@@ -120,9 +119,9 @@ static bool make_token(char *e) {
 bool Match_Error=true;
 
 //括号匹配函数，判断一个字串是否被括号包裹
-bool ckeck_p(int p,int q){
+bool check_p(int p,int q){
   //前后是否都是括号
-  if(tokens[p].type!="("||tokens[q].type!=")"){
+  if(tokens[p].type!='('||tokens[q].type!=')'){
     return false;
   }
 
@@ -131,8 +130,8 @@ bool ckeck_p(int p,int q){
     int count=0;
     for(int i=p;i<=q;i++){
       if(count==0&&i!=p&&i!=q)return false;
-      if(tokens[i].type=="(")count++;
-      else if(tokens[i].type==")")count--;
+      if(tokens[i].type=='(')count++;
+      else if(tokens[i].type==')')count--;
     }
     if(count==0)return true;
   }
@@ -140,8 +139,59 @@ bool ckeck_p(int p,int q){
   return false;
 }
 
+//寻找与右括号对应的左括号
+int find_pp(int p,int q){
+  //输入非法-->最右侧不是')'
+  if(tokens[q].type!=')'){
+    return -1;
+  }
+  int cnt=1;
+  for(int i=q-1;i>=p;i++){
+    if(tokens[i].type==')')cnt++;
+    else if(tokens[i].type=='(')cnt--;
+    if(cnt==0)return i;
+  }
+  //表达式不正确-->没有与之匹配的左括号
+  return -2;
+}
+
+//设定优先级
+int set_level(int i){
+  if(tokens[i].type=='+')return 1;
+  else if(tokens[i].type=='-')return 1;
+  else if(tokens[i].type=='*')return 10;
+  else if(tokens[i].type=='/')return 10;
+  assert(0);
+}
+
+//寻找主运算符 从右至左优先级最低的符号
+int find_main_poerator(int p,int q){
+  int op_location=p;
+  int op_level=100;
+  for(int i=q;i>=p;i--){
+    //括号内一定不是。
+    if(tokens[i].type==')'){
+      int pair_p=1;
+      while(pair_p){
+        if(tokens[i].type==')')pair_p++;
+        else if(tokens[i].type=='(')pair_p--;
+        i--;
+      }
+    }
+    //数字一定不是
+    else if(tokens[i].type==TK_NUM||tokens[i].type==TK_ADDR||tokens[i].type==TK_HEX)continue;
+    else{
+      if(set_level(i)<op_level){
+        op_level=set_level(i);
+        op_location=i;
+      }
+    }
+  }
+  return op_location;
+}
+
 int eval(int p,int q){
-  int ans;int i,j;
+  int ans;
   if(p>q);
   else if(p==q){
     if(tokens[p].type==TK_NUM){
@@ -164,9 +214,21 @@ int eval(int p,int q){
     }
     //寻找主运算符并递归求解
     else{
-
+      int i=find_main_poerator(p,q);
+      switch(tokens[i].type){
+        case '+':
+        return eval(p,i-1)+eval(i+1,q);
+        case '-':
+        return eval(p,i-1)-eval(i+1,q);
+        case '*':
+        return eval(p,i-1)*eval(i+1,q);
+        case '/':
+        return eval(p,i-1)/eval(i+1,q);
+      }
     }
   }
+  Match_Error=true;
+  return -1;
 }
 
 word_t expr(char *e, bool *success) {
@@ -174,9 +236,9 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
+  *success=true;
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+  int ans=eval(0,nr_token-1);
+  *success=!Match_Error;
+  return ans;
 }
