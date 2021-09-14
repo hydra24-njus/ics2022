@@ -195,6 +195,7 @@ int eval(int p,int q){
   if(p>q);
   else if(p==q){
     if(tokens[p].type==TK_NUM){
+      printf("%s\t",tokens[p].str);
       ans=sscanf(tokens[p].str,"%d",&ans);
       printf("%d\n",ans);
       return ans;
