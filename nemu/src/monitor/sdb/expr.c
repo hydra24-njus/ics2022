@@ -116,7 +116,7 @@ static bool make_token(char *e) {
   return true;
 }
 
-bool Match_Error=true;
+bool Match_Error=false;
 
 //括号匹配函数，判断一个字串是否被括号包裹
 bool check_p(int p,int q){

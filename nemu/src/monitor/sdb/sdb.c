@@ -89,6 +89,9 @@ static int cmd_p(char *args) {
   if(success){
     printf("%d\n",result);
   }
+  else{
+    printf("Error!");
+  }
   return 0;
 }
 //设置监视点
