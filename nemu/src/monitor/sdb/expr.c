@@ -171,12 +171,9 @@ int find_main_poerator(int p,int q){
   for(int i=q;i>=p;i--){
     //括号内一定不是。
     if(tokens[i].type==')'){
-      int pair_p=0;
-      while(pair_p){
-        if(tokens[i].type==')')pair_p++;
-        else if(tokens[i].type=='(')pair_p--;
-        i--;
-      }
+      i=find_pp(p,i);
+      if(i==p)break;
+      else continue;
     }
     //数字一定不是
     else if(tokens[i].type==TK_NUM||tokens[i].type==TK_ADDR||tokens[i].type==TK_HEX)continue;
@@ -229,6 +226,7 @@ int eval(int p,int q){
         return eval(p,i-1)*eval(i+1,q);
         case '/':
         return eval(p,i-1)/eval(i+1,q);
+        default:assert(0);
       }
     }
   Match_Error=true;
