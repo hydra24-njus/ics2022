@@ -196,7 +196,7 @@ int eval(int p,int q){
   else if(p==q){
     if(tokens[p].type==TK_NUM){
       printf("%s\t",tokens[p].str);
-      ans=sscanf(tokens[p].str,"%d",&ans);
+      sscanf(tokens[p].str,"%d",&ans);
       printf("%d\n",ans);
       return ans;
 
@@ -205,11 +205,11 @@ int eval(int p,int q){
       
     
     else if(tokens[p].type==TK_HEX){
-      ans=sscanf(tokens[p].str,"0x%x",&ans);
+      sscanf(tokens[p].str,"0x%x",&ans);
       return ans;
     }
     else if(tokens[p].type==TK_ADDR){
-      ans=sscanf(tokens[p].str,"*0x%x",&ans);
+      sscanf(tokens[p].str,"*0x%x",&ans);
       return vaddr_read(ans,1);
     }
     //其他规则（寄存器等）待添加
