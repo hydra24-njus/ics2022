@@ -171,7 +171,7 @@ int find_main_poerator(int p,int q){
   for(int i=q;i>=p;i--){
     //括号内一定不是。
     if(tokens[i].type==')'){
-      int pair_p=1;
+      int pair_p=0;
       while(pair_p){
         if(tokens[i].type==')')pair_p++;
         else if(tokens[i].type=='(')pair_p--;
