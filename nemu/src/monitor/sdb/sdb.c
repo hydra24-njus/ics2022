@@ -90,7 +90,7 @@ static int cmd_p(char *args) {
     printf("%d\n",result);
   }
   else{
-    printf("Error!");
+    printf("Error!\n");
   }
   return 0;
 }

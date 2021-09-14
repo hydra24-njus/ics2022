@@ -212,8 +212,10 @@ int eval(int p,int q){
     else if(check_p(p,q)){
       return eval(p+1,q-1);
     }
-    //寻找主运算符并递归求解
-    else{
+
+  }
+  //寻找主运算符并递归求解
+  else{
       int i=find_main_poerator(p,q);
       switch(tokens[i].type){
         case '+':
@@ -226,7 +228,6 @@ int eval(int p,int q){
         return eval(p,i-1)/eval(i+1,q);
       }
     }
-  }
   Match_Error=true;
   return -1;
 }
