@@ -211,13 +211,15 @@ int eval(int p,int q){
 
 
   }
-    //判断是否括号
+  //判断是否括号
   else if(check_p(p,q)){
+    printf("check_p\n");
       return eval(p+1,q-1);
   }
   //寻找主运算符并递归求解
   else{
       int i=find_main_poerator(p,q);
+      printf("%d\n",tokens[i].type);
       switch(tokens[i].type){
         case '+':
         return eval(p,i-1)+eval(i+1,q);
@@ -242,6 +244,5 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   int ans=eval(0,nr_token-1);
   *success=!Match_Error;
-  *success=true;
   return ans;
 }
