@@ -195,15 +195,10 @@ int eval(int p,int q){
   if(p>q);
   else if(p==q){
     if(tokens[p].type==TK_NUM){
-      printf("%s\t",tokens[p].str);
       sscanf(tokens[p].str,"%d",&ans);
-      printf("%d\n",ans);
       return ans;
 
     }
-
-      
-    
     else if(tokens[p].type==TK_HEX){
       sscanf(tokens[p].str,"0x%x",&ans);
       return ans;
