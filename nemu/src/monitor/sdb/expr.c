@@ -161,7 +161,7 @@ int set_level(int i){
   else if(tokens[i].type=='-')return 1;
   else if(tokens[i].type=='*')return 10;
   else if(tokens[i].type=='/')return 10;
-  assert(0);
+  return 100;
 }
 
 //寻找主运算符 从右至左优先级最低的符号
