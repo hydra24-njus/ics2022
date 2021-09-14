@@ -210,8 +210,7 @@ int eval(int p,int q){
   }
   //判断是否括号
   else if(check_p(p,q)){
-    printf("check_p\n");
-      return eval(p+1,q-1);
+    return eval(p+1,q-1);
   }
   //寻找主运算符并递归求解
   else{
@@ -226,7 +225,10 @@ int eval(int p,int q){
         return eval(p,i-1)*eval(i+1,q);
         case '/':
         return eval(p,i-1)/eval(i+1,q);
-        default:assert(0);
+        default:{
+          printf("main_op wrong!");
+          assert(0);
+        }
       }
     }
   Match_Error=true;
