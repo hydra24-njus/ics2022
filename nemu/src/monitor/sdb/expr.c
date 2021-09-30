@@ -244,12 +244,12 @@ int eval(int p,int q){
         return (-1) * eval(p + 1, q);
         case TK_DEREF:
         ans=eval(p+1,q);
-        /*
+        
         if(ans<0x80000000){
           printf("wrong deref!\n");
           return 0;
         }
-        */
+        
         return vaddr_read(ans,1);
       case '+':
         return eval(p, i - 1) + eval(i + 1, q);
