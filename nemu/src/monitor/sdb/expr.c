@@ -164,7 +164,7 @@ int find_pp(int p,int q){
 //设定优先级
 int set_level(int i){
   switch(tokens[i].type){
-    case TK_NEG:return 2;
+    case TK_NEG:case TK_DEREF:return 2;
     case '*':case'/':return 3;
     case '+':case '-':return 4;
     case '>':case'<':case TK_GREATEREQU:case TK_LESSEQU:return 6;
