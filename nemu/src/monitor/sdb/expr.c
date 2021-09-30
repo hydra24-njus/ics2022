@@ -165,9 +165,9 @@ int find_pp(int p,int q){
 int set_level(int i){
   switch(tokens[i].type){
     case TK_NEG:case TK_DEREF:return 2;
-    case '*':case'/':return 3;
+    case '*':case '/':return 3;
     case '+':case '-':return 4;
-    case '>':case'<':case TK_GREATEREQU:case TK_LESSEQU:return 6;
+    case '>':case '<':case TK_GREATEREQU:case TK_LESSEQU:return 6;
     case TK_EQ:case TK_NOTEQ:return 7;
     case TK_AND:return 11;
   }
@@ -186,7 +186,7 @@ int find_main_poerator(int p,int q){
       continue;
     }
     //数字一定不是
-    else if(tokens[i].type==TK_NUM||tokens[i].type==TK_HEX)continue;
+    else if(tokens[i].type==TK_NUM||tokens[i].type==TK_HEX||tokens[i].type==TK_REG)continue;
     else{
       if(set_level(i)>op_level){
         op_level=set_level(i);
@@ -290,6 +290,7 @@ word_t expr(char *e, bool *success) {
     tokens[i].type = TK_DEREF;
   }
 }
+ Match_Error=false;
   *success=true;
   /* TODO: Insert codes to evaluate the expression. */
   int ans=eval(0,nr_token-1);
