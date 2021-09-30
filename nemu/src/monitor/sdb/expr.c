@@ -6,7 +6,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_ADDR,TK_HEX,TK_NUM,
+  TK_NOTYPE = 256, TK_EQ,TK_LESSEQU,TK_GREATEREQU,TK_NUM,TK_HEX,TK_REG,TK_AND,TK_OR,TK_NEG,TK_NOTEQ,TK_DEREF,
 
   /* TODO: Add more token types */
 
@@ -21,10 +21,9 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
   //根据查询的优先级顺序填写。
-  {"\\*0x[0-9a-fA-F]+",TK_ADDR},    //地址（十六进制）
   {"\\0x[0-9a-fA-F]+",TK_HEX},     //十六进制数
   {"[0-9]+",TK_NUM},    //十进制数字
-  //reg
+  {"\\$\\$*[a-z0-9]+",TK_REG},//reg
   {" +", TK_NOTYPE},    // spaces
   {"\\+",'+'},         // plus
   {"\\-",'-'},
@@ -33,8 +32,15 @@ static struct rule {
   {"\\%",'%'},
   {"\\(",'('},
   {"\\)",')'},
-
-
+  {"<=", TK_LESSEQU},
+  {">=", TK_GREATEREQU},
+  {">", '>'},
+  {"<", '<'},
+  {"\\&\\&", TK_AND},
+  {"\\|\\|", TK_OR},
+  {"!=",TK_NOTEQ},
+  {"\\!", '!'},
+  {"==", TK_EQ}
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -65,7 +71,7 @@ typedef struct token {
   char str[32];
 } Token;
 
-static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[65535] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
@@ -92,7 +98,7 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        //按顺序匹配type，猜测nr_token用于计数
+        //按顺序匹配type
         switch (rules[i].token_type){
         case TK_NOTYPE:
           break;
@@ -157,17 +163,22 @@ int find_pp(int p,int q){
 
 //设定优先级
 int set_level(int i){
-  if(tokens[i].type=='+')return 1;
-  else if(tokens[i].type=='-')return 1;
-  else if(tokens[i].type=='*')return 10;
-  else if(tokens[i].type=='/')return 10;
-  return 100;
+  switch(tokens[i].type){
+    case TK_NEG:return 2;
+    case '*':case'/':return 3;
+    case '+':case '-':return 4;
+    case '>':case'<':case TK_GREATEREQU:case TK_LESSEQU:return 6;
+    case TK_EQ:case TK_NOTEQ:return 7;
+    case TK_AND:return 11;
+  }
+
+  return 0;
 }
 
-//寻找主运算符 从右至左优先级最低的符号
+//寻找主运算符 从右至左优先级最高的符号
 int find_main_poerator(int p,int q){
   int op_location=p;
-  int op_level=100;
+  int op_level=0;
   for(int i=q;i>=p;i--){
     //括号内一定不是。
     if(tokens[i].type==')'){
@@ -175,11 +186,19 @@ int find_main_poerator(int p,int q){
       continue;
     }
     //数字一定不是
-    else if(tokens[i].type==TK_NUM||tokens[i].type==TK_ADDR||tokens[i].type==TK_HEX)continue;
+    else if(tokens[i].type==TK_NUM||tokens[i].type==TK_HEX)continue;
     else{
-      if(set_level(i)<op_level){
+      if(set_level(i)>op_level){
         op_level=set_level(i);
         op_location=i;
+      }
+    }
+  }
+  if(op_level==2){
+    for(int i=p;i<=q;i++){
+      if(set_level(i)==2){
+        op_location=i;
+        break;
       }
     }
   }
@@ -199,9 +218,12 @@ int eval(int p,int q){
       sscanf(tokens[p].str,"0x%x",&ans);
       return ans;
     }
-    else if(tokens[p].type==TK_ADDR){
-      sscanf(tokens[p].str,"*0x%x",&ans);
-      return vaddr_read(ans,1);
+    else if(tokens[p].type==TK_REG){
+      bool flag=true;
+      ans=isa_reg_str2val(tokens[p].str+1,&flag);
+      if(flag==true)return ans;
+      printf("wrong reg!\n");
+      return 0;
     }
     //其他规则（寄存器等）待添加
 
@@ -214,8 +236,21 @@ int eval(int p,int q){
   //寻找主运算符并递归求解
   else{
       int i=find_main_poerator(p,q);
-      printf("%d\n",tokens[i].type);
-      switch (tokens[i].type){
+      //printf("%d\n",tokens[i].type);
+      int ans=0;
+      switch (tokens[i].type)
+      {
+      case TK_NEG:
+        return (-1) * eval(p + 1, q);
+        case TK_DEREF:
+        ans=eval(p+1,q);
+        /*
+        if(ans<0x80000000){
+          printf("wrong deref!\n");
+          return 0;
+        }
+        */
+        return vaddr_read(ans,1);
       case '+':
         return eval(p, i - 1) + eval(i + 1, q);
       case '-':
@@ -224,8 +259,14 @@ int eval(int p,int q){
         return eval(p, i - 1) * eval(i + 1, q);
       case '/':
         return eval(p, i - 1) / eval(i + 1, q);
-      default:
-        assert(0);
+      case TK_EQ:
+        return eval(p, i - 1) == eval(i + 1, q);
+      case TK_NOTEQ:
+        return eval(p, i - 1) != eval(i + 1, q);
+      case TK_AND:
+        return eval(p, i - 1) && eval(i + 1, q);
+      //default:
+        //assert(0);
       }
     }
   Match_Error=true;
@@ -237,9 +278,22 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
+  for (int i = 0; i < nr_token; i ++) {
+  if (tokens[i].type == '-' && (i == 0 || tokens[i - 1].type =='('|| tokens[i - 1].type ==TK_NEG|| tokens[i - 1].type ==TK_DEREF
+                                       || tokens[i - 1].type =='+'|| tokens[i - 1].type =='-'
+                                       || tokens[i - 1].type =='*'|| tokens[i - 1].type =='/') ) {
+    tokens[i].type = TK_NEG;
+  }
+  if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type =='('|| tokens[i - 1].type ==TK_NEG|| tokens[i - 1].type ==TK_DEREF
+                                       || tokens[i - 1].type =='+'|| tokens[i - 1].type =='-'
+                                       || tokens[i - 1].type =='*'|| tokens[i - 1].type =='/') ) {
+    tokens[i].type = TK_DEREF;
+  }
+}
   *success=true;
   /* TODO: Insert codes to evaluate the expression. */
   int ans=eval(0,nr_token-1);
+  
   *success=!Match_Error;
   return ans;
 }
