@@ -71,7 +71,7 @@ typedef struct token {
   char str[32];
 } Token;
 
-static Token tokens[65535] __attribute__((used)) = {};
+static Token tokens[65536] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
@@ -242,7 +242,7 @@ int eval(int p,int q){
       {
       case TK_NEG:
         return (-1) * eval(p + 1, q);
-        case TK_DEREF:
+      case TK_DEREF:
         ans=eval(p+1,q);
         
         if(ans<0x80000000){
