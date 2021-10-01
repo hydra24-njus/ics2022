@@ -109,9 +109,7 @@ static int cmd_w(char *args) {
 }
 //删除监视点
 static int cmd_d(char *args) {
-  WP *p=NULL;
-  p->NO=atoi(args);
-  free_wp(p);
+  free_wp(atoi(args));
   return 0;
 }
 

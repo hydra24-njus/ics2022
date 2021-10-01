@@ -61,14 +61,14 @@ WP* new_wp(char *s,bool* success){
   return p;
 }
 
-void free_wp(WP *wp){
+void free_wp(int no){
 WP *p;  
 if(head==NULL){
   printf("watchpoint pool is empty\n");
   return;
 }
 //p是被释放的监视点
-else if(head->NO==wp->NO){
+else if(head->NO==no){
   p=head;
   head=head->next;
 }
@@ -76,7 +76,7 @@ else{
   //q是head中p的前一个监视点
   WP *q=head;
   while(q!=NULL){
-    if(q->next->NO==wp->NO){
+    if(q->next->NO==no){
       p=q->next;
       q->next=p->next;
       break;
