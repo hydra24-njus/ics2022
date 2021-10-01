@@ -102,7 +102,7 @@ static int cmd_w(char *args) {
   printf("%d\t%d\n",p->NO,p->lastval);
   }
   else{
-    printf("ERROR!\n");
+    printf("ERROR\n");
   }
   return 0;
 }

@@ -11,10 +11,10 @@ typedef struct watchpoint {
   char* wexpr;//表达式
   uint32_t lastval;//表达式最近一次的值
   /* TODO: Add more members if necessary */
+
 } WP;
 WP* new_wp();
-void free_wp(WP*);
-
+void free_wp(WP *wp);
 
 
 #endif

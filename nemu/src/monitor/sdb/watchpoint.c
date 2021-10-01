@@ -2,6 +2,14 @@
 
 #define NR_WP 32
 
+/*typedef struct watchpoint {
+  int NO;//监视点序号
+  struct watchpoint *next;//指针
+  char* wexpr;//表达式
+  uint32_t lastval;//表达式最近一次的值
+   TODO: Add more members if necessary 
+
+} WP;*/
 
 static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
@@ -21,11 +29,13 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 WP* new_wp(char *s,bool* success){
+  printf("1\n");
   WP *p;
   if(free_==NULL){
     printf("watchpoint is already full\n");
     assert(0);
   }
+  
   else if(head==NULL){
     p=free_;
     free_=free_->next;
@@ -33,6 +43,7 @@ WP* new_wp(char *s,bool* success){
     head->next=NULL;
     head->lastval=expr(s,success);
     strcpy(head->wexpr,s);
+    printf("12\n");
   }
   else{
     //p为从free释放的监视点
@@ -43,7 +54,9 @@ WP* new_wp(char *s,bool* success){
     WP *q=head;
     while(q->next!=NULL)q=q->next;
     q->next=p;
+    printf("13\n");
   }
+  printf("2\n");
   return p;
 }
 
