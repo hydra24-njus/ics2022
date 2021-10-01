@@ -37,15 +37,17 @@ WP* new_wp(char *s,bool* success){
   }
   
   else if(head==NULL){
+    printf("12\n");
     p=free_;
     free_=free_->next;
     head=p;
     head->next=NULL;
     head->lastval=expr(s,success);
     strcpy(head->wexpr,s);
-    printf("12\n");
+    
   }
   else{
+    printf("13\n");
     //p为从free释放的监视点
     p=free_;
     free_=free_->next;
@@ -54,7 +56,7 @@ WP* new_wp(char *s,bool* success){
     WP *q=head;
     while(q->next!=NULL)q=q->next;
     q->next=p;
-    printf("13\n");
+    
   }
   printf("2\n");
   return p;
