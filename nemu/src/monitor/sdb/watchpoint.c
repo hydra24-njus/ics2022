@@ -42,12 +42,13 @@ WP* new_wp(char *s,bool* success){
     free_=free_->next;
     head=p;
     head->next=NULL;
+    printf("13\n");
     head->lastval=expr(s,success);
     strcpy(head->wexpr,s);
     
   }
   else{
-    printf("13\n");
+    
     //p为从free释放的监视点
     p=free_;
     free_=free_->next;
