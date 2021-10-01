@@ -30,8 +30,12 @@ int main(int argc, char *argv[]) {
   init_monitor(argc, argv);
 #endif
 
+FILE *fp;
 char buf[35399], *p;
-FILE *fp =fopen("/home/ics2021/nemu/tools/gen-expr/input","r");
+if ((fp = fopen("input", "r")) == NULL) {
+printf("open file error!!\n");
+assert(0);
+}
 
 while (1) {
 p = ReadData(fp, buf);//每次调用文件指针fp会自动后移一行
@@ -39,6 +43,7 @@ if (!p)//文件读取结束则跳出循环
 break;
 someprocess(buf);
 }
+
 
 
 
