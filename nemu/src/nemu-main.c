@@ -30,8 +30,9 @@ int main(int argc, char *argv[]) {
   init_monitor(argc, argv);
 #endif
 
-FILE *fp;
+
 char buf[35399], *p;
+FILE *fp = fopen("/tmp/input.txt", "w");
 if ((fp = fopen("/home/ics2021/nemu/tools/gen-expr/input.txt", "w")) == NULL) {
 printf("open file error!!\n");
 assert(0);
