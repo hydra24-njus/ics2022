@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
 FILE *fp;
 char buf[35399], *p;
-if ((fp = fopen("/home/ics2021/nemu/tools/gen-expr/input.txt", "r")) == NULL) {
+if ((fp = fopen("/home/ics2021/nemu/tools/gen-expr/input.txt", "w")) == NULL) {
 printf("open file error!!\n");
 assert(0);
 }
