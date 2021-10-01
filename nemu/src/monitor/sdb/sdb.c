@@ -96,7 +96,7 @@ static int cmd_p(char *args) {
 }
 //设置监视点
 static int cmd_w(char *args) {
-  bool success;
+  bool success=true;
   WP *p=new_wp(args,&success);
   if(success){
   printf("%d\t%d\n",p->NO,p->lastval);
