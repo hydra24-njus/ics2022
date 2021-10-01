@@ -99,7 +99,7 @@ static int cmd_w(char *args) {
   bool success=true;
   WP *p=new_wp(args,&success);
   if(success){
-  printf("%d\t%d\n",p->NO,p->lastval);
+  printf("NO.%d\texpr:%s\tval:%d\n",p->NO,p->wexpr,p->lastval);
   }
   else{
     printf("ERROR\n");
