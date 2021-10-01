@@ -32,8 +32,8 @@ int main(int argc, char *argv[]) {
 
 
 char buf[35399], *p;
-FILE *fp = fopen("/tmp/input.txt", "w");
-if ((fp = fopen("/home/ics2021/nemu/tools/gen-expr/input.txt", "w")) == NULL) {
+FILE *fp;
+if ((fp = fopen("/tmp/input", "r")) == NULL) {
 printf("open file error!!\n");
 assert(0);
 }
