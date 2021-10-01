@@ -120,14 +120,15 @@ void info_w(){
 
 bool check_wp(){
   WP *p=head;
-  bool success=true;
+  bool success=true,flag=true;
   int n;
   while(p!=NULL){
     n=expr(p->wexpr,&success);
     if(n!=p->lastval){
       p->lastval=n;
-      return false;
+      flag=false;
     }
+    p=p->next;
   }
-  return true;
+  return flag;
 }
