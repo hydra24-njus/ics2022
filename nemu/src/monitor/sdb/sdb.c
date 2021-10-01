@@ -57,7 +57,7 @@ static int cmd_info(char *args) {
     return 1;
   }
   char *arg=strtok(args," ");
-  printf("%s\n",arg);
+  //printf("%s\n",arg);
   if(strcmp(arg,"r")==0){
     isa_reg_display();
   }

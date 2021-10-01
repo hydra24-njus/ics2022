@@ -100,6 +100,10 @@ return;
 
 void info_w(){
   WP *p=head;
+  if(p==NULL){
+    printf("no watchpoint\n");
+    return;
+  }
   while(p!=NULL){
     printf("NO.%d\texpr:%s\tval:%d\n",p->NO,p->wexpr,p->lastval);
     p=p->next;
