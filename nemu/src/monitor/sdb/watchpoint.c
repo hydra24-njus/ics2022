@@ -44,9 +44,9 @@ WP* new_wp(char *s,bool* success){
     head->next=NULL;
     printf("13\n");
     head->lastval=expr(s,success);
-printf("12\n");
+
     strcpy(head->wexpr,s);
-    
+    printf("12\n");
   }
   else{
     
