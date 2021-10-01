@@ -81,8 +81,6 @@ void cpu_exec(uint64_t n) {
     case NEMU_END: case NEMU_ABORT:
       printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
       return;
-    case NEMU_STOP:
-      printf("watchpoint has been updated\n");return;
     default: nemu_state.state = NEMU_RUNNING;
   }
 
@@ -109,7 +107,7 @@ void cpu_exec(uint64_t n) {
 
   switch (nemu_state.state) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
-
+    case NEMU_STOP:printf("watchpoint has been updated\n");return;
     case NEMU_END: case NEMU_ABORT:
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ASNI_FMT("ABORT", ASNI_FG_RED) :
