@@ -98,7 +98,12 @@ static int cmd_p(char *args) {
 static int cmd_w(char *args) {
   bool success;
   WP *p=new_wp(args,&success);
+  if(success){
   printf("%d\t%d\n",p->NO,p->lastval);
+  }
+  else{
+    printf("ERROR!\n");
+  }
   return 0;
 }
 //删除监视点
