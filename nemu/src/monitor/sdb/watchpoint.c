@@ -81,6 +81,10 @@ else{
       q->next=p->next;
       break;
     }
+    if(q->next==NULL){
+      printf("no such watchpoint\n");
+      return;
+    }
     q=q->next;
   }
 }
