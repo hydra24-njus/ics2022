@@ -67,7 +67,7 @@ if(head==NULL){
   printf("watchpoint pool is empty\n");
   return;
 }
-//p是被释放的监视点
+//p是将被释放的监视点
 else if(head->NO==no){
   p=head;
   head=head->next;
@@ -76,7 +76,7 @@ else{
   //q是head中p的前一个监视点
   WP *q = head;
   bool flag = false;
-  while (q != NULL){
+  while (q->next != NULL){
     if (q->next->NO == no){
       p = q->next;
       q->next = p->next;
