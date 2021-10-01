@@ -2,13 +2,6 @@
 
 #define NR_WP 32
 
-typedef struct watchpoint {
-  int NO;
-  struct watchpoint *next;
-
-  /* TODO: Add more members if necessary */
-
-} WP;
 
 static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
@@ -18,6 +11,7 @@ void init_wp_pool() {
   for (i = 0; i < NR_WP; i ++) {
     wp_pool[i].NO = i;
     wp_pool[i].next = &wp_pool[i + 1];
+    wp_pool[i].lastval=0;
   }
   wp_pool[NR_WP - 1].next = NULL;
 
@@ -26,4 +20,66 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
+WP* new_wp(char *s,bool* success){
+  WP *p;
+  if(free_==NULL){
+    printf("watchpoint is already full\n");
+    assert(0);
+  }
+  else if(head==NULL){
+    p=free_;
+    free_=free_->next;
+    head=p;
+    head->next=NULL;
+    head->lastval=expr(s,success);
+    strcpy(head->wexpr,s);
+  }
+  else{
+    //p为从free释放的监视点
+    p=free_;
+    free_=free_->next;
+    p->next=NULL;
+    //q为head中最后一个监视点
+    WP *q=head;
+    while(q->next!=NULL)q=q->next;
+    q->next=p;
+  }
+  return p;
+}
 
+void free_wp(WP *wp){
+WP *p;  
+if(head==NULL){
+  printf("watchpoint pool is empty\n");
+  return;
+}
+//p是被释放的监视点
+else if(head->NO==wp->NO){
+  p=head;
+  head=head->next;
+}
+else{
+  //q是head中p的前一个监视点
+  WP *q=head;
+  while(q!=NULL){
+    if(q->next->NO==wp->NO){
+      p=q->next;
+      q->next=p->next;
+      break;
+    }
+    q=q->next;
+  }
+}
+//p是被释放的监视点
+//添加到free中
+if(free_==NULL){
+  free_=p;
+  free_->next=NULL;
+}
+else{
+  WP *q=free_;
+  p->next=q;
+  free_=p;
+}
+return;
+}

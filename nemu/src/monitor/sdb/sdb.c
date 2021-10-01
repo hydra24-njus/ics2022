@@ -96,7 +96,9 @@ static int cmd_p(char *args) {
 }
 //设置监视点
 static int cmd_w(char *args) {
-  cpu_exec(-1);
+  bool success;
+  WP *p=new_wp(args,&success);
+  printf("%d\t%d\n",p->NO,p->lastval);
   return 0;
 }
 //删除监视点

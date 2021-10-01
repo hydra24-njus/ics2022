@@ -7,7 +7,7 @@
 
 enum {
   TK_NOTYPE = 256, TK_EQ,TK_LESSEQU,TK_GREATEREQU,TK_NUM,TK_HEX,TK_REG,TK_AND,TK_OR,TK_NEG,TK_NOTEQ,TK_DEREF,
-
+//这里的顺序没有任何意义，仅给出一个state
   /* TODO: Add more token types */
 
 };
@@ -21,6 +21,7 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
   //根据查询的优先级顺序填写。
+  //其实这里的顺序是识别顺序，如果某个规则是另一个规则的子集，则这个规则需要放在后位
   {"\\0x[0-9a-fA-F]+",TK_HEX},     //十六进制数
   {"[0-9]+",TK_NUM},    //十进制数字
   {"\\$\\$*[a-z0-9]+",TK_REG},//reg
@@ -71,7 +72,7 @@ typedef struct token {
   char str[32];
 } Token;
 
-static Token tokens[65536] __attribute__((used)) = {};
+static Token tokens[65536] __attribute__((used)) = {};//直接把tokens数组的大小变为65536防止溢出
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
@@ -122,7 +123,7 @@ static bool make_token(char *e) {
   return true;
 }
 
-bool Match_Error=false;
+bool Match_Error=false;//用于记录表达式是否匹配正确，并最终传递到&success
 
 //括号匹配函数，判断一个字串是否被括号包裹
 bool check_p(int p,int q){
@@ -141,7 +142,8 @@ bool check_p(int p,int q){
     }
     if(count==0)return true;
   }
-  Match_Error=false;
+  Match_Error=false;//如果遍历完整个表达式都没有匹配到括号说明输入错误
+  //可改进在此处直接终止求值函数。
   return false;
 }
 
@@ -158,7 +160,7 @@ int find_pp(int p,int q){
     if(cnt==0)return i;
   }
   //表达式不正确-->没有与之匹配的左括号
-  return -2;
+  return -1;
 }
 
 //设定优先级
@@ -170,6 +172,7 @@ int set_level(int i){
     case '>':case '<':case TK_GREATEREQU:case TK_LESSEQU:return 6;
     case TK_EQ:case TK_NOTEQ:return 7;
     case TK_AND:return 11;
+    //TODO:其他操作优先级待添加
   }
 
   return 0;
@@ -194,6 +197,7 @@ int find_main_poerator(int p,int q){
       }
     }
   }
+  //优先级为2的（单目运算符）结合性不同，所以需要从左至右重新扫描，返回第一个符号
   if(op_level==2){
     for(int i=p;i<=q;i++){
       if(set_level(i)==2){
@@ -207,12 +211,11 @@ int find_main_poerator(int p,int q){
 
 int eval(int p,int q){
   int ans;
-  if(p>q);
-  else if(p==q){
+  if(p>q);//非法，不进行任何操作
+  else if(p==q){//此时一定是元表达式（即数、十六进制数、寄存器）
     if(tokens[p].type==TK_NUM){
       sscanf(tokens[p].str,"%d",&ans);
       return ans;
-
     }
     else if(tokens[p].type==TK_HEX){
       sscanf(tokens[p].str,"0x%x",&ans);
@@ -220,13 +223,12 @@ int eval(int p,int q){
     }
     else if(tokens[p].type==TK_REG){
       bool flag=true;
-      ans=isa_reg_str2val(tokens[p].str+1,&flag);
+      ans=isa_reg_str2val(tokens[p].str+1,&flag);//这里的+1是为了滤去第一个$
       if(flag==true)return ans;
       printf("wrong reg!\n");
       return 0;
     }
-    //其他规则（寄存器等）待添加
-
+    //其他规则（寄存器等）待添加//已完成
 
   }
   //判断是否括号
@@ -238,6 +240,7 @@ int eval(int p,int q){
       int i=find_main_poerator(p,q);
       //printf("%d\n",tokens[i].type);
       int ans=0;
+      //使用switch不方便定义局部变量 考虑改为if-elseif...
       switch (tokens[i].type)
       {
       case TK_NEG:
@@ -267,18 +270,21 @@ int eval(int p,int q){
         return eval(p, i - 1) && eval(i + 1, q);
       //default:
         //assert(0);
+        //尽量避免assert(0);防止测试途中异常退出
       }
     }
+    //没有匹配到主运算符的类型（实际上不会有这种情况）
   Match_Error=true;
   return -1;
 }
-
+//类型是word_t，即32位无符号，最终输出为int（强制类型转换）所以无影响（大概
 word_t expr(char *e, bool *success) {
   memset(tokens,0,sizeof(tokens));
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
+  //把token无法识别的运算符重新定义。都是单目运算符所以从左至右扫描。只有前面不是表达式（数或寄存器或右括号）的 - *才是负号 解引用
   for (int i = 0; i < nr_token; i ++) {
   if (tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type !=TK_NUM&& tokens[i - 1].type !=TK_HEX&& tokens[i - 1].type !=TK_REG
                                        && tokens[i - 1].type !=')')) ) {
