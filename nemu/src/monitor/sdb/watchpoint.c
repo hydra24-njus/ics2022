@@ -74,20 +74,23 @@ else if(head->NO==no){
 }
 else{
   //q是head中p的前一个监视点
-  WP *q=head;
-  while(q!=NULL){
-    if(q->next->NO==no){
-      p=q->next;
-      q->next=p->next;
+  WP *q = head;
+  bool flag = false;
+  while (q != NULL){
+    if (q->next->NO == no){
+      p = q->next;
+      q->next = p->next;
+      flag = true;
       break;
     }
-    if(q->next->next==NULL){
-      printf("no such watchpoint\n");
-      return;
-    }
-    q=q->next;
+    q = q->next;
+  }
+  if (flag == false){
+    printf("no such watchpoint\n");
+    return;
   }
 }
+
 //p是被释放的监视点
 //添加到free中
 if(free_==NULL){
