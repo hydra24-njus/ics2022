@@ -86,6 +86,10 @@ void cpu_exec(uint64_t n) {
 
   uint64_t timer_start = get_time();
 
+  if(check_wp()==false){
+    nemu_state.state=NEMU_STOP;
+  }
+
   Decode s;
   for (;n > 0; n --) {
     fetch_decode_exec_updatepc(&s);//state在这里改变
@@ -99,9 +103,6 @@ void cpu_exec(uint64_t n) {
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
 
-  if(check_wp()==false){
-    nemu_state.state=NEMU_STOP;
-  }
 
 
   switch (nemu_state.state) {
