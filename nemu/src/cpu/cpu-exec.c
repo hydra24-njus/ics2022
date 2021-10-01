@@ -3,7 +3,7 @@
 #include <cpu/difftest.h>
 #include <isa-all-instr.h>
 #include <locale.h>
-
+#include "../monitor/sdb/sdb.h"
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
  * This is useful when you use the `si' command.
@@ -98,6 +98,11 @@ void cpu_exec(uint64_t n) {
 
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
+
+  if(check_wp()==false){
+    nemu_state.state=NEMU_STOP;
+  }
+
 
   switch (nemu_state.state) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;

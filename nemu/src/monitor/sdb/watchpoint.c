@@ -117,3 +117,17 @@ void info_w(){
   }
 
 }
+
+bool check_wp(){
+  WP *p=head;
+  bool success=true;
+  int n;
+  while(p!=NULL){
+    n=expr(p->wexpr,&success);
+    if(n!=p->lastval){
+      p->lastval=n;
+      return false;
+    }
+  }
+  return true;
+}
