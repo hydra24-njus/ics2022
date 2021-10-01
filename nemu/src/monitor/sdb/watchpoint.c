@@ -29,7 +29,6 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 WP* new_wp(char *s,bool* success){
-  printf("1\n");
   WP *p;
   if(free_==NULL){
     printf("watchpoint is already full\n");
@@ -57,7 +56,6 @@ WP* new_wp(char *s,bool* success){
     q->next=p;
     
   }
-  printf("2\n");
   return p;
 }
 
