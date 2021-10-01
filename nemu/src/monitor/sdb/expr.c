@@ -250,7 +250,7 @@ int eval(int p,int q){
           return 0;
         }
         
-        return vaddr_read(ans,4);
+        return vaddr_read(ans,1);
       case '+':
         return eval(p, i - 1) + eval(i + 1, q);
       case '-':
