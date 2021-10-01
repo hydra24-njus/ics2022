@@ -153,46 +153,13 @@ void sdb_set_batch_mode() {
   is_batch_mode = true;
 }
 
-////
-char *ReadData(FILE *fp, char *buf)
-{
-return fgets(buf, 35399, fp);//读取一行到buf
-}
-void someprocess(char *buf)
-{
-int ans1=atoi(strtok(buf," "));printf("%d\t",ans1);
-char* exp=strtok(NULL,"");
-cmd_p(exp);
-}
-////
+
 
 void sdb_mainloop() {
   if (is_batch_mode) {
     cmd_c(NULL);
     return;
   }
-
-char buf[35399], *p;
-FILE *fp;
-if ((fp = fopen("/tmp/input", "r")) == NULL) {
-printf("open file error!!\n");
-assert(0);
-}
-
-while (1) {
-p = ReadData(fp, buf);//每次调用文件指针fp会自动后移一行
-if (!p)//文件读取结束则跳出循环
-break;
-someprocess(buf);
-}
-
-
-
-
-
-
-
-
 
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
