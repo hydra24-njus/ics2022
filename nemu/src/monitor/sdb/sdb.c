@@ -64,6 +64,7 @@ static int cmd_info(char *args) {
   //print watchpoint
   if(strcmp(arg,"w")==0){
     //to be completed.
+    info_w();
   }
   return 0;
 }
@@ -108,7 +109,9 @@ static int cmd_w(char *args) {
 }
 //删除监视点
 static int cmd_d(char *args) {
-  cpu_exec(-1);
+  WP *p=NULL;
+  p->NO=atoi(args);
+  free_wp(p);
   return 0;
 }
 
