@@ -250,7 +250,7 @@ int eval(int p,int q){
           return 0;
         }
         
-        return vaddr_read(ans,1);
+        return vaddr_read(ans,4);
       case '+':
         return eval(p, i - 1) + eval(i + 1, q);
       case '-':
@@ -279,14 +279,12 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
   for (int i = 0; i < nr_token; i ++) {
-  if (tokens[i].type == '-' && (i == 0 || tokens[i - 1].type =='('|| tokens[i - 1].type ==TK_NEG|| tokens[i - 1].type ==TK_DEREF
-                                       || tokens[i - 1].type =='+'|| tokens[i - 1].type =='-'
-                                       || tokens[i - 1].type =='*'|| tokens[i - 1].type =='/') ) {
+  if (tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type !=TK_NUM&& tokens[i - 1].type ==TK_HEX&& tokens[i - 1].type ==TK_REG
+                                       && tokens[i - 1].type ==')')) ) {
     tokens[i].type = TK_NEG;
   }
-  if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type =='('|| tokens[i - 1].type ==TK_NEG|| tokens[i - 1].type ==TK_DEREF
-                                       || tokens[i - 1].type =='+'|| tokens[i - 1].type =='-'
-                                       || tokens[i - 1].type =='*'|| tokens[i - 1].type =='/') ) {
+  if (tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type !=TK_NUM&& tokens[i - 1].type ==TK_HEX&& tokens[i - 1].type ==TK_REG
+                                       && tokens[i - 1].type ==')')) ) {
     tokens[i].type = TK_DEREF;
   }
 }
