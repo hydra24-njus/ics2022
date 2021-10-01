@@ -50,6 +50,8 @@ WP* new_wp(char *s,bool* success){
     p=free_;
     free_=free_->next;
     p->next=NULL;
+    p->lastval=expr(s,success);
+    strcpy(p->wexpr,s);
     //q为head中最后一个监视点
     WP *q=head;
     while(q->next!=NULL)q=q->next;
