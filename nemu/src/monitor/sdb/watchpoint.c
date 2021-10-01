@@ -37,13 +37,14 @@ WP* new_wp(char *s,bool* success){
   }
   
   else if(head==NULL){
-    printf("12\n");
+    
     p=free_;
     free_=free_->next;
     head=p;
     head->next=NULL;
     printf("13\n");
     head->lastval=expr(s,success);
+printf("12\n");
     strcpy(head->wexpr,s);
     
   }
