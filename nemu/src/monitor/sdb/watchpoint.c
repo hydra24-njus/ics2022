@@ -62,7 +62,7 @@ WP* new_wp(char *s,bool* success){
 }
 
 void free_wp(int no){
-WP *p;  
+WP *p;
 if(head==NULL){
   printf("watchpoint pool is empty\n");
   return;
