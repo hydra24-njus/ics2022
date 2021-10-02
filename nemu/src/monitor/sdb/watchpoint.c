@@ -126,6 +126,7 @@ bool check_wp(){
     n=expr(p->wexpr,&success);
     if(n!=p->lastval){
       p->lastval=n;
+      printf("NO.%d\texpr:%s\tval:%d\n",p->NO,p->wexpr,p->lastval);
       flag=false;
     }
     p=p->next;
