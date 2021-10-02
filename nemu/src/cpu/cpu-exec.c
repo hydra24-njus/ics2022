@@ -91,6 +91,11 @@ void cpu_exec(uint64_t n) {
     fetch_decode_exec_updatepc(&s);//state在这里改变
     g_nr_guest_instr ++;
     IFDEF(CONFIG_DEBUG, debug_hook(s.pc, s.logbuf));
+    
+      if(check_wp()==false){
+    nemu_state.state=NEMU_STOP;
+  }
+
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DIFFTEST, difftest_step(s.pc, cpu.pc));
     IFDEF(CONFIG_DEVICE, device_update());
@@ -99,9 +104,6 @@ void cpu_exec(uint64_t n) {
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
 
-  if(check_wp()==false){
-    nemu_state.state=NEMU_STOP;
-  }
 
   switch (nemu_state.state) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
