@@ -125,8 +125,8 @@ bool check_wp(){
   while(p!=NULL){
     n=expr(p->wexpr,&success);
     if(n!=p->lastval){
+      printf("NO.%d\tposition:%s\toldval:%d\tnowval:%d\n",p->NO,p->wexpr,p->lastval,n);
       p->lastval=n;
-      printf("NO.%d\texpr:%s\tval:%d\n",p->NO,p->wexpr,p->lastval);
       flag=false;
     }
     p=p->next;
