@@ -209,12 +209,12 @@ int find_main_poerator(int p,int q){
   return op_location;
 }
 
-int eval(int p,int q){
-  int ans;
+uint32_t eval(int p,int q){
+  uint32_t ans;
   if(p>q);//非法，不进行任何操作
   else if(p==q){//此时一定是元表达式（即数、十六进制数、寄存器）
     if(tokens[p].type==TK_NUM){
-      sscanf(tokens[p].str,"%d",&ans);
+      sscanf(tokens[p].str,"%u",&ans);
       return ans;
     }
     else if(tokens[p].type==TK_HEX){
@@ -247,12 +247,10 @@ int eval(int p,int q){
         return (-1) * eval(p + 1, q);
       case TK_DEREF:
         ans=eval(p+1,q);
-        
         if(ans<0x80000000){
           printf("wrong deref!\n");
           return 0;
         }
-        
         return vaddr_read(ans,4);
       case '+':
         return eval(p, i - 1) + eval(i + 1, q);
@@ -298,7 +296,7 @@ word_t expr(char *e, bool *success) {
  Match_Error=false;
   *success=true;
   /* TODO: Insert codes to evaluate the expression. */
-  int ans=eval(0,nr_token-1);
+  uint32_t ans=eval(0,nr_token-1);
   
   *success=!Match_Error;
   return ans;

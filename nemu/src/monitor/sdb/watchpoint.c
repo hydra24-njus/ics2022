@@ -112,7 +112,7 @@ void info_w(){
     return;
   }
   while(p!=NULL){
-    printf("NO.%d\texpr:%s\tval:%d\n",p->NO,p->wexpr,p->lastval);
+    printf("NO.%d\texpr:%s\tval:%u\n",p->NO,p->wexpr,p->lastval);
     p=p->next;
   }
 
@@ -121,7 +121,7 @@ void info_w(){
 bool check_wp(){
   WP *p=head;
   bool success=true,flag=true;
-  int n;
+  uint32_t n;
   while(p!=NULL){
     n=expr(p->wexpr,&success);
     if(n!=p->lastval){
