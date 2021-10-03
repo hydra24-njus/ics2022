@@ -210,6 +210,6 @@ config RT_CHECK
   
 endmenu
 
-config CONFIG_WATCHPOINT
+config WATCHPOINT
   bool "CONFIG_WATCHPOINT"
   default y
