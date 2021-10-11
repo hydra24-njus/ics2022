@@ -38,9 +38,7 @@ void fetch_decode(Decode *s, vaddr_t pc);
 
 static void fetch_decode_exec_updatepc(Decode *s) {
   fetch_decode(s, cpu.pc);
-  //printf("%d\t",nemu_state.state);
-  s->EHelper(s);//state在这里改变
-  //printf("%d\n",nemu_state.state);
+  s->EHelper(s);
   cpu.pc = s->dnpc;
 }
 
