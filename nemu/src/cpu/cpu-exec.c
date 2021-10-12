@@ -105,7 +105,7 @@ void cpu_exec(uint64_t n) {
   for (;n > 0; n --) {
     fetch_decode_exec_updatepc(&s);
     g_nr_guest_instr ++;
-    #ifdef CONFIG_CONFIG_WATCHPOINT
+    #ifdef CONFIG_WATCHPOINT
     trace_and_difftest(&s, cpu.pc);
     #endif
     if (nemu_state.state != NEMU_RUNNING) break;
