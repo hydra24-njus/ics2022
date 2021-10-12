@@ -27,7 +27,14 @@ static inline def_rtl(neg, rtlreg_t *dest, const rtlreg_t* src1) {
 
 static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
-  TODO();
+  //TODO();
+  int32_t tmp=*src1;
+  switch(width){
+    case 4:*dest=*src1;return;
+    case 3:tmp=tmp<< 8;tmp=tmp>> 8;*dest=tmp;return;
+    case 2:tmp=tmp<<16;tmp=tmp>>16;*dest=tmp;return;
+    case 1:tmp=tmp<<24;tmp=tmp>>24;*dest=tmp;return;
+  }
 }
 
 static inline def_rtl(zext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
