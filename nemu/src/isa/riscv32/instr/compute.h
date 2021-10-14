@@ -12,7 +12,7 @@ def_EHelper(addi){
 }
 def_EHelper(sltiu){
   rtl_subi(s,t0,id_src1->preg,id_src2->imm);
-  rtl_srli(s,t0,t0,31);
+  rtl_srli(s,t0,t0,30);
   rtl_addi(s,ddest,t0,0);
 }
 def_EHelper(auipc){
