@@ -66,6 +66,9 @@ static int cmd_info(char *args) {
     //to be completed.
     info_w();
   }
+  if(strcmp(arg,"pc")==0){
+    printf("pc=%08x\n",cpu.pc);
+  }
   return 0;
 }
 //扫描内存
