@@ -4,6 +4,9 @@ def_EHelper(lui) {
 def_EHelper(add){
   rtl_add(s,ddest,id_src1->preg,id_src2->preg);
 }
+def_EHelper(sub){
+  rtl_sub(s,ddest,id_src1->preg,id_src2->preg);
+}
 def_EHelper(addi){
   rtl_addi(s,ddest,id_src1->preg,id_src2->imm);
 }
