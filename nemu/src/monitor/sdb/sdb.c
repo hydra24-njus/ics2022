@@ -74,10 +74,14 @@ static int cmd_info(char *args) {
 //扫描内存
 static int cmd_x(char *args) {
   int n=atoi(strtok(args," "));
-  char* expr=strtok(NULL," ");
+  char* exp=strtok(NULL," ");
   int addr;
-  sscanf(expr,"0x%x",&addr);
-  
+  bool success=true;
+  addr=expr(exp,&success);
+  if(success==false){
+    printf("wrong expr!\n");
+    return 0;
+  }
   for(int i=0;i<n;i++){
   printf("0x%08x\t",vaddr_read(addr+i*4,4));
   printf("0x %02x %02x %02x %02x\n",vaddr_read(addr+i*4,1),vaddr_read(addr+i*4+1,1),vaddr_read(addr+i*4+2,1),vaddr_read(addr+i*4+3,1));
