@@ -8,7 +8,7 @@ def_EHelper(sub){
   rtl_sub(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(addi){
-  rtl_addi(s,ddest,id_src1->preg,0);
+  rtl_addi(s,ddest,id_src1->preg,id_src2->imm);
 }
 def_EHelper(sltiu){
   rtl_subi(s,t0,id_src1->preg,id_src2->imm);
