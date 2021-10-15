@@ -10,7 +10,7 @@ const char *regsl[] = {
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   for (int i = 0; i < 32; i++) {
     if (ref_r->gpr[i]._32 != gpr(i)) {
-      printf("%s.ref=%-5u%s.nemu=%u\n",regsl[i],ref_r->gpr[i]._32,regsl[i],gpr(i));
+      printf("%s.ref=%-15u%s.nemu=%u\n",regsl[i],ref_r->gpr[i]._32,regsl[i],gpr(i));
       return false;
     }
   }
