@@ -61,7 +61,7 @@ static def_DHelper(B) {
     | (s->isa.instr.b.imm11 << 11)  | (s->isa.instr.b.imm4_1  << 1);
   rtl_sext(s,t0,t0,12);
   rtl_add(s,t0,t0,&cpu.pc);
-  decode_op_i(s,id_dest,*t0,false);
+  decode_op_i(s,id_dest,*t0,true);
 }
 
 def_THelper(load) {
