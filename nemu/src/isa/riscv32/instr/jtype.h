@@ -20,3 +20,9 @@ def_EHelper(bge){
 def_EHelper(bgeu){
   rtl_jrelop(s,RELOP_GEU,id_src1->preg,id_src2->preg,id_dest->imm);
 }
+def_EHelper(blt){
+  rtl_jrelop(s,RELOP_LT,id_src1->preg,id_src2->preg,id_dest->imm);
+}
+def_EHelper(bltu){
+  rtl_jrelop(s,RELOP_LTU,id_src1->preg,id_src2->preg,id_dest->imm);
+}
