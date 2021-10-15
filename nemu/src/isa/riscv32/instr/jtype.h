@@ -8,6 +8,6 @@ def_EHelper(jalr){
   rtl_addi(s,t0,id_src1->preg,id_src2->imm);
   rtl_j(s,*t0);
 }
-/*def_EHelper(beq){
-  
-}*/
+def_EHelper(beq){
+  rtl_jrelop(s,RELOP_EQ,id_src1->preg,id_src2->preg,*ddest);
+}
