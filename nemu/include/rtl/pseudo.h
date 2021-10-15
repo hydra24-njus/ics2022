@@ -30,10 +30,9 @@ static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   //TODO();
   int32_t tmp=*src1;
   switch(width){
-    case 4:*dest=*src1;return;
-    case 3:tmp=tmp<< 8;tmp=tmp>> 8;*dest=tmp;return;
-    case 2:tmp=tmp<<16;tmp=tmp>>16;*dest=tmp;return;
-    case 1:tmp=tmp<<24;tmp=tmp>>24;*dest=tmp;return;
+    case 32:*dest=*src1;return;
+    case 20:tmp=tmp<<12;tmp=tmp>>12;*dest=tmp;return;
+    case 12:tmp=tmp<<20;tmp=tmp>>20;*dest=tmp;return;
   }
 }
 
