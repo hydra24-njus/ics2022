@@ -50,7 +50,7 @@ static def_DHelper(J) {
   decode_op_r(s, id_dest, s->isa.instr.j.rd, true);
   *t0=(s->isa.instr.j.simm20 << 20) | (s->isa.instr.j.imm19_12 << 12) 
                | (s->isa.instr.j.imm11_ << 11) | (s->isa.instr.j.imm10_1  << 1);
-  //rtl_sext(s,t0,t0,20);
+  rtl_sext(s,t0,t0,20);
   decode_op_i(s,id_src1,*t0,false);
 }
 
