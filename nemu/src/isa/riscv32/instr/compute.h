@@ -27,7 +27,7 @@ def_EHelper(sltiu){
 }
 def_EHelper(sll){
   rtl_zext(s,t0,id_src2->preg,5);
-  rtl_slli(s,ddest,id_src1->preg,*id_src2->preg);
+  rtl_sll(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(slt){
   rtl_li(s,ddest, interpret_relop(RELOP_LT, *id_src1->preg, *id_src2->preg));
