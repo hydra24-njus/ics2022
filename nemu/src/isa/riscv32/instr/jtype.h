@@ -11,3 +11,6 @@ def_EHelper(jalr){
 def_EHelper(beq){
   rtl_jrelop(s,RELOP_EQ,id_src1->preg,id_src2->preg,*t0);
 }
+def_EHelper(bne){
+  rtl_jrelop(s,RELOP_NE,id_src1->preg,id_src2->preg,*t0);
+}
