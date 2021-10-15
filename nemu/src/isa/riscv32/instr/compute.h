@@ -19,6 +19,9 @@ def_EHelper(addi){
 def_EHelper(andi){
   rtl_andi(s,ddest,id_src1->preg,id_src2->imm);
 }
+def_EHelper(slli){
+  rtl_slli(s,ddest,id_src1->preg,id_src2->imm);
+}
 def_EHelper(sltiu){
   rtl_li(s,ddest, interpret_relop(RELOP_LTU, *id_src1->preg, id_src2->imm));
 }
