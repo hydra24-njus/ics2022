@@ -1,7 +1,7 @@
 #include <cpu/decode.h>
 #include "../local-include/rtl.h"
 
-#define INSTR_LIST(f) f(add) f(sub) f(sltu)\
+#define INSTR_LIST(f) f(add) f(sub) f(sltu) f(xor)\
 f(addi) f(sltiu) f(auipc)\
 f(jal) f(jalr)\
 f(lui) f(lw)\
