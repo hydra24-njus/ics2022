@@ -31,8 +31,8 @@ static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   int32_t tmp=*src1;
   switch(width){
     case 32:*dest=*src1;return;
-    case 20:tmp=tmp<<12;tmp=tmp>>12;*dest=tmp;return;
-    case 12:tmp=tmp<<20;tmp=tmp>>20;*dest=tmp;return;
+    default:
+      tmp=tmp<<(32-width);tmp=tmp>>(32-width);*dest=tmp;return;
   }
 }
 
