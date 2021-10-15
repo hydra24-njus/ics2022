@@ -2,7 +2,7 @@
 #include "../local-include/rtl.h"
 
 #define INSTR_LIST(f) f(add) f(sub) f(slt) f(sltu) f(xor) f(or)\
-f(addi) f(sltiu) f(auipc)\
+f(addi) f(sltiu) f(auipc) f(andi)\
 f(jal) f(jalr)\
 f(lui) f(lw)\
 f(sw) f(inv)\
