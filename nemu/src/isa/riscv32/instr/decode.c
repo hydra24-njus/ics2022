@@ -62,7 +62,6 @@ static def_DHelper(B) {
   rtl_sext(s,t0,t0,12);
   rtl_add(s,t0,t0,&cpu.pc);
   decode_op_i(s,id_dest,*t0,false);
-  printf("%u\n",*id_dest->preg);
 }
 
 def_THelper(load) {
