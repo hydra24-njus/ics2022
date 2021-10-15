@@ -13,6 +13,9 @@ def_EHelper(addi){
 def_EHelper(sltiu){
   rtl_li(s,ddest, interpret_relop(RELOP_LTU, *id_src1->preg, id_src2->imm));
 }
+def_EHelper(sltu){
+  rtl_li(s,ddest, interpret_relop(RELOP_LTU, *id_src1->preg, *id_src2->preg));
+}
 def_EHelper(auipc){
   rtl_addi(s,ddest,&cpu.pc,id_src1->imm);
 }
