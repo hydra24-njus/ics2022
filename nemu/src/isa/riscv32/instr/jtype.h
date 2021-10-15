@@ -9,5 +9,5 @@ def_EHelper(jalr){
   rtl_j(s,*t0);
 }
 def_EHelper(beq){
-  rtl_jrelop(s,RELOP_EQ,id_src1->preg,id_src2->preg,*ddest);
+  rtl_jrelop(s,RELOP_EQ,id_src1->preg,id_src2->preg,*t0);
 }
