@@ -13,8 +13,11 @@ def_EHelper(add){
 def_EHelper(sub){
   rtl_sub(s,ddest,id_src1->preg,id_src2->preg);
 }
+def_EHelper(mul){
+  rtl_mulu_lo(s,ddest,id_src1->preg,id_src2->preg);
+}
 def_EHelper(rem){
-  rtl_divs_r(s,ddest,id_src1->preg,id_src2->preg);
+  rtl_divu_r(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(addi){
   rtl_addi(s,ddest,id_src1->preg,id_src2->imm);
