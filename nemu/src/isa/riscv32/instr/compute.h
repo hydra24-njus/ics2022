@@ -31,6 +31,9 @@ def_EHelper(slli){
 def_EHelper(srli){
   rtl_srli(s,ddest,id_src1->preg,id_src2->imm);
 }
+def_EHelper(srai){
+  rtl_srai(s,ddest,id_src1->preg,id_src2->imm);
+}
 def_EHelper(xori){
   rtl_xori(s,ddest,id_src1->preg,id_src2->imm);
 }
