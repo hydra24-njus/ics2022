@@ -56,6 +56,9 @@ def_EHelper(sll){
   rtl_zext(s,t0,id_src2->preg,5);
   rtl_sll(s,ddest,id_src1->preg,id_src2->preg);
 }
+def_EHelper(srl){
+  rtl_srl(s,ddest,id_src1->preg,id_src2->preg);
+}
 def_EHelper(sra){
   rtl_sra(s,ddest,id_src1->preg,id_src2->preg);
 }
