@@ -4,7 +4,7 @@
 #include <stdarg.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
-
+//参考了stdio库函数
 int printf(const char *fmt, ...) {
   panic("Not implemented");
 }
@@ -12,7 +12,7 @@ int printf(const char *fmt, ...) {
 int vsprintf(char *out, const char *fmt, va_list ap) {
   panic("Not implemented");
 }
-//参考了stdio库函数
+
 int sprintf(char *out, const char *fmt, ...) {
   va_list args;
 	int val;
