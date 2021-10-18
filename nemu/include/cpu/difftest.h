@@ -25,10 +25,15 @@ extern void (*ref_difftest_regcpy)(void *dut, bool direction);
 extern void (*ref_difftest_exec)(uint64_t n);
 extern void (*ref_difftest_raise_intr)(uint64_t NO);
 
-static inline bool difftest_check_reg(const char *name, vaddr_t pc, rtlreg_t ref, rtlreg_t dut) {
+static inline bool difftest_check_reg(const char *name, vaddr_t ref_pc,vaddr_t dut_pc, rtlreg_t ref, rtlreg_t dut) {
   if (ref != dut) {
     Log("%s is different after executing instruction at pc = " FMT_WORD
-        ", right = " FMT_WORD ", wrong = " FMT_WORD, name, pc, ref, dut);
+        ", right = " FMT_WORD ", wrong = " FMT_WORD, name, ref_pc, ref, dut);
+    return false;
+  }
+  if (ref_pc != dut_pc) {
+    Log("PC is different after executing instruction at pc = " FMT_WORD
+        ", wrong = " FMT_WORD, ref_pc, dut_pc);
     return false;
   }
   return true;
