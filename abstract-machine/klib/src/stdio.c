@@ -7,7 +7,6 @@
 //参考了stdio库函数
 
 
-//vsprintf需要的结构体，包括一个指针和str长度。
 
 int printf(const char *fmt, ...) {
   panic("Not implemented");
