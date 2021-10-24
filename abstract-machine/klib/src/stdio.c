@@ -18,8 +18,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 //发送指定内容到out所指的字符串
 int sprintf(char *out, const char *fmt, ...) {
-  va_list args;
-	int val;
+    va_list args;
+	int val=0;
 	//这里对参数进行解构，将输出存入out在sprintf中完成。
 	va_start(args, fmt);
 	val = vsprintf(out, fmt, args);//to be completed
