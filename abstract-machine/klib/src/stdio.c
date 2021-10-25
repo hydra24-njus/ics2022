@@ -26,11 +26,11 @@ static void putchw(void *putp, void putf(void*,char), struct param *p) {
 	while((ch = *bf++)) 
 		putf(putp, ch);
 }
-/*static void printf_putcf(void *p, char c) {  
+static void printf_putcf(void *p, char c) {  
 	putch(c);
-}*/
-//对输入字符串的处理
+}
 
+//对输入字符串的处理
 static void ui2a(unsigned int num, struct param *p) {
 	int n = 0;
 	unsigned int d = 1;
@@ -101,7 +101,11 @@ void my_format(void *putp, void putf(void*,char), const char *fmt, va_list va){
 
 
 int printf(const char *fmt, ...) {
-  panic("Not implemented");
+  	va_list ap;
+	va_start(ap, fmt);
+	my_format(NULL, printf_putcf, fmt, ap);
+	va_end(ap);
+	return 0;
 }
 
 //使用参数列表fmt发送格式化输出到out
