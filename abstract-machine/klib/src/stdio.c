@@ -86,20 +86,6 @@ void my_format(void *putp, void putf(void*,char), const char *fmt, va_list va){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 int printf(const char *fmt, ...) {
   	va_list ap;
 	va_start(ap, fmt);
