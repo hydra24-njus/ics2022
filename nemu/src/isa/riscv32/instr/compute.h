@@ -31,6 +31,9 @@ def_EHelper(divu){
 def_EHelper(rem){
   rtl_divs_r(s,ddest,id_src1->preg,id_src2->preg);
 }
+def_EHelper(remu){
+  rtl_divu_r(s,ddest,id_src1->preg,id_src2->preg);
+}
 def_EHelper(addi){
   rtl_addi(s,ddest,id_src1->preg,id_src2->imm);
 }
