@@ -20,7 +20,7 @@ def_EHelper(mul){
   rtl_mulu_lo(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(mulh){
-  rtl_muls_hi(s,ddest,id_src1->preg,id_src2->preg);
+  rtl_mulu_lo(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(mulhu){
   rtl_mulu_hi(s,ddest,id_src1->preg,id_src2->preg);
