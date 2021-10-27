@@ -26,7 +26,6 @@ char*iringbuf[10];int cnt;
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) log_write("%s\n", _this->logbuf);
-  printf("%d",cnt);
   iringbuf[cnt]=_this->logbuf;if(++cnt==10)cnt=0;
 #endif
 #ifdef CONFIG_WATCHPOINT
@@ -127,7 +126,7 @@ void cpu_exec(uint64_t n) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
     case NEMU_STOP:printf("watchpoint has been updated\n");return;
     case NEMU_END: case NEMU_ABORT:
-    for(int i=0;i<10;i++)printf("%s\n",iringbuf[i]);
+    for(int i=0;i<10;i++)printf("%d %s\n",i,iringbuf[i]);
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ASNI_FMT("ABORT", ASNI_FG_RED) :
            (nemu_state.halt_ret == 0 ? ASNI_FMT("HIT GOOD TRAP", ASNI_FG_GREEN) :
