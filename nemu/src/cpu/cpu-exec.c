@@ -22,10 +22,9 @@ void device_update();
 void fetch_decode(Decode *s, vaddr_t pc);
 
 #ifdef CONFIG_TRACE
-static char* iringbuf[20];//int i=0;
+static char* iringbuf[20];int i;
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
-for(int i=0;i<20;i++)iringbuf[i]="%i";
-//if(i==20)i=0;
+if(i++==20)i=0;
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) log_write("%s\n", _this->logbuf);
 #endif
@@ -36,7 +35,7 @@ for(int i=0;i<20;i++)iringbuf[i]="%i";
 #endif
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
-  //iringbuf[i++]=_this->logbuf;
+  iringbuf[i++]=_this->logbuf;
 }
 #endif
 
