@@ -129,8 +129,13 @@ void cpu_exec(uint64_t n) {
     case NEMU_STOP:printf("watchpoint has been updated\n");return;
     case NEMU_END: case NEMU_ABORT:
 #ifdef CONFIG_ITRACE
-    if(nemu_state.state==NEMU_ABORT)
-      for(int i=0;i<20;i++)printf("%-3d %s\n",i,iringbuf[i]);
+    if(nemu_state.state==NEMU_ABORT){
+      for(int i=0;i<20;i++){
+        if(i==cnt)printf("-->");
+        else printf("   ");
+        printf("%s\n",iringbuf[i]);
+      }
+    }
 #endif
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ASNI_FMT("ABORT", ASNI_FG_RED) :
