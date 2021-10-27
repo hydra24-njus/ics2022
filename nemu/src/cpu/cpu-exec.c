@@ -22,7 +22,9 @@ void device_update();
 void fetch_decode(Decode *s, vaddr_t pc);
 
 #ifdef CONFIG_TRACE
+static char* iringbuf[20];static int i=0;
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
+iringbuf[i%20]=_this->logbuf;
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) log_write("%s\n", _this->logbuf);
 #endif
@@ -123,6 +125,7 @@ void cpu_exec(uint64_t n) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
     case NEMU_STOP:printf("watchpoint has been updated\n");return;
     case NEMU_END: case NEMU_ABORT:
+      for(int ii=0;ii<20;i++)printf("%s\n",iringbuf[i]);
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ASNI_FMT("ABORT", ASNI_FG_RED) :
            (nemu_state.halt_ret == 0 ? ASNI_FMT("HIT GOOD TRAP", ASNI_FG_GREEN) :
