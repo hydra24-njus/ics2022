@@ -26,7 +26,7 @@ static char* iringbuf[20];int i;
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) log_write("%s\n", _this->logbuf);
-  iringbuf[i++]=_this->logbuf;
+  printf("%s\n",_this->logbuf);
   if(i==20)i=0;
 #endif
 #ifdef CONFIG_WATCHPOINT
