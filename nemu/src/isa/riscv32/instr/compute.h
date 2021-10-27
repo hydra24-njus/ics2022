@@ -58,6 +58,9 @@ def_EHelper(ori){
 def_EHelper(xori){
   rtl_xori(s,ddest,id_src1->preg,id_src2->imm);
 }
+def_EHelper(slti){
+  rtl_li(s,ddest, interpret_relop(RELOP_LT, *id_src1->preg, id_src2->imm));
+}
 def_EHelper(sltiu){
   rtl_li(s,ddest, interpret_relop(RELOP_LTU, *id_src1->preg, id_src2->imm));
 }
