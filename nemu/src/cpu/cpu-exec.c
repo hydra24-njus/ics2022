@@ -109,7 +109,7 @@ void cpu_exec(uint64_t n) {
     trace_and_difftest(&s, cpu.pc);
     #endif
     if (nemu_state.state != NEMU_RUNNING) break;
-    if(n%10==0){
+    if(n%100==0){
     IFDEF(CONFIG_DEVICE, device_update());
     }
   }
