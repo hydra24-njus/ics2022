@@ -22,6 +22,9 @@ def_EHelper(mul){
 def_EHelper(mulh){
   rtl_muls_hi(s,ddest,id_src1->preg,id_src2->preg);
 }
+def_EHelper(mulhu){
+  rtl_mulu_hi(s,ddest,id_src1->preg,id_src2->preg);
+}
 def_EHelper(div){
   rtl_divs_q(s,ddest,id_src1->preg,id_src2->preg);
 }
@@ -48,6 +51,9 @@ def_EHelper(srli){
 }
 def_EHelper(srai){
   rtl_srai(s,ddest,id_src1->preg,id_src2->imm);
+}
+def_EHelper(ori){
+  rtl_ori(s,ddest,id_src1->preg,id_src2->imm);
 }
 def_EHelper(xori){
   rtl_xori(s,ddest,id_src1->preg,id_src2->imm);
