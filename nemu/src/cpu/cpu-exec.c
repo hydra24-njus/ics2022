@@ -131,8 +131,8 @@ void cpu_exec(uint64_t n) {
 #ifdef CONFIG_ITRACE
     if(nemu_state.state==NEMU_ABORT){
       for(int i=0;i<20;i++){
-        if(i==cnt)printf("-->");
-        else printf("   ");
+        if(i==cnt-1)printf("--> ");
+        else printf("    ");
         printf("%s\n",iringbuf[i]);
       }
     }
