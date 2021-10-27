@@ -17,15 +17,17 @@ void init_alarm();
 
 void send_key(uint8_t, bool);
 void vga_update_screen();
-
+static int cnt=0;
 void device_update() {
+  while(cnt++>1000){
   static uint64_t last = 0;
   uint64_t now = get_time();
   if (now - last < 1000000 / TIMER_HZ) {
     return;
   }
   last = now;
-
+  cnt=0;
+  }
   IFDEF(CONFIG_HAS_VGA, vga_update_screen());
 
 #ifndef CONFIG_TARGET_AM
