@@ -22,10 +22,12 @@ void device_update();
 void fetch_decode(Decode *s, vaddr_t pc);
 
 #ifdef CONFIG_TRACE
+char *iringbuf;
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) log_write("%s\n", _this->logbuf);
-  printf("%s\n",_this->logbuf);
+  strcpy(iringbuf,_this->logbuf);
+  printf("%s\n",iringbuf);
   
 #endif
 #ifdef CONFIG_WATCHPOINT
