@@ -7,9 +7,9 @@
 //参考了stdio库函数
 struct param {
 	char uc:1;
-	char sign;			/* '-' 				 */
-	unsigned int base;	/* number base, e.g 8, 10, 16*/
-	char *bf;			/* buffer for output */
+	char sign;
+	unsigned int base;
+	char *bf;
 };
 //用于实现vsprintf和printf的相同操作的解耦
 struct _vsprintf_putcf_data {
@@ -20,14 +20,13 @@ static void vsprintf_putcf(void *p,char ch){
 	struct _vsprintf_putcf_data *data = (struct _vsprintf_putcf_data *)p;
 	data->dest[data->num_chars ++] = ch;
 }
+static void printf_putcf(void *p, char c) {  
+	putch(c);
+}
 static void putchw(void *putp, void putf(void*,char), struct param *p) {
 	char ch;
 	char *bf = p->bf;
-	while((ch = *bf++)) 
-		putf(putp, ch);
-}
-static void printf_putcf(void *p, char c) {  
-	putch(c);
+	while((ch = *bf++)) putf(putp, ch);
 }
 
 //对输入字符串的处理
