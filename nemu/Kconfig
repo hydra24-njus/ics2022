@@ -123,6 +123,11 @@ menu "Testing and Debugging"
 config TRACE
   bool "Enable tracer"
   default y
+  
+config WATCHPOINT
+  depends on TRACE
+  bool "CONFIG_WATCHPOINT"
+  default y
 
 config TRACE_START
   depends on TRACE
@@ -209,7 +214,3 @@ config RT_CHECK
 
   
 endmenu
-
-config WATCHPOINT
-  bool "CONFIG_WATCHPOINT"
-  default y
