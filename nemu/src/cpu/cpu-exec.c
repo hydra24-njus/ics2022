@@ -27,6 +27,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) log_write("%s\n", _this->logbuf);
   iringbuf[cnt]=_this->logbuf;if(++cnt==10)cnt=0;
+  printf("%d %s %s\n",cnt,_this->logbuf,iringbuf[cnt]);
 #endif
 #ifdef CONFIG_WATCHPOINT
   if(check_wp()==false){
