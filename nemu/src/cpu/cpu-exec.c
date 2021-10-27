@@ -24,7 +24,7 @@ void fetch_decode(Decode *s, vaddr_t pc);
 #ifdef CONFIG_TRACE
 static char* iringbuf[20];//int i=0;
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
-
+memset(iringbuf,0,sizeof(iringbuf));
 //if(i==20)i=0;
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) log_write("%s\n", _this->logbuf);
