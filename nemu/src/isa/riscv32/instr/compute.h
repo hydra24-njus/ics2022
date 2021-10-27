@@ -8,7 +8,7 @@ def_EHelper(and){
   rtl_and(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(or){
-  rtl_or(s,ddest,id_src1->preg,id_src2->preg);
+  rtl_xor(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(add){
   rtl_add(s,ddest,id_src1->preg,id_src2->preg);
