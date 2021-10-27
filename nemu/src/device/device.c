@@ -17,9 +17,7 @@ void init_alarm();
 
 void send_key(uint8_t, bool);
 void vga_update_screen();
-static int cnt=0;
 void device_update() {
-  while(cnt++<1000)return ;
   static uint64_t last = 0;
   uint64_t now = get_time();
   if (now - last < 1000000 / TIMER_HZ) {
