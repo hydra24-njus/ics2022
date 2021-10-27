@@ -24,7 +24,7 @@ void fetch_decode(Decode *s, vaddr_t pc);
 #ifdef CONFIG_TRACE
 static char* iringbuf[20];int i=0;
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
-iringbuf[i++]=_this->logbuf;
+
 if(i==20)i=0;
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) log_write("%s\n", _this->logbuf);
@@ -36,6 +36,7 @@ if(i==20)i=0;
 #endif
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
+  iringbuf[i++]=_this->logbuf;
 }
 #endif
 
