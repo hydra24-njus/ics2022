@@ -20,11 +20,10 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t *fb=(uint32_t*)FB_ADDR;
-  int x=ctl->x,y=ctl->y,w=ctl->w,h=ctl->h;
   uint32_t *pixel=ctl->pixels;
-  for(int i=0;i<h;i++){
-    for(int j=0;j<w;j++){
-      fb[(y+i)*W+x+j]=pixel[w*i+j];
+  for(int i=0;i<ctl->h;i++){
+    for(int j=0;j<ctl->w;j++){
+      fb[(ctl->y+i)*W+ctl->x+j]=pixel[ctl->w*i+j];
     }
   }
   if (ctl->sync) {
