@@ -22,13 +22,16 @@ void device_update();
 void fetch_decode(Decode *s, vaddr_t pc);
 
 #ifdef CONFIG_TRACE
+
+#ifdef CONFIG_ITRACE_COND
 char iringbuf[20][128];int cnt;
+#endif
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
-  if (ITRACE_COND) log_write("%s\n", _this->logbuf);
+  //if (ITRACE_COND) log_write("%s\n", _this->logbuf);
   strcpy(iringbuf[cnt++],_this->logbuf);
+  if (ITRACE_COND)log_write("%s\n", iringbuf[cnt]);
   if(cnt==20)cnt=0;
-  
 #endif
 #ifdef CONFIG_WATCHPOINT
   if(check_wp()==false){
