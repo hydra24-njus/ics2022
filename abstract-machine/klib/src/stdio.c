@@ -35,13 +35,12 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				*tmp++ = '-';
 				n = -n;
 			}
-			int _n = 0;
+			int _n = n%10;n/=10;
 			while (n != 0){
+				_n*=10;
 				_n += n % 10;
-				_n *= 10;
 				n /= 10;
 			}
-			_n/=10;
 			while (_n != 0){
 				*tmp++ = '0' + _n % 10;
 				_n /= 10;
