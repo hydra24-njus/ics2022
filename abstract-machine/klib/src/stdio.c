@@ -7,7 +7,7 @@
 
 //使用参数列表fmt发送格式化输出到out
 int vsprintf(char *out, const char *fmt, va_list ap) {
-	char* tmp=out;const char *t;int len;
+	char*tmp=out;
 	for(;*fmt;fmt++){
 		if(*fmt!='%'){
 			*tmp++=*fmt;
@@ -18,8 +18,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 			switch(*fmt){
 				case 's':{
 					tmp++;
-					t=va_arg(ap,char*);
-        			len=strlen(t);
+					char *t=va_arg(ap,char*);
+        			int len=strlen(t);
         			for(int i=0;i<len;i++){
           				*tmp++=*t++;
         			}
