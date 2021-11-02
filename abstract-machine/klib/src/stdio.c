@@ -44,7 +44,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 			}
 			char num[15];
 			int x=i2a(n,10,num);
-			while(x-->=0){
+			while(x-->0){
 				*tmp++=num[x];
 			}
 			break;
