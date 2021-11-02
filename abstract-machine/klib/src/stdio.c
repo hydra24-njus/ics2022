@@ -13,7 +13,6 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 			*tmp++=*fmt;
 			continue;
 		}
-		else{
 			fmt++;
 			switch(*fmt){
 				case 's':{
@@ -25,7 +24,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         			}
         			break;
 				}
-				case 'd':{
+				/*case 'd':{
 					int n=va_arg(ap,int);
 					if(n==0){
 						*tmp++='0';
@@ -45,10 +44,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 						_n/=10;
 					}
 					break;
-				}
+				}*/
 				default:break;
 			}
-		}
 	}
 	*tmp='\0';
 	return 0;
