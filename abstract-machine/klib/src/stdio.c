@@ -33,14 +33,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 						*tmp++='-';cnt++;
 						n=-n;
 					}
-					char *num='\0';int i=0;
 					while(n!=0){
-						*num++='0'+n%10;i++;
+						*tmp++='0'+n%10;
 						n/=10;
-					}
-					cnt+=i;
-					for(;i>0;i--){
-						*tmp++=*num--;
 					}
 					break;
 				}
