@@ -106,8 +106,8 @@ int printf(const char *fmt, ...) {
 	len=vsprintf(out,fmt,ap);
 	va_end(ap);
 	int i=0;
-	while(out[i++]!='\0'){
-		putch(out[i]);
+	while(out[i]!='\0'){
+		putch(out[i++]);
 	}
 	return len;
 }
