@@ -18,6 +18,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 			fmt++;
 			switch(*fmt){
 				case 's':{
+					tmp--;
 					t=va_arg(ap,char*);
         			len=strlen(t);
         			for(int i=0;i<len;i++){
