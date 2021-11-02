@@ -4,7 +4,14 @@
 #include <stdarg.h>
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-
+int i2a(int n,int base,char tmp2[15]){
+	int x=0;
+	while(n!=0){
+		tmp2[x++]=n%10+'0';
+		n/=10;
+	}
+	return x;
+}
 //使用参数列表fmt发送格式化输出到out
 int vsprintf(char *out, const char *fmt, va_list ap) {
 	int len;
@@ -35,15 +42,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				*tmp++ = '-';
 				n = -n;
 			}
-			int _n = n%10;n/=10;
-			while (n != 0){
-				_n*=10;
-				_n += n % 10;
-				n /= 10;
-			}
-			while (_n != 0){
-				*tmp++ = '0' + _n % 10;
-				_n /= 10;
+			char num[15];
+			int x=i2a(n,10,num);
+			while(x-->=0){
+				*tmp++=num[x];
 			}
 			break;
 		}
