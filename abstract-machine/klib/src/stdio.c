@@ -15,7 +15,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 			continue;
 		}
 		else{
-			fmt++;
+			//fmt++;
 			switch(*fmt){
 				case 's':{
 					t=va_arg(ap,char*);
