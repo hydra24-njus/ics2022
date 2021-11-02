@@ -41,7 +41,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				_n *= 10;
 				n /= 10;
 			}
-			//_n/=10;
+			_n/=10;
 			while (_n != 0){
 				*tmp++ = '0' + _n % 10;
 				_n /= 10;
