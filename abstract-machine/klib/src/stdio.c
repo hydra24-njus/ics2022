@@ -7,47 +7,50 @@
 
 //使用参数列表fmt发送格式化输出到out
 int vsprintf(char *out, const char *fmt, va_list ap) {
-	int len;const char* t;char*tmp=out;
-	for(;*fmt;fmt++){
-		if(*fmt!='%'){
-			*tmp++=*fmt;
+	int len;
+	const char *t;
+	char *tmp = out;
+	for (; *fmt; fmt++){
+		if (*fmt != '%'){
+			*tmp++ = *fmt;
 			continue;
 		}
-			fmt++;
-			switch(*fmt){
-				case 's':{
-					t=va_arg(ap,char*);
-        			len=strlen(t);
-        			for(int i=0;i<len;i++){
-          				*tmp++=*t++;
-        			}
-        			break;
-				}
-				case 'd':{
-					int n=va_arg(ap,int);
-					if(n==0){
-						*tmp++='0';
-						break;
-					}
-					else if(n<0){
-						*tmp++='-';
-						n=-n;
-					}
-					int _n=0;
-					while(n!=0){
-						_n+=n%10;
-						_n*=10;n/=10;
-					}
-					while(_n!=0){
-						*tmp++='0'+_n%10;
-						_n/=10;
-					}
-					break;
-				}
-				default:break;
+		fmt++;
+		switch (*fmt){
+		case 's':{
+			t = va_arg(ap, char *);
+			len = strlen(t);
+			for (int i = 0; i < len; i++){
+				*tmp++ = *t++;
 			}
+			break;
+		}
+		case 'd':{
+			int n = va_arg(ap, int);
+			if (n == 0){
+				*tmp++ = '0';
+				break;
+			}
+			else if (n < 0){
+				*tmp++ = '-';
+				n = -n;
+			}
+			int _n = 0;
+			while (n != 0){
+				_n += n % 10;
+				_n *= 10;
+				n /= 10;
+			}
+			while (_n != 0){
+				*tmp++ = '0' + _n % 10;
+				_n /= 10;
+			}
+			break;
+		}
+		default:break;
+		}
 	}
-	*tmp='\0';
+	*tmp = '\0';
 	return 0;
 }
 //利用sprintf返回的out字符串进行输出
