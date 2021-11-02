@@ -7,11 +7,10 @@
 
 //使用参数列表fmt发送格式化输出到out
 int vsprintf(char *out, const char *fmt, va_list ap) {
-	int cnt=0;
 	char* tmp=out;const char *t;int len;
 	for(;*fmt;fmt++){
 		if(*fmt!='%'){
-			*tmp++=*fmt;cnt++;
+			*tmp++=*fmt;
 			continue;
 		}
 		else{
@@ -29,11 +28,11 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				case 'd':{
 					int n=va_arg(ap,int);
 					if(n==0){
-						*tmp++='0';cnt++;
+						*tmp++='0';
 						break;
 					}
 					else if(n<0){
-						*tmp++='-';cnt++;
+						*tmp++='-';
 						n=-n;
 					}
 					int _n=0;
@@ -43,7 +42,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 					}
 					while(_n!=0){
 						*tmp++='0'+_n%10;
-						_n/=10;cnt++;
+						_n/=10;
 					}
 					break;
 				}
@@ -52,7 +51,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 		}
 	}
 	*tmp='\0';
-	return cnt;
+	return 0;
 }
 //利用sprintf返回的out字符串进行输出
 int printf(const char *fmt, ...) {
