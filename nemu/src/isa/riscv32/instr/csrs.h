@@ -20,7 +20,8 @@ def_EHelper(csrrs){
   }
 }
 def_EHelper(ecall){
-  
+  cpu.mepc=cpu.pc;
+  cpu.mcause=11;
   *t0=cpu.mtvec;
   rtl_jr(s,t0);
 }
