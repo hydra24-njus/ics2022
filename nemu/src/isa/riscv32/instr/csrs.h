@@ -20,5 +20,7 @@ def_EHelper(csrrs){
   }
 }
 def_EHelper(ecall){
-
+  
+  *t0=cpu.mtvec;
+  rtl_jr(s,t0);
 }
