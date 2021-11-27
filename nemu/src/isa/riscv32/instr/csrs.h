@@ -1,3 +1,4 @@
+#include "cpu/exec.h"
 def_EHelper(csrrw){
   
 }
