@@ -21,7 +21,7 @@ def_EHelper(csrrs){
 }
 def_EHelper(ecall){
   s->isa.mepc=cpu.pc;
-  s->isa.mcause=11;
+  s->isa.mcause=gpr(17);
   *t0=s->isa.mtvec;
   rtl_jr(s,t0);
 }
