@@ -20,10 +20,8 @@ def_EHelper(csrrs){
   }
 }
 def_EHelper(ecall){
-  if((id_src2->imm & ~(0x7f))==0){
   s->isa.mepc=cpu.pc;
-  s->isa.mcause=gpr(17);
+  s->isa.mcause=11;
   *t0=s->isa.mtvec;
   rtl_jr(s,t0);
-  }
 }
