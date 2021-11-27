@@ -2,3 +2,4 @@
 #include "../instr/ldst.h"
 #include "../instr/special.h"
 #include "../instr/jtype.h"
+#include "../instr/csrs.h"
