@@ -8,9 +8,9 @@
 //使用参数列表fmt发送格式化输出到out
 struct param {
 	char uc:1;
-	char sign;			/* '-' 				 */
-	unsigned int base;	/* number base, e.g 8, 10, 16*/
-	char *bf;			/* buffer for output */
+	char sign;
+	unsigned int base;
+	char *bf;
 };
 typedef void (*putcf) (void *, char);
 
@@ -54,7 +54,6 @@ static void ui2a(unsigned int num, struct param *p) {
 	*bf = 0;
 }
 static void i2a (int num, struct param *p) {
-	//printf("num = %d\n", num);
 	if (num < 0) {
 		num = -num;
 		p->sign = '-';
@@ -65,7 +64,7 @@ static void i2a (int num, struct param *p) {
 
 void my_format(void *putp, putcf putf, const char *fmt, va_list va) {
 	struct param p;
-	char bf[12];	/* int = 32b */
+	char bf[12];
 	char ch;
 	p.bf = bf;
 
@@ -90,7 +89,7 @@ void my_format(void *putp, putcf putf, const char *fmt, va_list va) {
 				case 's':
 					p.bf = va_arg(va, char *);
 					putchw(putp, putf, &p);
-				    p.bf = bf; //???
+				    p.bf = bf;
 					break;
 				default : break;
 			}
@@ -125,11 +124,6 @@ int printf(const char *fmt, ...) {
 	va_start(ap, fmt);
 	my_format(NULL, _printf_putc, fmt, ap);
 	va_end(ap);
-
-	/*
-		0x3F8 
-		printf -> _putc(ch) -> putchar(0x3F8, ch) -> outb(addr, ch) -> *addr = ch
-	 */
 	return 0;
 }
 
