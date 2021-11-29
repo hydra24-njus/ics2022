@@ -13,16 +13,18 @@ extern size_t ramdisk_write(const void*, size_t, size_t);
 extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  Elf_Ehdr Ehdr;Elf_Phdr ph;
-  ramdisk_read(&Ehdr, 0, sizeof(Ehdr));
-    for (int i = 0; i < Ehdr.e_phnum; i++) {
-    ramdisk_read(&ph, Ehdr.e_phoff + i * sizeof(Elf_Phdr), sizeof(Elf_Phdr));
+  Elf_Ehdr eh;
+  Elf_Phdr ph;
+  ramdisk_read(&eh, 0, sizeof(Elf_Ehdr));
+
+  for (int i = 0; i < eh.e_phnum; i++) {
+    ramdisk_read(&ph, eh.e_phoff + i * sizeof(Elf_Phdr), sizeof(Elf_Phdr));
     if (ph.p_type == 1) {
       ramdisk_read((void *)ph.p_vaddr, ph.p_offset, ph.p_filesz);
       memset((void *)ph.p_vaddr + ph.p_filesz, 0, ph.p_memsz - ph.p_filesz);
     }
   }
-  return Ehdr.e_entry;
+  return eh.e_entry;
   //return 0;
 }
 
