@@ -24,6 +24,5 @@ def_EHelper(ecall){
   rtl_jr(s,t0);
 }
 def_EHelper(mret){
-  rtl_jr(s,&cpu.mepc+4);
-  s->dnpc=cpu.mepc;
+  s->dnpc=cpu.mepc+4;
 }
