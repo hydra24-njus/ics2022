@@ -17,7 +17,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr *elf_ehdr = NULL;
   void *base = &ramdisk_start;
   elf_ehdr = (Elf_Ehdr*)base;
-
+  printf("%d\n",elf_ehdr->e_entry);
   return elf_ehdr->e_entry;
 }
 
