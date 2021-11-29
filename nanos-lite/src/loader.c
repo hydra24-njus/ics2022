@@ -14,17 +14,14 @@ extern size_t ramdisk_write(const void*, size_t, size_t);
 extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-
   Elf_Ehdr eh;
-  //Elf_Phdr ph;
-  ramdisk_read(&eh, 0, sizeof(eh));
+  ramdisk_read(&eh, ramdisk_start, sizeof(eh));
   printf("%x\n",&eh.e_entry);
-  //return eh.e_entry;
-  return 0;
+  return eh.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
-  uintptr_t entry = 0x800003dc;loader(pcb, filename);
+  uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
 }
