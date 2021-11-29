@@ -17,8 +17,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   Elf_Ehdr eh;
   //Elf_Phdr ph;
-  printf("%d\n",ramdisk_start);
-  ramdisk_read(&eh, ramdisk_start, sizeof(eh));
+  ramdisk_read(&eh, 0, sizeof(eh));
   printf("%x\n",&eh.e_entry);
   //return eh.e_entry;
   return 0;
