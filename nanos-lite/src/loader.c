@@ -14,7 +14,7 @@ extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   Elf_Ehdr Ehdr;
-  ramdisk_read(&Ehdr, 0, sizeof(Ehdr));
+  ramdisk_read(&Ehdr, 0, get_ramdisk_size());
   return Ehdr.e_entry;
   //return 0;
 }
@@ -24,3 +24,6 @@ void naive_uload(PCB *pcb, const char *filename) {
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
 }
+/*
+001011011010 00011 111 00001 0100000
+*/
