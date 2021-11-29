@@ -15,7 +15,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   Elf_Ehdr Ehdr;
   ramdisk_read(&Ehdr, 0, sizeof(Ehdr));
-  return 0x83000000;
+  return Ehdr.e_entry;
   //return 0;
 }
 
