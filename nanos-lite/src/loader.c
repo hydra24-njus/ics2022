@@ -14,7 +14,7 @@ extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   Elf_Ehdr Ehdr;
-  ramdisk_read(&Ehdr, 0, sizeof(Ehdr));
+  ramdisk_read(&Ehdr, 0, get_ramdisk_size());
   for(int i = 0; i < Ehdr.e_phnum;i++){
       Elf_Phdr Phdr;
       ramdisk_read(&Phdr, Ehdr.e_phoff + i*Ehdr.e_phentsize, sizeof(Phdr));
