@@ -23,3 +23,6 @@ def_EHelper(ecall){
   *t0=isa_raise_intr(11,cpu.pc);
   rtl_jr(s,t0);
 }
+def_EHelper(mret){
+  cpu.pc=cpu.mepc;
+}
