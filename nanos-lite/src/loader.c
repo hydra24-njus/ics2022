@@ -17,10 +17,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   Elf_Ehdr eh;
   //Elf_Phdr ph;
-  ramdisk_read(&eh, 0, sizeof(Elf_Ehdr));
-  printf("%d\t%x\n",get_ramdisk_size(),&eh.e_entry);
-  return eh.e_entry;
-  //return 0;
+  ramdisk_read((void *)&eh, 0, sizeof(eh));
+  printf("%x\n",&eh.e_entry);
+  //return eh.e_entry;
+  return 0;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
@@ -29,5 +29,5 @@ void naive_uload(PCB *pcb, const char *filename) {
   ((void(*)())entry) ();
 }
 /*
-001011011010 00011 111 00001 0100000
+0 0001001
 */
