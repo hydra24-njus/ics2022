@@ -19,12 +19,15 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   for(int i = 0; i < Ehdr.e_phnum;i++){
       Elf_Phdr Phdr;
       ramdisk_read(&Phdr, Ehdr.e_phoff + i*Ehdr.e_phentsize, sizeof(Phdr));
+      if(!(Phdr.p_type & PT_LOAD)){
+          continue;
+      }
       for(unsigned int i = Phdr.p_filesz; i < Phdr.p_memsz;i++){
           ((char*)Phdr.p_vaddr)[i] = 0;
       }
       ramdisk_read((void*)Phdr.p_vaddr, Phdr.p_offset, Phdr.p_filesz);
   }
-  printf("%x\n",Ehdr.e_entry);
+  
   return Ehdr.e_entry;
 }
 
