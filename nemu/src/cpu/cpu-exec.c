@@ -114,12 +114,11 @@ void cpu_exec(uint64_t n) {
   Decode s;
   cpu.mstatus=0x1800;
   for (;n > 0; n --) {
+    fetch_decode_exec_updatepc(&s);
+    g_nr_guest_instr ++;
     #ifdef CONFIG_TRACE
     trace_and_difftest(&s, cpu.pc);
     #endif
-    fetch_decode_exec_updatepc(&s);
-    g_nr_guest_instr ++;
-
     if (nemu_state.state != NEMU_RUNNING) break;
     if(n%1000==0){
     IFDEF(CONFIG_DEVICE, device_update());
