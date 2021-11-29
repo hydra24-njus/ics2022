@@ -14,6 +14,7 @@ extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   Elf_Ehdr Ehdr;
+  printf("%d\n",get_ramdisk_size());
   ramdisk_read(&Ehdr, 0, get_ramdisk_size());
   return Ehdr.e_entry;
   //return 0;
