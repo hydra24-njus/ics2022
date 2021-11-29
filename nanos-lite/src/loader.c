@@ -14,10 +14,8 @@ extern size_t ramdisk_write(const void*, size_t, size_t);
 extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  //ramdisk_read(elf,0,sizeof(Elf_Ehdr));
-  volatile int entry=-1;
-  printf("%d\n",entry);
-  return entry;
+
+  return 0;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
