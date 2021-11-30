@@ -16,7 +16,7 @@ def_EHelper(csrrs){
   }
 }
 def_EHelper(ecall){
-  *t0=isa_raise_intr(11,cpu.pc);
+  *t0=isa_raise_intr(gpr(17),cpu.pc);
   s->dnpc=*t0;
 }
 def_EHelper(mret){
