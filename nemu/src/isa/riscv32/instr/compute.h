@@ -16,7 +16,8 @@ def_EHelper(add){
   //rtl_add(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(sub){
-  rtl_sub(s,ddest,id_src1->preg,id_src2->preg);
+  *ddest=*id_src1->preg-*id_src2->preg;
+  //rtl_sub(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(mul){
   rtl_mulu_lo(s,ddest,id_src1->preg,id_src2->preg);
