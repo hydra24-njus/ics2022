@@ -88,8 +88,8 @@ void my_format(void *putp, putcf putf, const char *fmt, va_list va) {
 					break;
 				case'p' :
 					p.base = 16;
-					p.uc = 1;
-					i2a(va_arg(va, int), &p);
+					p.uc = 0;
+					ui2a(va_arg(va, int), &p);
 					putchw(putp, putf, &p);
 					break;
 				case 's':
