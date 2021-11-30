@@ -12,10 +12,11 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
     if(!difftest_check_reg(regs[i],ref_r->pc,ref_r->gpr[i]._32,gpr(i)))return false;
   }
   if (ref_r->pc != cpu.pc){
+    printf("%p,%p,%p,%p\n",&ref_r->mepc,&ref_r->mcause,&ref_r->mstatus,&ref_r->mtvec);
+    printf("%p,%p,%p,%p\n",&cpu.mepc,&cpu.mcause,&cpu.mstatus,&cpu.mtvec);
     Log("PC is different after executing instruction, right = " FMT_WORD ", wrong = " FMT_WORD, ref_r->pc, cpu.pc);
     return false;
   }
-  if(ref_r->mepc!=cpu.mepc){printf("%x %x\n",ref_r->mepc,cpu.mepc);return false;}
   return true;
 }
 
