@@ -1,6 +1,7 @@
 #include <common.h>
 extern void do_syscall(Context*);
 static Context* do_event(Event e, Context* c) {
+  e.event=c->GPR1;
   switch (e.event) {
     case EVENT_YIELD:printf("yield!\n");break;
     case EVENT_SYSCALL:printf("syscall!\n");do_syscall(c);break;
