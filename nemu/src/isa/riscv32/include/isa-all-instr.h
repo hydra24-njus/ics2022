@@ -6,7 +6,7 @@ f(addi) f(sltiu) f(auipc) f(andi) f(slli) f(slti) f(srli) f(srai) f(ori) f(xori)
 f(jal) f(jalr)\
 f(lui) f(lw) f(lh) f(lhu) f(lb) f(lbu)\
 f(sw) f(sh) f(sb)\
-f(csrrw) f(csrrs) f(ecall) f(mret) \
+f(csrrw) f(csrrs) f(ecall) \
 f(inv)\
 f(beq) f(bne) f(bge) f(bgeu) f(blt) f(bltu)\
 f(nemu_trap)
