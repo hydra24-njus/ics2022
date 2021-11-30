@@ -10,7 +10,7 @@ def_EHelper(jalr){
   t=id_src2->simm<<20;
   t=t>>20;
   t=(t+*id_src1->preg)&~1;
-  rtl_j(s,t);
+  s->dnpc=t;
 }
 def_EHelper(beq){
   rtl_jrelop(s,RELOP_EQ,id_src1->preg,id_src2->preg,id_dest->imm);
