@@ -10,13 +10,7 @@ static Context* do_event(Event e, Context* c) {
   return c;
 }
 
-int sys_yield(){
-  yield();
-  return 0;
-}
-void sys_exit(uintptr_t ret){
-  halt(ret);
-}
+
 
 void init_irq(void) {
   Log("Initializing interrupt/exception handler...");
