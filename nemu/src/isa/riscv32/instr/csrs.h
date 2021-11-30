@@ -9,10 +9,10 @@ def_EHelper(csrrw){
 }
 def_EHelper(csrrs){
   switch(id_src2->imm){
-      case 0x300:/*mstatus*/*t0=cpu.mstatus;cpu.mstatus=(*t0)|*id_src1->preg;*ddest=*t0;break;
-      case 0x305:/*mtvec*/*t0=cpu.mtvec;cpu.mtvec=(*t0)|*id_src1->preg;*ddest=*t0;break;
-      case 0x341:/*mepc*/*t0=cpu.mepc;cpu.mepc=(*t0)|*id_src1->preg;*ddest=*t0;break;
-      case 0x342:/*mcause*/*t0=cpu.mcause;cpu.mcause=(*t0)|*id_src1->preg;*ddest=*t0;break;
+      case 0x300:/*mstatus*/*s0=cpu.mstatus;cpu.mstatus=(*s0)|*id_src1->preg;*ddest=*s0;break;
+      case 0x305:/*mtvec*/*s0=cpu.mtvec;cpu.mtvec=(*s0)|*id_src1->preg;*ddest=*s0;break;
+      case 0x341:/*mepc*/*s0=cpu.mepc;cpu.mepc=(*s0)|*id_src1->preg;*ddest=*s0;break;
+      case 0x342:/*mcause*/*s0=cpu.mcause;cpu.mcause=(*s0)|*id_src1->preg;*ddest=*s0;break;
   }
 }
 def_EHelper(ecall){
