@@ -12,6 +12,7 @@ Context* __am_irq_handle(Context *c) {
       	switch(c->GPR1){
       		case 0xffffffff:ev.event=EVENT_YIELD;c->mepc+=4;break;
       		case 1:ev.event=EVENT_SYSCALL;break;
+      		default:printf("%d\n",ev.event);
       	}
       default: ev.event = EVENT_ERROR; break;
     }
