@@ -1,4 +1,3 @@
-#include"cpu/exec.h"
 def_EHelper(lui) {
   rtl_li(s, ddest, id_src1->imm);
 }
@@ -12,12 +11,10 @@ def_EHelper(or){
   rtl_or(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(add){
-  *ddest=*id_src1->preg+*id_src2->preg;
-  //rtl_add(s,ddest,id_src1->preg,id_src2->preg);
+  rtl_add(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(sub){
-  *ddest=*id_src1->preg-*id_src2->preg;
-  //rtl_sub(s,ddest,id_src1->preg,id_src2->preg);
+  rtl_sub(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(mul){
   rtl_mulu_lo(s,ddest,id_src1->preg,id_src2->preg);
@@ -41,8 +38,7 @@ def_EHelper(remu){
   rtl_divu_r(s,ddest,id_src1->preg,id_src2->preg);
 }
 def_EHelper(addi){
-  *ddest=*id_src1->preg+id_src2->imm;
-  //rtl_addi(s,ddest,id_src1->preg,id_src2->imm);
+  rtl_addi(s,ddest,id_src1->preg,id_src2->imm);
 }
 def_EHelper(andi){
   rtl_andi(s,ddest,id_src1->preg,id_src2->imm);
