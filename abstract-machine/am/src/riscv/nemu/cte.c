@@ -8,12 +8,7 @@ Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
-      case 0xb:printf("%x %x\n",(c->GPR1>>16)&0x0000ffff,((uint32_t)c->GPR1<<16)>>16);
-      	switch(c->GPR1){
-      		case 0xffffffff:ev.event=EVENT_YIELD;c->mepc+=4;break;
-      		case 1:ev.event=EVENT_SYSCALL;break;
-      		default:printf("%d\n",ev.event);
-      	}
+      case 0xb:if(c->GPR1==-1){ev.event=EVENT_YIELD;break;}
       default: ev.event = EVENT_ERROR; break;
     }
     c = user_handler(ev, c);
