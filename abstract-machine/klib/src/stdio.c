@@ -80,7 +80,7 @@ void my_format(void *putp, putcf putf, const char *fmt, va_list va) {
 					i2a(va_arg(va, int), &p);
 					putchw(putp, putf, &p);
 					break;
-				case 'x' :
+				case 'x':case'p' :
 					p.base = 16;
 					p.uc = 0;
 					i2a(va_arg(va, int), &p);
