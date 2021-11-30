@@ -112,7 +112,7 @@ void cpu_exec(uint64_t n) {
   uint64_t timer_start = get_time();
 
   Decode s;
-  cpu.mstatus=0x1800;cpu.mepc=0;cpu.mcause=0;
+  //cpu.mstatus=0x1800;cpu.mepc=0;cpu.mcause=0;
   for (;n > 0; n --) {
     fetch_decode_exec_updatepc(&s);
     g_nr_guest_instr ++;
