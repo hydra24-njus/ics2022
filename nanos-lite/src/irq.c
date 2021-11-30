@@ -1,8 +1,8 @@
 #include <common.h>
 extern void do_syscall(Context*);
 static Context* do_event(Event e, Context* c) {
-printf("%x %x\n",(uint32_t)e.event>>16,((uint32_t)e.event<<16)>>16);
-printf("%x %x\n",(c->GPR1>>16)&0x0000ffff,((uint32_t)c->GPR1<<16)>>16);
+//printf("%x %x\n",(uint32_t)e.event>>16,((uint32_t)e.event<<16)>>16);
+//printf("%x %x\n",(c->GPR1>>16)&0x0000ffff,((uint32_t)c->GPR1<<16)>>16);
   //e.event=c->GPR1;
 
   switch (e.event) {
