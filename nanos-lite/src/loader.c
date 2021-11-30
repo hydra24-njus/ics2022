@@ -12,13 +12,10 @@ extern size_t ramdisk_write(const void*, size_t, size_t);
 extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  printf("%d\n",get_ramdisk_size());
   Elf_Ehdr elf;
   ramdisk_read((void*)&elf,0,sizeof(Elf_Ehdr));
   assert(*(uint32_t*)elf.e_ident==0x464c457f);
-  uint32_t a,b;
-  a=elf.e_entry>>16;b=(elf.e_entry<<16)>>16;
-  printf("%x %x\n",a,b);
+  ramdisk_write((void*)0x83000000,0,get_ramdisk_size());
   return elf.e_entry;
 }
 
