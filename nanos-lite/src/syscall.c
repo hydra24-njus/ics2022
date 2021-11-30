@@ -1,13 +1,8 @@
 #include <common.h>
 #include "syscall.h"
 
-int sys_yield(){
-  yield();
-  return 0;
-}
-void sys_exit(uintptr_t ret){
-  halt(ret);
-}
+extern int sys_yield();
+extern void sys_exit(uintptr_t);
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
