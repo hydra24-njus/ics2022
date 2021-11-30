@@ -12,7 +12,6 @@ Context* __am_irq_handle(Context *c) {
       case 0xb:ev.event=EVENT_YIELD;c->mepc+=4;break;
       default: ev.event = EVENT_ERROR;printf("%d\n",EVENT_ERROR); break;
     }
-
     c = user_handler(ev, c);
     assert(c != NULL);
   }
