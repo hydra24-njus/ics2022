@@ -1,12 +1,16 @@
+#include"cpu/exec.h"
 def_EHelper(jal){
   rtl_addi(s,ddest,&cpu.pc,4);
   rtl_add(s,t0,&id_src1->imm,&cpu.pc);
   rtl_j(s,*t0);
 }
 def_EHelper(jalr){
-  rtl_addi(s,ddest,&cpu.pc,4);
-  rtl_addi(s,t0,id_src1->preg,id_src2->imm);
-  rtl_jr(s,t0);
+  uint32_t t=cpu.pc+4;
+  *ddest=t;
+  t=id_src2->simm<<20;
+  t=t>>20;
+  t=(t+*id_src1->preg)&~1;
+  rtl_j(s,t);
 }
 def_EHelper(beq){
   rtl_jrelop(s,RELOP_EQ,id_src1->preg,id_src2->preg,id_dest->imm);
