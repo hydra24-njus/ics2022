@@ -1,7 +1,7 @@
 #include <common.h>
 extern void do_syscall(Context*);
 static Context* do_event(Event e, Context* c) {
-printf("%d\n",e.event);
+printf("%x\n",e.event);
 printf("%x\n",c->GPR1);
   e.event=c->GPR1;
 
