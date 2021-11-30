@@ -20,7 +20,7 @@ def_EHelper(csrrs){
   }
 }
 def_EHelper(ecall){
-  printf("%x\n",cpu.pc);
+  //printf("%x\n",cpu.pc);
   *t0=isa_raise_intr(0xb,cpu.pc);
   rtl_jr(s,t0);
 }
