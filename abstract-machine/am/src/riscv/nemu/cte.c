@@ -9,6 +9,9 @@ Context* __am_irq_handle(Context *c) {
     Event ev = {0};
     switch (c->mcause) {
       case 0xb:if(c->GPR1==-1){ev.event=EVENT_YIELD;c->mepc+=4;break;}
+      else{
+      	ev.event=c->GPR1;
+      }
       default: ev.event = EVENT_ERROR; break;
     }
     c = user_handler(ev, c);
