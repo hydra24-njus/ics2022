@@ -13,9 +13,19 @@ extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   Elf_Ehdr elf;
+  Elf_Phdr Phdr;
   ramdisk_read((void*)&elf,0,sizeof(Elf_Ehdr));
   assert(*(uint32_t*)elf.e_ident==0x464c457f);
-  ramdisk_write((void*)0x83000000,0,get_ramdisk_size());
+  for(int i = 0; i < elf.e_phnum;i++){
+      ramdisk_read(&Phdr, elf.e_phoff + i*elf.e_phentsize, sizeof(Phdr));
+      if(!(Phdr.p_type & PT_LOAD)){
+          continue;
+      }
+      for(unsigned int i = Phdr.p_filesz; i < Phdr.p_memsz;i++){
+          ((char*)Phdr.p_vaddr)[i] = 0;
+      }
+      ramdisk_read((void*)Phdr.p_vaddr, Phdr.p_offset, Phdr.p_filesz);
+  }
   return elf.e_entry;
 }
 
@@ -24,4 +34,3 @@ void naive_uload(PCB *pcb, const char *filename) {
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
 }
-//1 0011100
