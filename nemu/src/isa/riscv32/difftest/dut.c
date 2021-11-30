@@ -15,7 +15,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
     Log("PC is different after executing instruction, right = " FMT_WORD ", wrong = " FMT_WORD, ref_r->pc, cpu.pc);
     return false;
   }
-  
+  if(ref_r->mepc!=cpu.pc)return false;
   return true;
 }
 
