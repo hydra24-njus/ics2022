@@ -3,11 +3,13 @@ def_EHelper(jal){
   rtl_add(s,t0,&id_src1->imm,&cpu.pc);
   rtl_j(s,*t0);
 }
+
 def_EHelper(jalr){
-  rtl_addi(s,ddest,&cpu.pc,4);
-  rtl_addi(s,t0,id_src1->preg,id_src2->imm);
-  *t0=(*t0>>1)<<1;
-  rtl_jr(s,t0);
+  rtl_addi(s,t0,&cpu.pc,4);
+  rtl_addi(s,s0,id_src1->preg,id_src2->simm);
+  *s0=(*s0>>1)<<1;
+  rtl_addi(s,ddest,t0,0);
+  rtl_jr(s,s0);
 }
 def_EHelper(beq){
   rtl_jrelop(s,RELOP_EQ,id_src1->preg,id_src2->preg,id_dest->imm);
