@@ -20,7 +20,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     ramdisk_read(&Phdr, elf.e_phoff + i * sizeof(Elf_Phdr), sizeof(Elf_Phdr));
     if (Phdr.p_type == 1) {
       ramdisk_read((void *)Phdr.p_vaddr, Phdr.p_offset, Phdr.p_filesz);
-      memset((void *)Phdr.p_vaddr + Phdr.p_filesz, 0, Phdr.p_memsz - Phdr.p_filesz);
+      memset((void *)Phdr.p_vaddr + Phdr.p_filesz+1, 0, Phdr.p_memsz - Phdr.p_filesz);
     }
   }
   return elf.e_entry;
