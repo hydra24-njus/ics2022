@@ -1,8 +1,8 @@
 #include <common.h>
 extern void do_syscall(Context*);
 static Context* do_event(Event e, Context* c) {
-printf("%x\n",e.event);
-printf("%x\n",c->GPR1);
+printf("%p\n",&e.event);
+printf("%p\n",&c->GPR1);
   //e.event=c->GPR1;
 
   switch (e.event) {
