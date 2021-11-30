@@ -20,7 +20,13 @@ def_EHelper(csrrs){
   }
 }
 def_EHelper(ecall){
-  *t0=isa_raise_intr(0xb,cpu.pc);
+  int x=0;
+  x=(cpu.mstatus>>11)&3;
+  switch(x){
+  case 0:*t0=isa_raise_intr(0x8,cpu.pc);break;
+  case 1:*t0=isa_raise_intr(0x9,cpu.pc);break;
+  case 3:*t0=isa_raise_intr(0xb,cpu.pc);break;
+  }
   rtl_jr(s,t0);
 }
 def_EHelper(mret){
