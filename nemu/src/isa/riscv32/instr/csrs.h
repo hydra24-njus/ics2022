@@ -22,6 +22,7 @@ def_EHelper(csrrs){
 def_EHelper(ecall){
   int x=0;
   x=(cpu.mstatus>>11)&3;
+  printf("%d\n",x);
   switch(x){
   case 0:*t0=isa_raise_intr(0x8,cpu.pc);break;
   case 1:*t0=isa_raise_intr(0x9,cpu.pc);break;
