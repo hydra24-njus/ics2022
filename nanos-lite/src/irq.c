@@ -1,5 +1,5 @@
 #include <common.h>
-extern void do_syscall(Context *c);
+extern void do_syscall(Context*);
 static Context* do_event(Event e, Context* c) {
   switch (e.event) {
     case EVENT_YIELD:printf("yield!\n");break;
