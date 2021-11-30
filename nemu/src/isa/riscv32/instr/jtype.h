@@ -7,9 +7,7 @@ def_EHelper(jal){
 def_EHelper(jalr){
   uint32_t t=cpu.pc+4;
   *ddest=t;
-  t=id_src2->simm<<20;
-  t=(int)t>>20;
-  t=(t+*id_src1->preg)&~1;
+  t=(id_src2->simm+*id_src1->preg)&~1;
   s->dnpc=t;
 }
 def_EHelper(beq){
