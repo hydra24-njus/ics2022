@@ -37,7 +37,7 @@ void init_fs() {
 
 
 //begin
-
+//进行一些预处理
 const int FD_SIZE=sizeof(file_table)/sizeof(file_table[0]);
 #define check_filesize (file_table[fd].disk_offset+count>file_table[fd].size)
 #define reset_count if(check_filesize)count=file_table[fd].size-file_table[fd].disk_offset
@@ -50,10 +50,12 @@ int fs_open(const char *pathname/*, int flags, mode_t mode*/){
   return 0;
 }
 size_t fs_read(int fd,void *buf,size_t count){
+  if(fd<3)return 0;//忽略in，out，error
   reset_count;
-  return 0;
+  
+  return count;
 }
 int fs_close(int fd){
-
+  file_table[fd].read=0;
   return 0;
 }
