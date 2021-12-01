@@ -39,6 +39,8 @@ void init_fs() {
 //begin
 
 const int FD_SIZE=sizeof(file_table)/sizeof(file_table[0]);
+#define check_filesize (file_table[fd].disk_offset+count>file_table[fd].size)
+#define reset_count if(check_filesize)count=file_table[fd].size-file_table[fd].disk_offset
 //忽略flags和mode
 int fs_open(const char *pathname/*, int flags, mode_t mode*/){
   for(int i=FD_FB;i<FD_SIZE;i++){
@@ -48,7 +50,7 @@ int fs_open(const char *pathname/*, int flags, mode_t mode*/){
   return 0;
 }
 size_t fs_read(int fd,void *buf,size_t count){
-
+  reset_count;
   return 0;
 }
 int fs_close(int fd){
