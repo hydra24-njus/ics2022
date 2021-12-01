@@ -22,7 +22,7 @@ int sys_write(int fd,const void *buf, size_t count){
 }
 
 void do_syscall(Context *c) {
-  Log("sys_call\n");
+  //Log("sys_call\n");
   uintptr_t a[4];
   a[0] = c->GPR1;
   a[1] = c->GPR2;
@@ -31,7 +31,8 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case SYS_exit:printf("exit\n");sys_exit(a[1]);break;
     case SYS_yield:c->GPRx=sys_yield();break;
-    case SYS_write:sys_write(a[1],(void*)a[2],a[3]);break;
+    case SYS_write:c->GPRx=sys_write(a[1],(void*)a[2],a[3]);break;
+    case SYS_brk:break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
