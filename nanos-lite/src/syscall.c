@@ -19,9 +19,9 @@ int sys_write(int fd,const void *buf, size_t count){
   else if(fd==0)return 0;
   return 0;
 }
-static int programBrk;
+static intptr_t brk;
 int sys_brk(int addr){
-  programBrk=addr;
+  brk=addr;
   return 0;
 }
 void do_syscall(Context *c) {
