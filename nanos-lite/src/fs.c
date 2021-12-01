@@ -42,7 +42,7 @@ const int FD_SIZE=sizeof(file_table)/sizeof(file_table[0]);
 
 int fs_open(const char *pathname, int flags){
   for(int i=FD_FB;i<FD_SIZE;i++){
-
+    if(strcmp(pathname,file_table[i].name)==0)return i;
   }
   assert("No Such File!");
   return 0;
