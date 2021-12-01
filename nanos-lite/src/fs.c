@@ -39,12 +39,12 @@ void init_fs() {
 //begin
 
 const int FD_SIZE=sizeof(file_table)/sizeof(file_table[0]);
-
-int fs_open(const char *pathname, int flags){
+//忽略flags和mode
+int fs_open(const char *pathname/*, int flags, mode_t mode*/){
   for(int i=FD_FB;i<FD_SIZE;i++){
     if(strcmp(pathname,file_table[i].name)==0)return i;
   }
-  assert("No Such File!");
+  assert(0);
   return 0;
 }
 size_t fs_read(int fd,void *buf,size_t count){
