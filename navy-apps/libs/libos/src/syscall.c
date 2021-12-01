@@ -51,7 +51,6 @@ intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
 }
 
 void _exit(int status) {
-printf("0\n");
   _syscall_(SYS_exit, status, 0, 0);
   while (1);
 }
@@ -62,7 +61,6 @@ int _open(const char *path, int flags, mode_t mode) {
 }
 
 int _write(int fd, void *buf, size_t count) {
-printf("1\n");
   int ret = _syscall_(SYS_write, fd, (intptr_t)buf, count);
   return ret;
 }
