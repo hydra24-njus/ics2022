@@ -25,7 +25,7 @@ int sys_brk(int addr){
   return 0;
 }
 void do_syscall(Context *c) {
-  Log("sys_call\n");
+  Log("sys_call");
   uintptr_t a[4];
   a[0] = c->GPR1;
   a[1] = c->GPR2;
