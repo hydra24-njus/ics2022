@@ -71,7 +71,6 @@ void *_sbrk(intptr_t increment) {
   intptr_t new_brk=brk+increment;
   int ret=_syscall_(SYS_brk,new_brk,0,0);
   if(ret==0){
-    brk=new_brk;
     return (void*)old_brk;
   }
   return (void *)-1;
