@@ -67,7 +67,6 @@ size_t fs_read(int fd,void *buf,size_t count){
   if(fd<3)return 0;//忽略in，out，error
   reset_count;
   count = file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, count);
-  //file_table[fd].open_offset += count;
   return count;
 }
 int fs_close(int fd){
