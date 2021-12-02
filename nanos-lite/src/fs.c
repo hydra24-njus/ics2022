@@ -42,18 +42,16 @@ void init_fs() {
 extern size_t ramdisk_read(void *, size_t, size_t);
 extern size_t ramdisk_write(const void*, size_t, size_t);
 const int FD_SIZE=sizeof(file_table)/sizeof(file_table[0]);
-#define check_filesize (file_table[fd].open_offset+count>file_table[fd].size)
-#define reset_count if(check_filesize)count=file_table[fd].size-file_table[fd].open_offset
 //忽略flags和mode
 int fs_open(const char *pathname/*, int flags, mode_t mode*/){
   for(int i=FD_FB;i<FD_SIZE;i++){
     if(strcmp(pathname,file_table[i].name)==0){
-      file_table[i].read=*ramdisk_read;
-      file_table[i].write=*ramdisk_write;
+      //file_table[i].read=*ramdisk_read;
+      //file_table[i].write=*ramdisk_write;
       return i;
     }
   }
-  return 0;
+  return -1;
 }
 size_t fs_lseek(int fd, size_t offset, int whence){
   switch(whence){
@@ -64,12 +62,13 @@ size_t fs_lseek(int fd, size_t offset, int whence){
   return file_table[fd].open_offset;
 }
 size_t fs_read(int fd,void *buf,size_t count){
-  //reset_count;
-  count = file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, count);
+  if(file_table[fd].read==NULL){
+    ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, count);
+  }
+  else count = file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, count);
   return count;
 }
 size_t fs_write(int fd,const void *buf,size_t count){
-  if(fd>=FD_FB)reset_count;
   file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, count);
   return count;
 }
