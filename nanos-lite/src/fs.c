@@ -75,7 +75,15 @@ size_t fs_read(int fd,void *buf,size_t count){
   return count;
 }
 size_t fs_write(int fd,const void *buf,size_t count){
-  file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, count);
+  if(fd>=FD_FB && (file_table[fd].open_offset+count >= file_table[fd].size)){
+    count=file_table[fd].size-file_table[fd].open_offset;
+    if(count<0)count=0;
+  }
+  if(!file_table[fd].write){
+    ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, count);
+  }
+  else count = file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, count);
+  file_table[fd].open_offset += count;
   return count;
 }
 int fs_close(int fd){
