@@ -2,8 +2,8 @@
 
 int main() {
   struct timeval num; 
-  num.tv_sec = 0;
-  int usecond=1000000;
+  num.tv_sec = 0;num.tv_usec = 0;
+  int usecond=500000;
   printf("time-test starts begin = %ld\n",num.tv_sec);
   do
   {
