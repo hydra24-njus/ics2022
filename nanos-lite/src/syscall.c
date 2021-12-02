@@ -1,12 +1,10 @@
 #include <common.h>
 #include "syscall.h"
-#include <sys/time.h>
 extern int fs_open(const char */*, int flags, mode_t mode*/);
 extern size_t fs_lseek(int fd, size_t offset, int whence);
 extern size_t fs_read(int,void *,size_t);
 extern size_t fs_write(int,const void*,size_t);
 extern int fs_close(int);
-int sys_gettimeofday(struct timeval *tz,struct timezone *tv);
 void do_syscall(Context *c) {
   //Log("sys_call");
   uintptr_t a[4];
@@ -23,7 +21,7 @@ void do_syscall(Context *c) {
     case SYS_write:Log("sys_write");c->GPRx=fs_write(a[1],(void*)a[2],a[3]);break;
     case SYS_close:c->GPRx=fs_close(a[1]);break;
     case SYS_brk:c->GPRx=0;break;
-    case SYS_gettimeofday:c->GPRx=sys_gettimeofday((struct timeval *)a[1],(struct timezone *)a[2]);break;
+    case SYS_gettimeofday:break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
