@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <sys/time.h>
 #include <assert.h>
-#include <NDL.h>
 
 int main() {
   struct timeval num; 
@@ -9,7 +8,7 @@ int main() {
   printf("time-test starts begin = %d\n",num.tv_sec);
   while(1)
   {
-    while(num.tv_sec <= sec)
+    while(num.tv_usec%1000000==500000)
     {
       int t = gettimeofday(&num,NULL);
     }
