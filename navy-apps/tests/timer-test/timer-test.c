@@ -1,5 +1,5 @@
 #include <sys/time.h>
-
+#include <stdio.h>
 int main() {
   struct timeval num; 
   num.tv_sec = 0;num.tv_usec = 0;
