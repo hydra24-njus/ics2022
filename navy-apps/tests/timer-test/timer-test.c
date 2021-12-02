@@ -6,7 +6,7 @@ int main() {
   printf("time-test starts begin = %ld\n",num.tv_sec);
   do
   {
-      gettimeofday(&num,NULL);
+    gettimeofday(&num,NULL);
     printf("sec=%ld usec=%ld\n",num.tv_sec,num.tv_usec);
-  } while(0);
+  } while(1);
 }
