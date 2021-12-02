@@ -10,13 +10,7 @@ int main() {
   int sec = 1;
   while(1)
   {
-    while(num.tv_sec <= sec)
-    {
-      int t = gettimeofday(&num,NULL);
-      
-      assert(t==0);
-    }
-    
+    if(num.tv_usec%5000000==0)
     printf("time: seconds = %d   sec=%d usec=%d\n",sec,num.tv_sec,num.tv_usec);
     sec++;
   } 
