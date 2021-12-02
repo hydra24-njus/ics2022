@@ -12,7 +12,7 @@ int main() {
     if(dut.tv_sec==ref.tv_sec){
       switch(ref.tv_usec){
       	case      0:if(dut.tv_usec>ref.tv_usec)printf("0.0s\n");ref.tv_usec=500000;break;
-      	case 500000:if(dut.tv_usec>ref.tv_usec)printf("0.5s\n");ref.tv_usec=     0;break;
+      	case 500000:if(dut.tv_usec>ref.tv_usec)printf("0.5s\n");ref.tv_usec=     0;ref.tv_sec++;break;
       }
     }
   } while(1);
