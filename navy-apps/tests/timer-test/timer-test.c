@@ -9,7 +9,7 @@ int main() {
   printf("time-test starts begin = %d\n",num.tv_sec);
   while(1)
   {
-    if(num.tv_usec%50000000==0)
+    if(num.tv_usec%5000000==0)
     printf("sec=%d usec=%d\n",num.tv_sec,num.tv_usec);
   } 
 }
