@@ -65,14 +65,14 @@ int _write(int fd, void *buf, size_t count) {
   return ret;
 }
 
-//extern uint32_t end;
-//static int brk = &end;
+extern uint32_t end;
+static int brk = &end;
 void *_sbrk(intptr_t increment) {
-    /*int old_brk = brk;
+    int old_brk = brk;
     if(!_syscall_(SYS_brk, old_brk + increment, 0, 0)){
         brk += increment;
         return (void *)old_brk;
-    }*/
+    }
     return (void *)-1;
 }
 
