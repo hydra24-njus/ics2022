@@ -9,8 +9,15 @@ int main() {
   while(1){
     gettimeofday(&dut,NULL);
     if(dut.tv_sec==ref.tv_sec){
-      printf("sec:%d  usec:%d\n",ref.tv_sec,ref.tv_usec);
-      ref.tv_sec++;
+      if(ref.tv_usec==0&&ref.tv_usec<dut.tv_usec){
+        printf("sec:%d  usec:%d\n",ref.tv_sec,ref.tv_usec);
+        ref.tv_usec=500000;
+      }
+      else if(ref.tv_usec==500000&&ref.tv_usec<dut.tv_usec){
+        printf("sec:%d  usec:%d\n",ref.tv_sec,ref.tv_usec);
+        ref.tv_usec=0;
+        ref.tv_sec++;
+      }
     }
   }
 }
