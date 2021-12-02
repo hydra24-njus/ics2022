@@ -9,14 +9,9 @@ int main() {
   do
   {
     gettimeofday(&num,NULL);
-    if(second==num.tv_sec&&num.tv_sec<500000&&flag==0){
-      printf("sec:%d usec:%d\n",num.tv_sec,num.tv_usec);
-      flag=1;
-    }
-    if(second==num.tv_sec&&num.tv_sec>500000&&flag==1){
-      printf("sec:%d usec:%d\n",num.tv_sec,num.tv_usec);
-      flag=0;
-      second++;
+    if(usecond<=10000000*num.tv_sec*10000000+num.tv_usec){
+      printf("sec:%d  usec:%d\n",num.tv_sec,num.tv_usec);
+      usecond+=500000;
     }
   } while(1);
 }
