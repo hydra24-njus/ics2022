@@ -7,7 +7,6 @@ int main() {
   do
   {
     gettimeofday(&num,NULL);
-    if(num.tv_usec==500000||num.tv_usec==0)
     printf("sec=%ld usec=%ld\n",num.tv_sec,num.tv_usec);
   } while(1);
 }
