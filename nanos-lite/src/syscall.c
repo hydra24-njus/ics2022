@@ -5,7 +5,7 @@ extern size_t fs_lseek(int fd, size_t offset, int whence);
 extern size_t fs_read(int,void *,size_t);
 extern size_t fs_write(int,const void*,size_t);
 extern int fs_close(int);
-extern int gettimeofday(AM_TIMER_UPTIME_T *);
+extern int sys_gettimeofday(void*);
 /*int sys_write(int fd,const void *buf,size_t count){
   for(int i=0;i<count;i++){
     putch(buf++);
@@ -28,7 +28,7 @@ void do_syscall(Context *c) {
     case SYS_write:/*Log("sys_write");*/c->GPRx=fs_write(a[1],(void*)a[2],a[3]);break;
     case SYS_close:c->GPRx=fs_close(a[1]);break;
     case SYS_brk:c->GPRx=0;break;
-    case SYS_gettimeofday:c->GPRx=gettimeofday((AM_TIMER_UPTIME_T *)a[1]);break;
+    case SYS_gettimeofday:c->GPRx=sys_gettimeofday((AM_TIMER_UPTIME_T *)a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }

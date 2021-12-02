@@ -23,7 +23,7 @@ typedef struct{
   long int sec;
   long int usec;
 } timeval;
-int gettimeofday(timeval *tv){
+int sys_gettimeofday(timeval *tv){
   tv->sec = io_read(AM_TIMER_UPTIME).us / 1000000;
   tv->usec = io_read(AM_TIMER_UPTIME).us % 1000000;
   return 0;
