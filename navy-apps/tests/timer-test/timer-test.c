@@ -9,7 +9,7 @@ int main() {
   do
   {
     gettimeofday(&num,NULL);
-    if(usecond<=10000000*num.tv_sec+num.tv_usec){
+    if(usecond<10000000*num.tv_sec+num.tv_usec){
       printf("sec:%d  usec:%d\n",num.tv_sec,num.tv_usec);
       usecond+=500000;
     }
