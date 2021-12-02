@@ -19,10 +19,13 @@ size_t serial_write(const void *buf, size_t offset, size_t count) {
   }
   return count;
 }
-
-int gettimeofday(AM_TIMER_UPTIME_T *tv){
-  //tv->s = io_read(AM_TIMER_UPTIME).us / 1000000;
-  tv->us = io_read(AM_TIMER_UPTIME).us % 1000000;
+typedef struct{
+  long int sec;
+  long int usec;
+} timeval;
+int gettimeofday(timeval *tv){
+  tv->sec = io_read(AM_TIMER_UPTIME).us / 1000000;
+  tv->usec = io_read(AM_TIMER_UPTIME).us % 1000000;
   return 0;
 }
 
