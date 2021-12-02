@@ -25,7 +25,7 @@ typedef struct{
   long int usec;
 } timeval;
 int sys_gettimeofday(timeval *tv){
-  printf("%d\t%d\n",sizeof(long int),sizeof(struct timeval));
+  printf("%d\t%d\n",sizeof(long long int),sizeof(struct timeval));
   tv->sec = io_read(AM_TIMER_UPTIME).us / 1000000;
   tv->usec = io_read(AM_TIMER_UPTIME).us % 1000000;
   return 0;
