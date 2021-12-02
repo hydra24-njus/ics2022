@@ -19,9 +19,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   fs_read(fd, &elf, sizeof(Elf_Ehdr));
   Elf_Phdr Phdr;
   assert(*(uint32_t*)elf.e_ident==0x464c457f);
-  printf("success!\n");
+  //printf("success!\n");
   for (int i = 0; i < elf.e_phnum; i++) {
-    fs_lseek(fd, elf.e_phoff + i*elf.e_phentsize, SEEK_SET);
+    fs_lseek(fd,elf.e_phentsize, SEEK_CUR);
     fs_read(fd, &Phdr, sizeof(Phdr));
     if (Phdr.p_type == 1) {
       fs_lseek(fd, Phdr.p_offset, SEEK_SET);
