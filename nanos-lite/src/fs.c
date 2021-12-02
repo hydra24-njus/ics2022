@@ -63,10 +63,6 @@ size_t fs_lseek(int fd, size_t offset, int whence){
 }
 size_t fs_read(int fd,void *buf,size_t count){
   //处理count
-  if(fd>=FD_FB && (file_table[fd].open_offset+count >= file_table[fd].size)){
-    count=file_table[fd].size-file_table[fd].open_offset;
-    if(count<0)count=0;
-  }
   if(!file_table[fd].read){
     ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, count);
   }
@@ -75,10 +71,7 @@ size_t fs_read(int fd,void *buf,size_t count){
   return count;
 }
 size_t fs_write(int fd,const void *buf,size_t count){
-  if(fd>=FD_FB && (file_table[fd].open_offset+count >= file_table[fd].size)){
-    count=file_table[fd].size-file_table[fd].open_offset;
-    if(count<0)count=0;
-  }
+
   if(!file_table[fd].write){
     ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, count);
   }
