@@ -55,6 +55,20 @@ int fs_open(const char *pathname/*, int flags, mode_t mode*/){
   }
   return 0;
 }
+size_t fs_lseek(int fd, size_t offset, int whence){
+switch(whence){
+        case SEEK_SET:
+            file_table[fd].open_offset = offset;
+            break;
+        case SEEK_CUR:
+            file_table[fd].open_offset += offset;
+            break;
+        case SEEK_END:
+            file_table[fd].open_offset = file_table[fd].size + offset;
+            break;
+    }
+    return file_table[fd].open_offset;
+}
 size_t fs_read(int fd,void *buf,size_t count){
   if(fd<3)return 0;//忽略in，out，error
   reset_count;
