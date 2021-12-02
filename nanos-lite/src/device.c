@@ -20,8 +20,8 @@ size_t serial_write(const void *buf, size_t offset, size_t count) {
   return count;
 }
 typedef struct{
-  long long int sec;
-  long long int usec;
+  long int sec;
+  long int usec;
 } timeval;
 int sys_gettimeofday(timeval *tv){
   tv->sec = io_read(AM_TIMER_UPTIME).us / 1000000;
