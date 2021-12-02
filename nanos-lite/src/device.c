@@ -32,7 +32,9 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   return 0;
 }
-
+/*int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
+  return 0;
+}*/
 void init_device() {
   Log("Initializing devices...");
   ioe_init();
