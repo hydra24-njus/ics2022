@@ -10,9 +10,13 @@
 extern size_t ramdisk_read(void *, size_t, size_t);
 extern size_t ramdisk_write(const void*, size_t, size_t);
 extern size_t get_ramdisk_size();
+extern int fs_open(const char */*, int flags, mode_t mode*/);
+extern size_t fs_read(int,void *,size_t);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   Elf_Ehdr elf;
+  int fd=fs_open(filename);
+  fs_read(fd, &elf, sizeof(Elf_Ehdr));
   Elf_Phdr Phdr;
   ramdisk_read((void*)&elf,0,sizeof(Elf_Ehdr));
   assert(*(uint32_t*)elf.e_ident==0x464c457f);
