@@ -9,11 +9,11 @@ int main() {
   do
   {
     gettimeofday(&num,NULL);
-    if(second==num.tv_sec||num.tv_sec<500000||flag==0){
+    if(second==num.tv_sec&&num.tv_sec<500000&&flag==0){
       printf("sec:%d usec:%d\n",num.tv_sec,num.tv_usec);
       flag=1;
     }
-    if(second==num.tv_sec||num.tv_sec>500000||flag==1){
+    if(second==num.tv_sec&&num.tv_sec>500000&&flag==1){
       printf("sec:%d usec:%d\n",num.tv_sec,num.tv_usec);
       flag=0;
       second++;
