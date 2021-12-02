@@ -6,13 +6,7 @@ extern size_t fs_lseek(int fd, size_t offset, int whence);
 extern size_t fs_read(int,void *,size_t);
 extern size_t fs_write(int,const void*,size_t);
 extern int fs_close(int);
-int sys_yield(){
-  yield();
-  return 0;
-}
-void sys_exit(uintptr_t ret){
-  halt(ret);
-}
+
 void do_syscall(Context *c) {
   //Log("sys_call");
   uintptr_t a[4];
@@ -21,8 +15,8 @@ void do_syscall(Context *c) {
   a[2] = c->GPR3;
   a[3] = c->GPR4;
   switch (a[0]) {
-    case SYS_exit:printf("exit\n");sys_exit(a[1]);break;
-    case SYS_yield:c->GPRx=sys_yield();break;
+    case SYS_exit:printf("exit\n");halt(a[1]);break;
+    case SYS_yield:yield();break;
     case SYS_open:c->GPRx=fs_open((const char*)(a[1]));break;
     case SYS_lseek:c->GPRx=fs_lseek(a[1],a[2],a[3]);break;
     case SYS_read:Log("sys_call:read");c->GPRx=fs_read(a[1],(void*)(a[2]),a[3]);break;
