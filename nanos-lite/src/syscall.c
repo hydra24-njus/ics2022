@@ -5,6 +5,13 @@ extern size_t fs_lseek(int fd, size_t offset, int whence);
 extern size_t fs_read(int,void *,size_t);
 extern size_t fs_write(int,const void*,size_t);
 extern int fs_close(int);
+
+/*int sys_write(int fd,const void *buf,size_t count){
+  for(int i=0;i<count;i++){
+    putch(buf++);
+  }
+  return count;
+}*/
 void do_syscall(Context *c) {
   //Log("sys_call");
   uintptr_t a[4];

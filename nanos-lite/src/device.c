@@ -20,6 +20,10 @@ size_t serial_write(const void *buf, size_t offset, size_t count) {
   return count;
 }
 
+int gettimeofday(AM_TIMER_UPTIME_T *tv){
+  return 0;
+}
+
 size_t events_read(void *buf, size_t offset, size_t len) {
   return 0;
 }
