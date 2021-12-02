@@ -73,6 +73,6 @@ size_t fs_write(int fd,const void *buf,size_t count){
   return count;
 }
 int fs_close(int fd){
-  file_table[fd].read=0;
+  file_table[fd].open_offset=0;
   return 0;
 }
