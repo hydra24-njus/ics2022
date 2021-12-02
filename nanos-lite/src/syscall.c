@@ -28,7 +28,7 @@ void do_syscall(Context *c) {
     case SYS_write:/*Log("sys_write");*/c->GPRx=fs_write(a[1],(void*)a[2],a[3]);break;
     case SYS_close:c->GPRx=fs_close(a[1]);break;
     case SYS_brk:c->GPRx=0;break;
-    case SYS_gettimeofday:c->GPRx=sys_gettimeofday((AM_TIMER_UPTIME_T *)a[1]);break;
+    case SYS_gettimeofday:c->GPRx=sys_gettimeofday((void *)a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
