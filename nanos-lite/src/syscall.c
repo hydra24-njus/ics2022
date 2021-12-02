@@ -22,12 +22,6 @@ int sys_read(int fd, void*buf, size_t count){
   return res;
 }
 int sys_write(int fd,const void *buf, size_t count){
-  if(fd==1||fd==2){
-    for(int i = 0;i < count;i++){
-      putch(((char*)buf)[i]);
-    }
-    return count;
-  }
   int res = fs_write(fd, buf, count);
   return res;
 }
