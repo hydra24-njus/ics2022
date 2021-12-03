@@ -25,14 +25,22 @@ int main() {
   }*/
   
   //使用ndl
-  uint32_t time_now;
-  int sec=1;
+  uint32_t time_now=0;uint32_t time_ms=0;
+  int sec=0;int msec=500;
   NDL_Init(0);
   while(1){
     time_now=NDL_GetTicks()/1000;
+    time_ms =NDL_GetTicks()%1000;
     if(sec==time_now){
-      printf("%d second\n",sec);
-      sec++;
+      if(msec==0&&time_us>msec){
+      	printf("%d second,%d msecond.\n",sec,msec);
+      	msec=500;
+      }
+      else if(msec==500&&time_us>msec){
+        printf("%d second,%d msecond.\n",sec,msec);
+        msec=0;sec++;
+      }
+      
     }
   }
   return 0;
