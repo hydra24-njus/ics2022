@@ -30,7 +30,7 @@ int sys_gettimeofday(struct timeval *tv){
 size_t events_read(void *buf, size_t offset, size_t len) {
   AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
   if(ev.keycode==AM_KEY_NONE)return 0;
-  sprintf(buf,"%s",keyname[ev.keycode]);
+  sprintf(buf,"%s\t%s",keyname[ev.keycode],ev.keydown?"down":"up");
   return len;
 }
 
