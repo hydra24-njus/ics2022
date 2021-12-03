@@ -32,11 +32,11 @@ int main() {
     time_now=NDL_GetTicks()/1000;
     time_ms =NDL_GetTicks()%1000;
     if(sec==time_now){
-      if(msec==0&&time_us>msec){
+      if(msec==0&&time_ms>msec){
       	printf("%d second,%d msecond.\n",sec,msec);
       	msec=500;
       }
-      else if(msec==500&&time_us>msec){
+      else if(msec==500&&time_ms>msec){
         printf("%d second,%d msecond.\n",sec,msec);
         msec=0;sec++;
       }
