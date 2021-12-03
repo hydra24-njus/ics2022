@@ -29,9 +29,9 @@ int sys_gettimeofday(struct timeval *tv){
 
 size_t events_read(void *buf, size_t offset, size_t len) {
   AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
-  putch('1');
-  if(ev.keycode==AM_KEY_NONE){ memset(buf, 0, len); return 0; }
-  return sprintf(buf, "%s %s", ev.keydown ? "kd" : "ku", keyname[ev.keycode], len);
+  if(ev.keycode==AM_KEY_NONE)return 0;
+  sprintf(buf,"%s",keyname[ev.keycode]);
+  return len;
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
