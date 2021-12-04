@@ -43,12 +43,13 @@ void NDL_OpenCanvas(int *w, int *h) {
     char buf[64];*w=0;*h=0;
     _read(4,buf,64);
     //printf("%s\n",buf);
-    
-    for(int i=0;i<64;i++)printf("%c",buf[i]);
+    sscanf(buf, "WIDTH: %d\nHEIGHT: %d\n", w, h);
+    printf("%d\t%d\n",*w,*h);
+    /*for(int i=0;i<64;i++)printf("%c",buf[i]);
     int i=6;
     for(i=7;buf[i]!='\n';i++)printf("%c ",buf[i]);
     i+=7;printf("\n");
-    for(i;buf[i]!='\n';i++)printf("%c ",buf[i]);
+    for(i;buf[i]!='\n';i++)printf("%c ",buf[i]);*/
   }
 }
 
