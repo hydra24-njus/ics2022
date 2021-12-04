@@ -44,6 +44,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     _read(4,buf,64);
     //printf("%s\n",buf);
     sscanf(buf, "WIDTH: %d\nHEIGHT: %d\n", &screen_w, &screen_h);
+    *w=screen_w;*h=screen_h;
     //printf("%d\t%d\n",*w,*h);
   }
 }
