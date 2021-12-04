@@ -43,8 +43,9 @@ void NDL_OpenCanvas(int *w, int *h) {
     char buf[64];*w=0;*h=0;
     _read(4,buf,64);
     //printf("%s\n",buf);
+    
+    for(int i=0;i<64;i++)printf("%c ",buf[i]);
     int i=0;
-    for(int i=0;i<64;i++)printf("%c",buf[i]);
     while(buf[i]<'0'||buf[i]>'9')i++;
     while(buf[i]>='0'&&buf[i]<='9'){
       *w=*w*10;*w=*w+buf[i]-'0';
