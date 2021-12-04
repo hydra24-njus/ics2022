@@ -49,6 +49,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     else{
       canvas_w=*w,canvas_h=*h;
     }
+    printf("%d\t%d\n",canvas_w,canvas_h);
   }
 }
 
