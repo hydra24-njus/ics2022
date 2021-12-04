@@ -21,6 +21,9 @@ int NDL_PollEvent(char *buf, int len) {
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
+  char buf[64];
+  _read(4,buf,64);
+  sscanf(buf,"WIDTH:%d\nHEIGHT:%d\n",&screen_w,&screen_h);
 //猜测用于加载app，暂时忽略
   if (getenv("NWM_APP")) {
     int fbctl = 4;
@@ -41,10 +44,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   }
   else{
     if(*w==0&&*h==0){
-      char buf[64];
-      _read(4,buf,64);
-      sscanf(buf,"WIDTH:%d\nHEIGHT:%d\n",&canvas_w,&canvas_h);
-      *w=canvas_w;*h=canvas_h;
+      *w=canvas_w=screen_w;*h=canvas_h=screen_h;
     }
     else{
       canvas_w=*w,canvas_h=*h;
@@ -57,7 +57,7 @@ static uint32_t* canvas =NULL;
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int fd = _open("/dev/fb", 0, 0);
   for (int i = 0; i < h; i++) {
-    lseek(fd, ((y + i) * 400 + x) * 4, 0);
+    lseek(fd, ((y + i) * screen_w + x) * 4, 0);
     write(fd, pixels + i * w, w * 4);
   }
 }
