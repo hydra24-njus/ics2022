@@ -55,16 +55,10 @@ void NDL_OpenCanvas(int *w, int *h) {
 
 static uint32_t* canvas =NULL;
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  for(int i = 0;i < h;i ++)
-    for(int j = 0;j < w;j ++)
-    {
-      canvas[(y+i)*canvas_w+x+j] = pixels[i*w+j];
-    }
-  for(int i = 0;i < canvas_h;i ++)
-  {
-    //printf("seek %d color = %x\n",4*((i+place_y)*screen_w+place_x),*(canvas+i*canvas_w+canvas_w/2));
-    fseek(fb,4*((i+y)*screen_w+x),SEEK_SET);
-    fwrite((void*)(canvas+i*canvas_w),1,4*canvas_w,fb);
+  int fd = _open("/dev/fb", 0, 0);
+  for (int i = 0; i < h; i++) {
+    lseek(fd, ((y + i) * screen_w + x) * 4, 0);
+    write(fd, pixels + i * w, w * 4);
   }
 }
 
