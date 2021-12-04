@@ -22,7 +22,7 @@ int NDL_PollEvent(char *buf, int len) {
 
 void NDL_OpenCanvas(int *w, int *h) {
 //猜测用于加载app，暂时忽略
-  /*if (getenv("NWM_APP")) {
+  if (getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
     screen_w = *w; screen_h = *h;
@@ -38,18 +38,12 @@ void NDL_OpenCanvas(int *w, int *h) {
       if (strcmp(buf, "mmap ok") == 0) break;
     }
     close(fbctl);
-  }*/
-  //else{
-    if (*w == 0 && *h == 0)*w = 400; *h = 300;
-    screen_w = *w;
-    screen_h = *h;
+  }
+  else{
     char buf[64];
-    sprintf(buf, "WIDTH: %d\nHEIGHT: %d\n", *w, *h);
-    //write(4, buf, 64);
-  
-  
-  
-  //}
+    _read(4,buf,64);
+    printf("%s\n",buf);
+  }
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
