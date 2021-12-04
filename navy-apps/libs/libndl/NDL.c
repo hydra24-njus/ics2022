@@ -49,7 +49,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  int fd = 5;//_open("/dev/fb", 0, 0);
+  int fd = _open("/dev/fb", 0, 0);
   //printf("%d\n",fd);
   //printf("%d\t%d\n",screen_w,screen_h);
   if (w + x > screen_w) w = screen_w - x;
