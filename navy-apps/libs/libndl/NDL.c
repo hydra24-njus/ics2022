@@ -6,7 +6,7 @@
 #include <sys/time.h>
 static int evtdev = -1;
 static int fbdev = -1;
-static int screen_w = 0, screen_h = 0;
+static int screen_w = 400, screen_h = 300;
 
 uint32_t NDL_GetTicks() {
   struct timeval tv;
@@ -50,7 +50,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int fd = _open("/dev/fb", 0, 0);
-  printf("%d\t%d\n",screen_w,screen_h);
+  //printf("%d\t%d\n",screen_w,screen_h);
   if (w + x > screen_w) w = screen_w - x;
   if (h + y > screen_h) h = screen_h - y;
   for (int i = 0; i < h; i++) {
