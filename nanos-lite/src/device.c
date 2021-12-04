@@ -47,10 +47,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   int y = (offset/4)/w;
   if(offset+len > w*h*4) len = w*h*4 - offset;
   io_write(AM_GPU_FBDRAW,x,y,(uint32_t*)buf,len/4,1,true);
-  //io_write(AM_GPU_FBDRAW, 0, 0, NULL, 0, 0, true);
-  //assert(offset <= w*h*4);
   return len;
-  //return 0;
 }
 void init_device() {
   Log("Initializing devices...");
