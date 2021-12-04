@@ -46,7 +46,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     
     for(int i=0;i<64;i++)printf("%c",buf[i]);
     int i=6;
-    for(i=6;buf[i]!='\n';i++)printf("%c ",buf[i]);
+    for(i=7;buf[i]!='\n';i++)printf("%c ",buf[i]);
     i+=7;printf("\n");
     for(i;buf[i]!='\n';i++)printf("%c ",buf[i]);
   }
