@@ -44,6 +44,7 @@ void NDL_OpenCanvas(int *w, int *h) {
       char buf[64];
       _read(4,buf,64);
       sscanf(buf,"WIDTH:%d\nHEIGHT:%d\n",&canvas_w,&canvas_h);
+      *w=canvas_w;*h=canvas_h;
     }
     else{
       canvas_w=*w,canvas_h=*h;
@@ -52,13 +53,18 @@ void NDL_OpenCanvas(int *w, int *h) {
   }
 }
 
+static uint32_t* canvas =NULL;
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  int fd = _open("/dev/fb", 0, 0);
-  if (w + x > screen_w) w = screen_w - x;
-  if (h + y > screen_h) h = screen_h - y;
-  for (int i = 0; i < h; i++) {
-    lseek(fd, ((y + i) * screen_w + x) * 4, 0);
-    write(fd, pixels + i * h/4, w * 4);
+  for(int i = 0;i < h;i ++)
+    for(int j = 0;j < w;j ++)
+    {
+      canvas[(y+i)*canvas_w+x+j] = pixels[i*w+j];
+    }
+  for(int i = 0;i < canvas_h;i ++)
+  {
+    //printf("seek %d color = %x\n",4*((i+place_y)*screen_w+place_x),*(canvas+i*canvas_w+canvas_w/2));
+    fseek(fb,4*((i+y)*screen_w+x),SEEK_SET);
+    fwrite((void*)(canvas+i*canvas_w),1,4*canvas_w,fb);
   }
 }
 
