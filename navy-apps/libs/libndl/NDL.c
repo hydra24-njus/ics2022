@@ -8,7 +8,7 @@ static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 static int canvas_w = 0, canvas_h = 0;
-
+static int fbctr,fb;
 
 uint32_t NDL_GetTicks() {
   struct timeval tv;
@@ -55,22 +55,15 @@ void NDL_OpenCanvas(int *w, int *h) {
   }
 }
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  char buf[64];
-  int fbctr=open("/proc/dispinfo",0,0);
-  printf("%d\n",fbctr);
-  read(fbctr,buf,64);
-  //printf("%s\n",buf);
-  sscanf(buf,"WIDTH:%d\nHEIGHT:%d\n",&screen_w,&screen_h);
   printf("%d\n%d\n",screen_w,screen_h);
-  int fd = open("/dev/fb", 0, 0);
-  printf("fd=%d\n",fd);
+  printf("fd=%d\n",fb);
   uint32_t canvas[128];
   for (int i=0;i<128;i++)canvas[i]=0xffffff;
-  for(int i=0;i<h;i++)write(fd,canvas,w*4);
+  for(int i=0;i<h;i++)write(fb,canvas,w*4);
   //printf("%d\n",xx);
   /*for (int i = 0; i < h; i++) {
-    lseek(fd, ((y + i) * screen_w + x) * 4, SEEK_SET); 
-    write(fd,(pixels + i * w), w * 4);
+    lseek(fb, ((y + i) * screen_w + x) * 4, SEEK_SET); 
+    write(fb,(pixels + i * w), w * 4);
   }*/
 }
 
@@ -92,6 +85,13 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+  char buf[64];
+  fbctr=open("/proc/dispinfo",0,0);
+  //printf("%d\n",fbctr);
+  read(fbctr,buf,64);
+  sscanf(buf,"WIDTH:%d\nHEIGHT:%d\n",&screen_w,&screen_h);
+  fb = open("/dev/fb", 0, 0);
+  
   return 0;
 }
 
