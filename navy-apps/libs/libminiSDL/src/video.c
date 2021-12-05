@@ -12,84 +12,19 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
     // printf("dd%d ss%d\n", (int)dst, (int)src);
     // if (dst && src) {
-    int Ws = src->w;
-    int Hs = src->h;
-    int Wd = dst->w;
-    int Hd = dst->h;
-    int ws, hs, xs, ys;
-    if (srcrect == NULL) {
-        ws = Ws;
-        hs = Hs;
-        xs = 0;
-        ys = 0;
-    } else {
-        ws = srcrect->w;
-        hs = srcrect->h;
-        xs = srcrect->x;
-        ys = srcrect->y;
-    }
-    int wd, hd, xd, yd;
-    if (dstrect == NULL) {
-        wd = Wd;
-        hd = Hd;
-        xd = 0;
-        yd = 0;
-    } else {
-        wd = dstrect->w;
-        hd = dstrect->h;
-        xd = dstrect->x;
-        yd = dstrect->y;
-    }
-
-    if (hs + yd > Hd)
-        hs = Hd - yd;
-    if (ws + xd > Wd)
-        ws = Wd - xd;
-    // printf("%d\n", (int)dstrect);
-    int width = dst->format->BytesPerPixel;
-    for (int i = 0; i < hs; i++) {
-        memcpy((void *)dst->pixels + ((yd + i) * Wd + xd) * width,
-               (void *)src->pixels + ((ys + i) * Ws + xs) * width, ws * width);
-    }
+assert(0);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-    int W = dst->w;
-    int H = dst->h;
-    int w, h, x, y;
-    if (dstrect) {
-        w = dstrect->w;
-        h = dstrect->h;
-        x = dstrect->x;
-        y = dstrect->y;
-    } else {
-        w = W;
-        h = H;
-        x = y = 0;
-    }
-    if (x + w > W)
-        x = W - x;
-    if (y + h > H)
-        y = H - y;
-
-    for (int i = 0; i < h; i++) {
-        for (int j = 0; j < w; j++) {
-            if (y + i >= h || x + j >= w)
-                continue;
-            ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = color;
-        }
-    }
-    // SDL_UpdateRect(dst, x, y, w, h);
+assert(0);
 }
 
 uint32_t pixelbuf[120000];
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-    if(w == 0||w > s->w) w = s->w;
-    if(h == 0||h > s->h) h = s->h;
-  if(s->format->BitsPerPixel == 32)
-  {printf("%d %d %d %d\n",x,y,w,h);
-    NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);}
+  if(w == 0||w > s->w) w = s->w;
+  if(h == 0||h > s->h) h = s->h;
+  if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else assert(0);
 }
 
