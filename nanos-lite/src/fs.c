@@ -67,20 +67,13 @@ int fs_open(const char *pathname/*, int flags, mode_t mode*/){
   }
   return -1;
 }
-size_t fs_lseek(int fd, size_t offset, int whence) {
-  size_t tmp;
-  switch(whence) {
-    case SEEK_SET:
-      tmp = offset; break;
-    case SEEK_CUR:
-      tmp = file_table[fd].open_offset + offset; break;
-    case SEEK_END:
-      tmp = file_table[fd].size + offset; break;
-    default:
-      assert(0);
+size_t fs_lseek(int fd, size_t offset, int whence){
+  switch(whence){
+    case SEEK_SET:file_table[fd].open_offset  = offset;                     break;
+    case SEEK_CUR:file_table[fd].open_offset += offset;                     break;
+    case SEEK_END:file_table[fd].open_offset = file_table[fd].size + offset;break;
   }
-  // if (fd >= 6 && tmp > file_table[fd].size) { printf("0"); return -1; }
-  return file_table[fd].open_offset = tmp;
+  return file_table[fd].open_offset;
 }
 size_t fs_read(int fd,void *buf,size_t count){
   //处理count

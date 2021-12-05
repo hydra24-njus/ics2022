@@ -64,13 +64,14 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   printf("%d\n%d\n",screen_w,screen_h);
   int fd = open("/dev/fb", 0, 0);
   printf("fd=%d\n",fd);
-  /*for(int i=0;i<w*h;i++){
-  printf("%x\n",*(pixels+i));
-  }*/
-  for (int i = 0; i < h; i++) {
+  uint32_t canvas[128];
+  for (int i=0;i<128;i++)canvas[i]=0xffffff;
+  for(int i=0;i<h;i++)write(fd,canvas,w*4);
+  //printf("%d\n",xx);
+  /*for (int i = 0; i < h; i++) {
     lseek(fd, ((y + i) * screen_w + x) * 4, SEEK_SET); 
-    write(fd,pixels + i * w, w * 4);
-  }
+    write(fd,(pixels + i * w), w * 4);
+  }*/
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
