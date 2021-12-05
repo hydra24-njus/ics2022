@@ -61,15 +61,16 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   sscanf(buf,"WIDTH:%d\nHEIGHT:%d\n",&screen_w,&screen_h);
   printf("%d\n%d\n",screen_w,screen_h);
   //printf("1\n");
-  int fd = open("/dev/fb", 2, 0);
+  int fd = open("/dev/fb", 5, 0);
   //int fd = fopen("/dev/fb","w");
   printf("fd=%d\n",fd);
   //write(fd,pixels,w*h*4);
-  for (int i = 1; i < h; i++) {
+  for (int i = 0; i < h; i++) {
     //printf("%d\n",j++);
     lseek(fd, ((y + i) * screen_w + x) * 4, SEEK_SET);
     //printf("%s\n",buf);
-    write(fd, pixels + i * w, w * 4);
+    printf("%x\n",pixels+i*w);
+    write(fd,pixels + i * w, w * 4);
   }
 }
 
