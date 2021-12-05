@@ -86,6 +86,7 @@ uint32_t pixelbuf[120000];
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if(s->format->BitsPerPixel == 32)
+  {printf("%d %d %d %d\n",x,y,w,h);
     NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else assert(0);
 }
