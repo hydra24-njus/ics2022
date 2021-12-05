@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
-
+static void ConvertPixelsARGB_ABGR(void *dst, void *src, int len);
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
@@ -37,7 +37,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
         }
     }*/
 }
-
+uint32_t pixelbuf[120000];
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 if (s) {
         if (w == 0 || h == 0) {
