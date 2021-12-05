@@ -23,9 +23,16 @@ while(1){
   char keydown[3],keycode[15];
   if(buf[0]=='0')continue;//no event.
   sscanf(buf,"%s %s\n",keydown,keycode);
-  return 1;
+  //printf("%s %s\n",keydown,keycode);
+  event->key.type=event->type=(keydown[1] == 'd')?SDL_KEYDOWN:SDL_KEYUP;
+  for (int i = 0; i < 83; i++) {
+    if (!strcmp(keyname[i], keycode)) {
+      event->key.keysym.sym = i;
+    }
   }
   return 1;
+  }
+  return 0;
 }
 
 int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
