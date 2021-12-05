@@ -58,7 +58,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   fb=open("/dev/fb",0,0);
   lseek(fb,0,SEEK_SET);
   uint32_t canvars[300];
-  for(int i=0;i<300;i++)canvars[i]=0x00ff1122;
+  for(int i=0;i<300;i++)canvars[i]=0x00ffffff;
   write(fb,canvars,300);
   /*printf("%d\n%d\n",screen_w,screen_h);
   printf("fd=%d\n",fb);
