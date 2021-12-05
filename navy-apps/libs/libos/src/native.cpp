@@ -61,10 +61,16 @@ static inline void get_fsimg_path(char *newpath, const char *path) {
   if (scancode == SDL_SCANCODE_##k) name = #k;
 
 static void update_screen() {
+  printf("\ndisp_w=%d\n",disp_w);
+  printf("texture=%lx\n",texture);
+  printf("renderer=%lx\n\n",renderer);
+  assert(0);
+  //printf("1.%x\t%x\n",*fb++,*fb);//assert(0);
   SDL_UpdateTexture(texture, NULL, fb, disp_w * sizeof(Uint32));
   SDL_RenderClear(renderer);
   SDL_RenderCopy(renderer, texture, NULL, NULL);
   SDL_RenderPresent(renderer);
+  //printf("2.%x\t%x\n",*fb++,*fb);assert(0);
 }
 
 #define KEY_QUEUE_LEN 64
@@ -124,7 +130,7 @@ static void open_display() {
   assert(ret == 0);
   fb = (uint32_t *)mmap(NULL, FB_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fb_memfd, 0);
   assert(fb != (void *)-1);
-  memset(fb, 0, FB_SIZE);
+  memset(fb, (int)0x00ffffff, FB_SIZE);
   lseek(fb_memfd, 0, SEEK_SET);
 }
 
