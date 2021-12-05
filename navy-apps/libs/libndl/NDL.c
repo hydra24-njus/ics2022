@@ -8,6 +8,8 @@ static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 static int canvas_w = 0, canvas_h = 0;
+
+
 uint32_t NDL_GetTicks() {
   struct timeval tv;
   struct timezone tz;
@@ -57,17 +59,16 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int fbctr=open("/proc/dispinfo",0,0);
   printf("%d\n",fbctr);
   read(fbctr,buf,64);
-  printf("%s\n",buf);
+  //printf("%s\n",buf);
   sscanf(buf,"WIDTH:%d\nHEIGHT:%d\n",&screen_w,&screen_h);
   printf("%d\n%d\n",screen_w,screen_h);
-  //printf("1\n");
-  int fd = open("/dev/fb", 5, 0);
+  int fd = open("/dev/fb", 0, 0);
   printf("fd=%d\n",fd);
   /*for(int i=0;i<w*h;i++){
   printf("%x\n",*(pixels+i));
   }*/
   for (int i = 0; i < h; i++) {
-    lseek(fd, ((y + i) * screen_w + x) * 4, SEEK_SET); 
+    lseek(fd, ((y + i) * screen_w + x) * 4, SEEK_CUR); 
     write(fd,pixels + i * w, w * 4);
   }
 }
