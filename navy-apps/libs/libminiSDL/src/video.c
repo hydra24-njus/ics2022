@@ -85,33 +85,9 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 uint32_t pixelbuf[120000];
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-    if (s) {
-        if (w == 0 || h == 0) {
-            w = s->w;
-            h = s->h;
-        }
-        if (x + w > s->w)
-            w = s->w - x;
-        if (y + h > s->h)
-            h = s->h - y;
-
-        if (s->format->BytesPerPixel != 4) {
-            SDL_Color *col = s->format->palette->colors;
-            uint8_t *src = s->pixels;
-            // for (int i = 0; i < 256; i++) printf("%x ", col[i]);
-            // printf("\n");
-            for (int i = 0; i < h; i++) {
-                for (int j = 0; j < w; j++) {
-                    int tmp = pixelbuf[i * w + j] =
-                        col[src[(i + y) * s->w + j + x]].val;
-                }
-            }
-            ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
-            NDL_DrawRect(pixelbuf, x, y, w, h);
-        } else {
-            NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
-        }
-    }
+  if(s->format->BitsPerPixel == 32)
+    NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
+  else assert(0);
 }
 
 // APIs below are already implemented.
