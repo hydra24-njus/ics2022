@@ -7,12 +7,13 @@
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  assert(0);
 }
 
-void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
+void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {assert(0);
 }
 
-void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {assert(0);
 }
 
 // APIs below are already implemented.
