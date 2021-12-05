@@ -86,15 +86,6 @@ uint32_t pixelbuf[120000];
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     if (s) {
-        if (w == 0 || h == 0) {
-            w = s->w;
-            h = s->h;
-        }
-        if (x + w > s->w)
-            w = s->w - x;
-        if (y + h > s->h)
-            h = s->h - y;
-
         if (s->format->BytesPerPixel != 4) {
             SDL_Color *col = s->format->palette->colors;
             uint8_t *src = s->pixels;
