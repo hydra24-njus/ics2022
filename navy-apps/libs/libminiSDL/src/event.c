@@ -23,7 +23,6 @@ while(1){
   char keydown[3],keycode[15];
   if(buf[0]=='0')continue;//no event.
   sscanf(buf,"%s %s\n",keydown,keycode);
-  printf("%s %s\n",keydown,keycode);
   return 1;
   }
   return 1;
