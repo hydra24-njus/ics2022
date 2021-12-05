@@ -52,15 +52,24 @@ void NDL_OpenCanvas(int *w, int *h) {
     printf("%d\t%d\n",canvas_w,canvas_h);
   }
 }
-
+static uint32_t* canvas =NULL;
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   char buf[64];
-  read(4,buf,64);
+  int fbctr=open("/proc/dispinfo",1,0);
+  read(fbctr,buf,64);
+  //printf("%s\n",buf);
   sscanf(buf,"WIDTH:%d\nHEIGHT:%d\n",&screen_w,&screen_h);
-  int fd = open("/dev/fb", 0, 0);
-  for (int i = 0; i < h; i++) {
-    lseek(fd, ((y + i) * screen_w + x) * 4, 0);
-    write(fd, pixels + i * w, w * 4);
+  //printf("%d\n%d\n",screen_w,screen_h);
+  //printf("1\n");
+  //int fd = open("/dev/fb", 2, 0);
+  int fd = fopen("/dev/fb","w");
+  //printf("fd=%d\n",fd);
+  //write(fd,pixels,w*h*4);
+  for (int i = 1; i < h; i++) {
+    //printf("%d\n",j++);
+    lseek(fd, ((y + i) * screen_w + x) * 4, SEEK_SET);
+    //printf("%s\n",buf);
+    write(fd, (void*)pixels + i * w, w * 4);
   }
 }
 
