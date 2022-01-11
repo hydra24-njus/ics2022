@@ -15,21 +15,18 @@ assert(0);
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   int x,y,w,h;
+  int W=dst->w,H=dst->h;
   if(dstrect==NULL){
     x=y=0;
     w=dst->w;
     h=dst->h;
   }
   else x=dstrect->x;y=dstrect->y;w=dstrect->w;h=dstrect->h;
-  if (x + w > h)x = w - x;
-  if (y + h > h)y = h - y;
   if(dst->format->BitsPerPixel==32){
     printf("32\n");
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++) {
-            if (y + i >= h || x + j >= w)
-                continue;
-            ((uint32_t *)(dst->pixels))[(y + i) * w + x + j] = color;
+            ((uint32_t *)(dst->pixels))[(y + i) * W + x + j] = color;
         }
     }
   }
