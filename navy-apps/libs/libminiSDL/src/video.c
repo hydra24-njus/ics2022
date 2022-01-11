@@ -23,8 +23,12 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   else x=dstrect->x;y=dstrect->y;w=dstrect->w;h=dstrect->h;
   
   if(dst->format->BitsPerPixel==32){
-    printf("32\n");
-    
+    //printf("32\n");
+    for(size_t i = y;i < h+y;i++) {
+      for(size_t j = x;j < w+x;j++) {
+        dst->pixels[i*(dst->w)+j] = color;
+      }
+    }
   }
   else if(dst->format->BitsPerPixel ==8){
     printf("8bit\n");
