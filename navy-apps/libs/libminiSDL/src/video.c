@@ -20,8 +20,10 @@ assert(0);
 uint32_t pixelbuf[120000];
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  if(w == 0||w > s->w) w = s->w;
-  if(h == 0||h > s->h) h = s->h;
+  if(x==0&&y==0&&w==0&&h==0){
+  	x=s->w;y=s->h;
+  	w=s->w;h=s->h;
+  }
   if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else assert(0);
 }
