@@ -30,6 +30,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     printf("8bit\n");
     assert(0);
   }
+  else assert(0);
 }
 
 uint32_t pixelbuf[120000];
