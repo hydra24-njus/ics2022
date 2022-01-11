@@ -24,12 +24,9 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   }
   else {x=dstrect->x;y=dstrect->y;w=dstrect->w;h=dstrect->h;}
   if(dst->format->BitsPerPixel==32){
-    //printf("32\n");
     for(int i = 0;i < h;i ++)
       for(int j = 0;j < w;j ++)
-      {
         ((uint32_t *)(dst->pixels))[(i+y)*dst->w+j+x] = color;
-      }
   }
   else if(dst->format->BitsPerPixel ==8){
     printf("8bit\n");
@@ -38,11 +35,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   else assert(0);
 }
 
-uint32_t pixelbuf[120000];
-
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  if(w == 0||w > s->w) w = s->w;
-  if(h == 0||h > s->h) h = s->h;
   if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else assert(0);
 }
