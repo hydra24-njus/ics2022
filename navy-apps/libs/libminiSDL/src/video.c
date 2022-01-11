@@ -14,7 +14,22 @@ assert(0);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-assert(0);
+  int x,y,w,h;
+  if(dstrect==NULL){
+    x=y=0;
+    w=dst->w;
+    h=dst->h;
+  }
+  else x=dstrect->x;y=dstrect->y;w=dstrect->w;h=dstrect->h;
+  
+  if(dst->formate->BitsPerPixel==32){
+    printf("32\n");
+    
+  }
+  else if(dst->format->BitsPerPixel ==8){
+    printf("8bit\n");
+    assert(0);
+  }
 }
 
 uint32_t pixelbuf[120000];
