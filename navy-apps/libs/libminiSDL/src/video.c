@@ -49,7 +49,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     
   }
   else if(dst->format->BitsPerPixel ==8){
-    SDL_Color* targ=&(dst->format->palette->colors[255]);
+    SDL_Color* target=&(dst->format->palette->colors[255]);
     target->a = (color>>24)&0xff;
     target->r = (color>>16)&0xff;
     target->g = (color>>8)&0xff;
@@ -70,7 +70,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   }
   if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else{
-    uint32_t palette=malloc(sizeof(uint32_t)*w*h);
+    uint32_t* palette=malloc(sizeof(uint32_t)*w*h);
     memset(palette,0,sizeof(palette));
     for(int i = 0;i < h;i++)
       for(int j = 0;j < w;j++)
