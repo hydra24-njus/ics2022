@@ -25,6 +25,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     for(int i = 0;i < h;i ++)
       for(int j = 0;j < w;j ++)
         ((uint32_t *)(dst->pixels))[(i+y)*dst->w+j+x] = color;
+    SDL_UpdateRect(dst, x, y, w, h);
   }
   else if(dst->format->BitsPerPixel ==8){
     printf("8bit\n");
