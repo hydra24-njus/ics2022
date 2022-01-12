@@ -11,37 +11,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     assert(dst && src);
     assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
     //TODO();
-     int dst_x,dst_y,dst_w = dst->w,dst_h = dst->h;
-  int src_x,src_y,src_w = src->w, src_h = src->h;
-  if(srcrect == NULL)
-  {
-    src_x = src_y = 0;
-    src_w = src->w;
-    src_h = src->h;
-  }
-  else {
-    src_x = srcrect->x;
-    src_y = srcrect->y;
-    src_w = srcrect->w;
-    src_h = srcrect->h;
-  }
-  if(dstrect == NULL)
-  {
-    dst_x = dst_y = 0;
-    dst_w = dst->w;
-    dst_h = dst->h;
-  }
-  else {
-    dst_x = dstrect->x;
-    dst_y = dstrect->y;
-    dst_w = dstrect->w;
-    dst_h = dstrect->h;
-  }
-  uint8_t* dst_color = dst->pixels,*src_color = src->pixels;
-  uint32_t color_width = dst->format->palette?1:4;
-  //printf("color width %d\n",color_width);
-  for(int i = 0;i < src_h;i++)
-    memcpy(dst_color+color_width*((i+dst_y)*dst->w+dst_x),src_color+color_width*((i+src_y)*src->w+src_x),color_width*src_w);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
