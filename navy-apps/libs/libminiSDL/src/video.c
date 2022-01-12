@@ -23,7 +23,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
       wd=dst->w;hd=dst->h;xd=0;yd=0;
     }
     else{
-      wd=dstrect->w;hd=dstrect->h;xs=dstrect->x;ys=dstrect->y;
+      wd=dstrect->w;hd=dstrect->h;xd=dstrect->x;yd=dstrect->y;
     }
     int width = dst->format->BytesPerPixel;
     for (int i = 0; i < hs; i++) {
