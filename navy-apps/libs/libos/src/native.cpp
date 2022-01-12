@@ -64,7 +64,6 @@ static void update_screen() {
   printf("\ndisp_w=%d\n",disp_w);
   printf("texture=%lx\n",texture);
   printf("renderer=%lx\n\n",renderer);
-  assert(0);
   //printf("1.%x\t%x\n",*fb++,*fb);//assert(0);
   SDL_UpdateTexture(texture, NULL, fb, disp_w * sizeof(Uint32));
   SDL_RenderClear(renderer);
