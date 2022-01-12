@@ -12,7 +12,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
     //TODO();
     
-assert(0);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
