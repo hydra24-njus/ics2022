@@ -11,44 +11,24 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     assert(dst && src);
     assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
     //TODO();
-        int Ws = src->w;
-    int Hs = src->h;
-    int Wd = dst->w;
-    int Hd = dst->h;
-    int ws, hs, xs, ys;
-    if (srcrect == NULL) {
-        ws = Ws;
-        hs = Hs;
-        xs = 0;
-        ys = 0;
-    } else {
-        ws = srcrect->w;
-        hs = srcrect->h;
-        xs = srcrect->x;
-        ys = srcrect->y;
+    int ws,hs,xs,ys;
+    int wd,hd,xd,yd;
+    if(srcrect==NULL){
+      ws=src->w;hs=src->h;xs=0;ys=0;
     }
-    int wd, hd, xd, yd;
-    if (dstrect == NULL) {
-        wd = Wd;
-        hd = Hd;
-        xd = 0;
-        yd = 0;
-    } else {
-        wd = dstrect->w;
-        hd = dstrect->h;
-        xd = dstrect->x;
-        yd = dstrect->y;
+    else{
+      ws=srcrect->w;hs=srcrect->h;xs=srcrect->x;ys=srcrect->y;
     }
-
-    if (hs + yd > Hd)
-        hs = Hd - yd;
-    if (ws + xd > Wd)
-        ws = Wd - xd;
-    // printf("%d\n", (int)dstrect);
+    if(dstrect==NULL){
+      wd=dst->w;hd=dst->h;xd=0;yd=0;
+    }
+    else{
+      wd=dstrect->w;hd=dstrect->h;xs=dstrect->x;ys=dstrect->y;
+    }
     int width = dst->format->BytesPerPixel;
     for (int i = 0; i < hs; i++) {
-        memcpy((void *)dst->pixels + ((yd + i) * Wd + xd) * width,
-               (void *)src->pixels + ((ys + i) * Ws + xs) * width, ws * width);
+        memcpy((void *)dst->pixels + ((yd + i) * dst->w + xd) * width,
+               (void *)src->pixels + ((ys + i) * src->w + xs) * width, ws * width);
     }
 }
 
