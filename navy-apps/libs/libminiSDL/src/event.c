@@ -22,7 +22,7 @@ int SDL_PollEvent(SDL_Event *ev) {
   int keycode = 0;
   NDL_PollEvent(key,sizeof(key));//获取event中的文本
   if(key[0]==0)return 0;
-  printf("%s\n",key);
+  //printf("%s\n",key);
   sscanf(key,"%s %s\n",state,name);
   ev->key.type = ev->type =(state[1] == 'd') ? SDL_KEYDOWN : SDL_KEYUP;
   for (int i = 0; i < 83; i++) {
@@ -42,7 +42,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   key[0] = '0';
   int keycode = 0;
   while(!NDL_PollEvent(key,sizeof(key)));//获取event中的文本
-  printf("%s\n",key);
+  //printf("%s\n",key);
   sscanf(key,"%s %s\n",state,name);
   event->key.type = event->type =(state[1] == 'd') ? SDL_KEYDOWN : SDL_KEYUP;
   for (int i = 0; i < 83; i++) {
