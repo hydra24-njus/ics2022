@@ -21,7 +21,6 @@ int sys_execve(char* filename,char * const argv[],char* const envp[]){
   return -1;
 }
 
-static char *empty_args[] = {NULL};
 void do_syscall(Context *c) {
   //Log("sys_call");
   uintptr_t a[4];
@@ -30,7 +29,7 @@ void do_syscall(Context *c) {
   a[2] = c->GPR3;
   a[3] = c->GPR4;
   switch (a[0]) {
-    case SYS_exit:sys_execve((char*)a[1],empty_args,empty_args); break;
+    case SYS_exit:naive_uload(NULL,"/bin/menu"); break;
     case SYS_yield:yield();break;
     case SYS_open:c->GPRx=fs_open((const char*)(a[1]));break;
     case SYS_lseek:c->GPRx=fs_lseek(a[1],a[2],a[3]);break;
