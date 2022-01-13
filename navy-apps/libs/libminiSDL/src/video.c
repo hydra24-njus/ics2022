@@ -26,11 +26,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     else{
       wd=dstrect->w;hd=dstrect->h;xd=dstrect->x;yd=dstrect->y;
     }
-    uint8_t* colord=dst->pixels,colors=src->pixels;
-    uint32_t width=dst->format->palette?1:4;
-    for(int i=0;i<hs;i++)
-      memcpy(colord+width*((i+yd)*wd+xd),colors+width*((i+ys)*ws+xs),width*ws);
-    
+  uint8_t* dst_color = dst->pixels,*src_color = src->pixels;
+  uint32_t color_width = dst->format->palette?1:4;
+  for(int i = 0;i < hs;i++)
+    memcpy(dst_color+color_width*((i+yd)*dst->w+xd),src_color+color_width*((i+ys)*src->w+xs),color_width*ws);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
