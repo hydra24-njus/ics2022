@@ -56,7 +56,7 @@ printf("updaterect\n");
   }
   if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else{
-    uint32_t* pixelbuf=malloc(sizeof(uint32_t)*w*h);
+    uint32_t pixelbuf[300*400];
     for(int i=0;i<h;i++)
       for(int j=0;j<w;j++){
         uint8_t r = s->format->palette->colors[s->pixels[(i+y)*s->w+j+x]].r;
