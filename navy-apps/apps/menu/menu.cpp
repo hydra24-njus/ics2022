@@ -83,7 +83,7 @@ int main(int argc, char *argv[], char *envp[]) {
     do {
       SDL_WaitEvent(&e);
     } while (e.type != SDL_KEYDOWN);
-
+print("000\n\n\n");
     int i = -1;
     switch (e.key.keysym.sym) {
       case SDLK_0: i = 0; break;
@@ -99,7 +99,6 @@ int main(int argc, char *argv[], char *envp[]) {
       case SDLK_LEFT: prev(); break;
       case SDLK_RIGHT: next(); break;
     }
-printf("\n\n\n");
     if (i != -1 && i <= i_max) {
       i += page * 10;
       auto *item = &items[i];
