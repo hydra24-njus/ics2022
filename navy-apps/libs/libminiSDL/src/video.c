@@ -61,7 +61,7 @@ printf("updaterect\n");
       for(int j=0;j<w;j++){
         pixelbuf[i * w + j] = s->format->palette->colors[s->pixels[(i + y) * s->w + j + x]].val;
       }
-    
+    ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
     NDL_DrawRect(pixelbuf, x, y, w, h);
   }
 }
