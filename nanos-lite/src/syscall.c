@@ -1,5 +1,6 @@
 #include <common.h>
 #include "syscall.h"
+#include <proc.h>
 extern int fs_open(const char */*, int flags, mode_t mode*/);
 extern size_t fs_lseek(int fd, size_t offset, int whence);
 extern size_t fs_read(int,void *,size_t);
@@ -12,9 +13,10 @@ extern int sys_gettimeofday(void*);
   }
   return count;
 }*/
+
 static char *empty_args[] = {NULL};
 int sys_execve(const char *pathname,char *const argv[],char *const envp[]){
-return 0;
+    return 0;
 }
 void do_syscall(Context *c) {
   //Log("sys_call");
