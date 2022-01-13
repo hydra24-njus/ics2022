@@ -12,6 +12,9 @@ extern int sys_gettimeofday(void*);
   }
   return count;
 }*/
+int sys_execve(const char *pathname,char *const argv[],char *const envp[]){
+return 0;
+}
 void do_syscall(Context *c) {
   //Log("sys_call");
   uintptr_t a[4];
@@ -29,7 +32,9 @@ void do_syscall(Context *c) {
     case SYS_close:c->GPRx=fs_close(a[1]);break;
     case SYS_brk:c->GPRx=0;break;
     case SYS_gettimeofday:c->GPRx=sys_gettimeofday((void *)a[1]);break;
+    case SYS_execve:c->GPRx=sys_execve((char*)a[1],(char**)a[2],(char**)a[3]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
+
 
