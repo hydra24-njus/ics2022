@@ -27,7 +27,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
       wd=dstrect->w;hd=dstrect->h;xd=dstrect->x;yd=dstrect->y;
     }
     uint8_t* colord=dst->pixels,colors=src->pixels;
-    uint32_t width=dst->format->BytesPerPixel;
+    uint32_t width=dst->format->palette?1:4;
     for(int i=0;i<hs;i++)
       memcpy(colord+width*((i+yd)*wd+xd),colors+width*((i+ys)*ws+xs),width*ws);
     
