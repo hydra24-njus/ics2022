@@ -77,7 +77,7 @@ int main(int argc, char *argv[], char *envp[]) {
   set_i_max();
 
   while (1) {
-  
+  printf("\n\n\n");
     display_menu(i_max);
     printf("111\n\n\n");
     SDL_Event e;
