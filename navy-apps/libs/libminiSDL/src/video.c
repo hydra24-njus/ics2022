@@ -48,7 +48,7 @@ printf("fillrect\n");
       if (y + i >= h || x + j >= w)continue;
       ((uint32_t*)(dst->pixels))[(y+i)*dst->w+x+j]=color;}
 }
-
+    uint32_t pixelbuf[300*400];
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 printf("updaterect\n");
   if(w==0||h==0){
@@ -56,7 +56,7 @@ printf("updaterect\n");
   }
   if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else{
-    uint32_t pixelbuf[300*400];
+
     for(int i=0;i<h;i++)
       for(int j=0;j<w;j++){
         pixelbuf[i * w + j] = s->format->palette->colors[s->pixels[(i + y) * s->w + j + x]].val;
