@@ -51,9 +51,9 @@ printf("fillrect\n");
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 printf("updaterect\n");
-  if(w==0||h==0){
-    w=s->w;h=s->h;
-  }
+  if(w==0||h==0)w=s->w;h=s->h;
+  if (x + w > s->w)w = s->w - x;
+  if (y + h > s->h)h = s->h - y;
   if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else{
     SDL_Color *colors=s->format->palette->colors;
