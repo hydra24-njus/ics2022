@@ -83,7 +83,6 @@ int main(int argc, char *argv[], char *envp[]) {
     do {
       SDL_WaitEvent(&e);
     } while (e.type != SDL_KEYDOWN);
-print("000\n\n\n");
     int i = -1;
     switch (e.key.keysym.sym) {
       case SDLK_0: i = 0; break;
@@ -106,7 +105,6 @@ print("000\n\n\n");
       exec_argv[0] = item->bin;
       exec_argv[1] = item->arg1;
       exec_argv[2] = NULL;
-      printf("%s\n\n\n",exec_argv[0]);
       clear_display();
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       execve(exec_argv[0], (char**)exec_argv, (char**)envp);
