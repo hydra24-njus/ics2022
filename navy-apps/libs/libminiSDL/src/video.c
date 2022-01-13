@@ -26,15 +26,16 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     else{
       wd=dstrect->w;hd=dstrect->h;xd=dstrect->x;yd=dstrect->y;
     }
-    int width = dst->format->BytesPerPixel;
-    for (int i = 0; i < hs; i++) {
-        memcpy((void *)dst->pixels + ((yd + i) * dst->w + xd) * width,
-               (void *)src->pixels + ((ys + i) * src->w + xs) * width, ws * width);
-    }
+  uint8_t* dst_color = dst->pixels,*src_color = src->pixels;
+  uint32_t color_width = dst->format->palette?1:4;
+  //printf("color width %d\n",color_width);
+  for(int i = 0;i < hs;i++)
+    memcpy(dst_color+color_width*((i+yd)*dst->w+xd),src_color+color_width*((i+ys)*src->w+xs),color_width*ws);
+    
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-//printf("fillrect\n");
+printf("fillrect\n");
   int x,y,w,h;
   if(dstrect==NULL){
     x=y=0;
@@ -49,16 +50,29 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     
   }
   else if(dst->format->BitsPerPixel ==8){
+  SDL_Color* target = &(dst->format->palette->colors[255]);
+    target->a = (color>>24)&0xff;
+    target->r = (color>>16)&0xff;
+    target->g = (color>>8)&0xff;
+    target->b = (color)&0xff;
+    for(size_t i = y;i < h+y;i++) {
+      for(size_t j = x;j < w+ x;j++) {
+        dst->pixels[i*(dst->w)+j] = 255;
+      }
+    }
   }
   else assert(0);
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-//printf("updaterect\n");
+printf("updaterect\n");
   if(w==0||h==0){
     w=s->w;h=s->h;
   }
   if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
+  else{
+  
+  }
 }
 
 // APIs below are already implemented.
