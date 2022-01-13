@@ -32,7 +32,7 @@ void do_syscall(Context *c) {
     case SYS_close:c->GPRx=fs_close(a[1]);break;
     case SYS_brk:c->GPRx=0;break;
     case SYS_gettimeofday:c->GPRx=sys_gettimeofday((void *)a[1]);break;
-    case SYS_execve:c->GPRx=sys_execve((char*)a[1],(char**)a[2],(char**)a[3]);break;
+    case SYS_execve:printf("execve\n\n");c->GPRx=sys_execve((char*)a[1],(char**)a[2],(char**)a[3]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
