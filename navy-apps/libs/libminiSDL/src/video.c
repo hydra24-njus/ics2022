@@ -66,7 +66,6 @@ printf("updaterect\n");
       }
     
     NDL_DrawRect(pixelbuf, x, y, w, h);
-    free(pixelbuf);
   }
 }
 
