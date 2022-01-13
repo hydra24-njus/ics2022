@@ -35,7 +35,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-printf("fillrect\n");
+//printf("fillrect\n");
   int x,y,w,h;
   if(dstrect==NULL){
     x=y=0;
@@ -71,7 +71,21 @@ printf("updaterect\n");
   }
   if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else{
-  
+  uint32_t s_h = s->h,s_w = s->w;
+    if(w == 0||w > s_w) w = s_w;
+    if(h == 0||h > s_h) h = s_h;
+    uint32_t * palette = malloc(sizeof(uint32_t)*w*h);
+    memset(palette,0,sizeof(palette));
+    for(int i = 0;i < h;i++)
+      for(int j = 0;j < w;j++)
+      {
+        uint8_t r = s->format->palette->colors[s->pixels[(i+y)*s_w+j+x]].r;
+        uint8_t g = s->format->palette->colors[s->pixels[(i+y)*s_w+j+x]].g;
+        uint8_t b = s->format->palette->colors[s->pixels[(i+y)*s_w+j+x]].b;
+        palette[i*w+j] = ((r<<16)|(g<<8)|b);
+      }
+    NDL_DrawRect(palette,x,y,w,h);
+    free(palette);
   }
 }
 

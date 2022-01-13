@@ -1,5 +1,6 @@
 #include <NDL.h>
 #include <SDL.h>
+#include<assert.h>
 //#include <string.h>
 
 #define keyname(k) #k,
@@ -63,5 +64,6 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  return NULL;
+  if(numkeys == NULL)return keystate;
+  else assert(0);
 }
