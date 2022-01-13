@@ -107,6 +107,7 @@ int main(int argc, char *argv[], char *envp[]) {
       exec_argv[0] = item->bin;
       exec_argv[1] = item->arg1;
       exec_argv[2] = NULL;
+      printf("%s\n",exec_argv[0]);
       clear_display();
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       execve(exec_argv[0], (char**)exec_argv, (char**)envp);
