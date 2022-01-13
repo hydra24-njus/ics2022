@@ -27,7 +27,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
       wd=dstrect->w;hd=dstrect->h;xd=dstrect->x;yd=dstrect->y;
     }
     uint8_t* colord=dst->pixels,colors=src->pixels;
-    uint32_t width=dst->format->palette?1:4;
+    uint32_t width=dst->format->BytesPerPixel;
     for(int i=0;i<hs;i++)
       memcpy(colord+width*((i+yd)*wd+xd),colors+width*((i+ys)*ws+xs),width*ws);
     
@@ -61,7 +61,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     for(int i=0;i<h;i++)
       for(int j=0;j<w;j++)
         pixelbuf[i*w+j]=colors[src[(i+y)*s->w+j+x]].val;
-    //ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
+    ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
     NDL_DrawRect(pixelbuf, x, y, w, h);
     free(pixelbuf);
   }
