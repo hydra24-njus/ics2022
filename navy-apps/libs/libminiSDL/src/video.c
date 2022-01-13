@@ -56,7 +56,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else{
     SDL_Color *colors=s->format->palette->colors;
-    uint32_t* pixelbuf=malloc(sizeof(uint32_t)*w*h);
+    uint32_t* pixelbuf=malloc(sizeof(uint32_t)*300*400);
     uint8_t* src=s->pixels;
     for(int i=0;i<h;i++)
       for(int j=0;j<w;j++)
