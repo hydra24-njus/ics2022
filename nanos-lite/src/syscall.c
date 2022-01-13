@@ -8,12 +8,19 @@ extern size_t fs_write(int,const void*,size_t);
 extern int fs_close(int);
 extern int sys_gettimeofday(void*);
 extern void naive_uload(void *pcb, const char *filename);
+
+
 /*int sys_write(int fd,const void *buf,size_t count){
   for(int i=0;i<count;i++){
     putch(buf++);
   }
   return count;
 }*/
+int sys_execve(char* filename,char * const argv[],char* const envp[]){
+  naive_uload(NULL,filename);
+  return -1;
+}
+
 
 void do_syscall(Context *c) {
   //Log("sys_call");
