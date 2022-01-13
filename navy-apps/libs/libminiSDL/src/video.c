@@ -49,7 +49,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-printf("updaterect\n");
+//printf("updaterect\n");
   if(w==0||h==0){
     w=s->w;h=s->h;
   }
