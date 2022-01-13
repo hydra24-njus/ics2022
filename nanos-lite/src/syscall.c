@@ -29,7 +29,7 @@ void do_syscall(Context *c) {
   a[2] = c->GPR3;
   a[3] = c->GPR4;
   switch (a[0]) {
-    case SYS_exit:naive_uload(NULL,"/bin/menu"); break;
+    case SYS_exit:Log("sys_call:exit");naive_uload(NULL,"/bin/menu"); break;
     case SYS_yield:yield();break;
     case SYS_open:c->GPRx=fs_open((const char*)(a[1]));break;
     case SYS_lseek:c->GPRx=fs_lseek(a[1],a[2],a[3]);break;
