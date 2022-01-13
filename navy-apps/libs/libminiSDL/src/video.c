@@ -59,10 +59,7 @@ printf("updaterect\n");
     uint32_t pixelbuf[300*400];
     for(int i=0;i<h;i++)
       for(int j=0;j<w;j++){
-        uint8_t r = s->format->palette->colors[s->pixels[(i+y)*s->w+j+x]].r;
-        uint8_t g = s->format->palette->colors[s->pixels[(i+y)*s->w+j+x]].g;
-        uint8_t b = s->format->palette->colors[s->pixels[(i+y)*s->w+j+x]].b;
-        pixelbuf[i*w+j] = ((r<<16)|(g<<8)|b);
+        pixelbuf[i * w + j] = s->format->palette->colors[s->pixels[(i + y) * s->w + j + x]].val;
       }
     
     NDL_DrawRect(pixelbuf, x, y, w, h);
