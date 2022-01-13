@@ -48,7 +48,7 @@ printf("fillrect\n");
       if (y + i >= h || x + j >= w)continue;
       ((uint32_t*)(dst->pixels))[(y+i)*dst->w+x+j]=color;}
 }
-    uint32_t pixelbuf[300*400];
+
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 printf("updaterect\n");
   if(w==0||h==0){
@@ -56,13 +56,19 @@ printf("updaterect\n");
   }
   if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else{
-
-    for(int i=0;i<h;i++)
+    SDL_Color *colors=s->format->palette->colors;
+    uint8_t* pixel=s->pixels;
+    uint32_t* pixelbuf=malloc(sizeof(uint32_t)*w*h);
+    for(int i=0;i<h;i++){
       for(int j=0;j<w;j++){
-        pixelbuf[i * w + j] = s->format->palette->colors[s->pixels[(i + y) * s->w + j + x]].val;
+        uint8_t r=colors[pixel[(i+y)*s->w+j+x]].r;
+        uint8_t g=colors[pixel[(i+y)*s->w+j+x]].g;
+        uint8_t b=colors[pixel[(i+y)*s->w+j+x]].b;
+        pixelbuf[i*w+j]=((r<<16)|(g<<8)|b);
       }
-    ConvertPixelsARGB_ABGR(pixelbuf, pixelbuf, w * h);
-    NDL_DrawRect(pixelbuf, x, y, w, h);
+    }
+    NDL_DrawRect(pixelbuf,x,y,w,h);
+    free(pixelbuf);
   }
 }
 
