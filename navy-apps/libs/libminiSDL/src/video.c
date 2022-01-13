@@ -29,7 +29,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
     uint8_t* colord=dst->pixels,*colors=src->pixels;
     uint32_t width=dst->format->BytesPerPixel;
     for(int i=0;i<hs;i++)
-      memcpy(colord+width*((i+yd)*wd+xd),colors+width*((i+ys)*ws+xs),width*ws);
+      memcpy(colord+width*((i+yd)*dst->w+xd),colors+width*((i+ys)*src->w+xs),width*ws);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
