@@ -99,7 +99,7 @@ int main(int argc, char *argv[], char *envp[]) {
       case SDLK_LEFT: prev(); break;
       case SDLK_RIGHT: next(); break;
     }
-
+printf("\n\n\n");
     if (i != -1 && i <= i_max) {
       i += page * 10;
       auto *item = &items[i];
