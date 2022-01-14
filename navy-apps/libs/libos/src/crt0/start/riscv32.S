@@ -2,4 +2,5 @@
 _start:
   move s0, zero
   move sp,a0
+  push sp
   jal call_main
