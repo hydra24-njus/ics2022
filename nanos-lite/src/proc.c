@@ -22,8 +22,8 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-  context_kload(&pcb[0],hello_fun,NULL);
-  context_uload(&pcb[1],"/bin/pal");
+  //context_kload(&pcb[0],hello_fun,NULL);
+  context_uload(&pcb[0],"/bin/pal");
   switch_boot_pcb();
 
 
@@ -37,14 +37,9 @@ void init_proc() {
   // load program here
   //naive_uload(NULL,"/bin/menu");
 }
-static int cnt=1;
 Context* schedule(Context *prev) {
   current->cp=prev;
-  cnt++;
-  if(cnt&1){
   current=&pcb[0];
-  }
-  else current=&pcb[1];
   return current->cp;
 }
 
