@@ -54,16 +54,14 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
       }
   } 
   else if(dst->format->BitsPerPixel == 8) {
-    SDL_Color* target = &(dst->format->palette->colors[255]);
-    target->a = (color>>24)&0xff;
-    target->r = (color>>16)&0xff;
-    target->g = (color>>8)&0xff;
-    target->b = (color)&0xff;
-    for(size_t i = y;i < h+y;i++) {
-      for(size_t j = x;j < w+ x;j++) {
-        dst->pixels[i*(dst->w)+j] = 255;
-      }
-    }
+    uint8_t *tmp=(uint8_t*)dst->pixels;
+    int color_8=0;
+    for(;color_8<dst->format->palette->ncolors;color_8++)
+      if(color==dst->format->palette->colors[color_8].val)
+        break;
+    for(int i=0;i<h;i++)
+      for(int j=0;j<w;j++)
+        tmp[(i+y)*dst->w+j+x]=color_8;
   }
 }
 
