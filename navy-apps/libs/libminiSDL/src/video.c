@@ -45,24 +45,18 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   
   if(dst->format->BitsPerPixel == 32)
   {
-    uint32_t s_w = dst->w;
     uint32_t * value = (uint32_t*)dst->pixels;
     for(int i = 0;i < h;i ++)
       for(int j = 0;j < w;j ++)
       {
-        value[(i+y)*s_w+j+x] = color;
+        value[(i+y)*dst->w+j+x] = color;
       }
   } 
   else if(dst->format->BitsPerPixel == 8) {
-    uint8_t *tmp=(uint8_t*)dst->pixels;
-    int color_8=0;
-    for(;color_8<dst->format->palette->ncolors;color_8++)
-      if(color==dst->format->palette->colors[color_8].val)
-        break;
-    for(int i=0;i<h;i++)
-      for(int j=0;j<w;j++)
-        tmp[(i+y)*dst->w+j+x]=color_8;
-  }
+    for(int i = 0;i < h;i ++)
+      for(int j = 0;j < w;j ++)
+        dst->pixels[(i+y)*dst->w+j+x] = (uint8_t)color;
+  } 
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
