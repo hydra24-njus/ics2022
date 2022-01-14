@@ -43,5 +43,5 @@ void context_uload(PCB* pcb,const char *filename){
 uintptr_t entry=loader(pcb,filename);
   Area stack={pcb->stack,pcb->stack+STACK_SIZE};
   pcb->cp=ucontext(&pcb->as,stack,(void*)entry);
-  pcb->cp->GPRx=(uintptr_t)heap.end;
+  //pcb->cp->GPRx=(uintptr_t)heap.end;
 }
