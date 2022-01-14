@@ -23,19 +23,19 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   //context_kload(&pcb[0],hello_fun,NULL);
-  context_uload(&pcb[0],"/bin/pal");
-  switch_boot_pcb();
-
-
-
-
-
+  //context_uload(&pcb[0],"/bin/pal");
   //switch_boot_pcb();
 
-  //Log("Initializing processes...");
 
-  // load program here
-  //naive_uload(NULL,"/bin/menu");
+
+
+
+  switch_boot_pcb();
+
+  Log("Initializing processes...");
+
+   //load program here
+  naive_uload(NULL,"/bin/pal");
 }
 static int cnt=1;
 Context* schedule(Context *prev) {
