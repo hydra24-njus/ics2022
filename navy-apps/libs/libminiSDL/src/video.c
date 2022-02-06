@@ -6,56 +6,34 @@
 #include <string.h>
 static void ConvertPixelsARGB_ABGR(void *dst, void *src, int len);
 
-void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
-  //assert(0);
-  assert(dst && src);
-  assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
-  int dst_x,dst_y,dst_w = dst->w,dst_h = dst->h;
-  int src_x,src_y,src_w = src->w, src_h = src->h;
-  if(srcrect == NULL)
-  {
-    src_x = src_y = 0;
-    src_w = src->w;
-    src_h = src->h;
-  }
-  else {
-    src_x = srcrect->x;
-    src_y = srcrect->y;
-    src_w = srcrect->w;
-    src_h = srcrect->h;
-  }
-  if(dstrect == NULL)
-  {
-    dst_x = dst_y = 0;
-    dst_w = dst->w;
-    dst_h = dst->h;
-  }
-  else {
-    dst_x = dstrect->x;
-    dst_y = dstrect->y;
-    dst_w = dstrect->w;
-    dst_h = dstrect->h;
-  }
-  uint8_t* dst_color = dst->pixels,*src_color = src->pixels;
-  uint32_t color_width = dst->format->palette?1:4;
-  //printf("color width %d\n",color_width);
-  for(int i = 0;i < src_h;i++)
-    memcpy(dst_color+color_width*((i+dst_y)*dst->w+dst_x),src_color+color_width*((i+src_y)*src->w+src_x),color_width*src_w);
-    //memcpy(dst_color+4*(i+dst_y)*dst->w+4*dst_x,src_color+4*(i+src_y)*src->w+4*src_x,4*src_w);
-  //SDL_UpdateRect(dst,dst_x,dst_y,dst_w,dst_h);
-  /* for(int i = 0; i < h;i++)
-    //memcpy(dst_color+dst_w*(y+i)+x,src_color+i*w,4*w);
-    for(int j = 0;j < w;j ++)
-    {
-      dst_color[dst_w*(y+i)+x+j] = src_color[i*w+j];
-    } */
-    
-  //printf("please implement me\n");
-  //assert(0);
+void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst,
+                     SDL_Rect *dstrect) {
+    assert(dst && src);
+    assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+    //printf("blitsurface\n");
+    //TODO();
+    int ws,hs,xs,ys;
+    int wd,hd,xd,yd;
+    if(srcrect==NULL){
+      ws=src->w;hs=src->h;xs=0;ys=0;
+    }
+    else{
+      ws=srcrect->w;hs=srcrect->h;xs=srcrect->x;ys=srcrect->y;
+    }
+    if(dstrect==NULL){
+      wd=dst->w;hd=dst->h;xd=0;yd=0;
+    }
+    else{
+      wd=dstrect->w;hd=dstrect->h;xd=dstrect->x;yd=dstrect->y;
+    }
+    uint8_t* colord=dst->pixels,*colors=src->pixels;
+    uint32_t width=dst->format->BytesPerPixel;
+    for(int i=0;i<hs;i++)
+      memcpy(colord+width*((i+yd)*dst->w+xd),colors+width*((i+ys)*src->w+xs),width*ws);
 }
-
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-//printf("fillrect\n");
+//printf("fillrect,\n");
+pause();
   int x,y,w,h;
   if(dstrect==NULL){
     x=y=0;
@@ -75,6 +53,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
       }
   } 
   else if(dst->format->BitsPerPixel == 8) {
+  //assert(0);
     for(int i = 0;i < h;i ++)
       for(int j = 0;j < w;j ++)
         ((uint8_t*)dst->pixels)[(i+y)*dst->w+j+x] = (uint8_t)color;
@@ -88,8 +67,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if (y + h > s->h)h = s->h - y;
   if(s->format->BitsPerPixel == 32)NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
   else{
-    if(w == 0||w > s->w) w = s->w;
-    if(h == 0||h > s->h) h = s->h;
     SDL_Color *colors=s->format->palette->colors;
     uint8_t* pixel=s->pixels;
     uint32_t* pixelbuf=malloc(sizeof(uint32_t)*w*h);
