@@ -1,5 +1,7 @@
 # ICS2021 Programming Assignment
 
+修读本课程的同学注意：不要抄袭！不要抄袭！不要抄袭！
+
 This project is the programming assignment of the class ICS(Introduction to Computer System)
 in Department of Computer Science and Technology, Nanjing University.
 
